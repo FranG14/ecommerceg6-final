@@ -25,7 +25,8 @@ const ProductPostForm = () => {
     genre: "",
     size: [],
     color: [],
-    stock: "",
+    stock: [],
+    // colorQuantity:[],
     img: "",
   };
   const [product, setProduct] = useState(newProduct);
@@ -45,8 +46,10 @@ const ProductPostForm = () => {
       let selectValue = select.options[select.selectedIndex].value;
       let selectedCategoryNames = select.options[select.selectedIndex].innerText;
 
-      setSelectedName({ ...selectedName,
-         categoryName: selectedName.categoryName.concat(selectedCategoryNames) });
+      setSelectedName({
+        ...selectedName,
+        categoryName: selectedName.categoryName.concat(selectedCategoryNames)
+      });
 
       let selectCategory = product.category.concat(selectValue);
       setProduct({ ...product, category: selectCategory });
@@ -54,14 +57,67 @@ const ProductPostForm = () => {
     }
   };
 
+  const handleMultipleInput = (e) => {
+    let color = document.getElementById("color").value;
+    let stock = document.getElementById("stock").value;
+    let size = document.getElementById("size").value;
+
+    if (color !== "" && stock !== "" && size !== "") {
+      setProduct({
+        ...product,
+        color: product.color.concat(color),
+        size: product.size.concat(size),
+        stock: product.stock.concat(stock)
+      })
+    }
+    // if (size !== "") {
+    //   setProduct({
+    //     ...product,
+    //     size: product.size.concat(size)})
+    // }
+    // if (stock !== "") {
+    //   setProduct({
+    //     ...product,
+    //     stock: product.stock.concat(stock)})
+    // }
+    console.log("color", product)
+  }
+
+  const deleteColor = (e) => {
+    let filterColor = [];
+    let filterSize = [];
+    let filterStock = [];
+    let targetColor = e.target.innerText.split(" ")[0];
+
+    product.color.map((color, i) => {
+      if (color !== targetColor) {
+        filterColor.push(color);
+        filterSize.push(product.size[i]);
+        filterStock.push(product.stock[i]);
+      }
+    })
+    console.log("entra", product)
+    setProduct({ ...product, color: filterColor, size: filterSize, stock: filterStock });
+  }
+
+  const deleteSize = (e) => {
+    let filterSize = [];
+    // product.size.map(size => {
+    //   if (size !== e.target.innerText) {
+    //     filterSize.push(size);
+    //   }
+    // })
+    // setProduct({ ...product, size: filterSize });
+  }
+
   const deleteCateg = (e) => {
     let filterCategory = []
     selectedName.categoryName.map(cate => {
-      if(cate !== e.target.innerText){
+      if (cate !== e.target.innerText) {
         filterCategory.push(cate);
       }
     });
-    setSelectedName({categoryName: filterCategory})
+    setSelectedName({ categoryName: filterCategory })
   }
   const [selectedFile, setSelectedFile] = useState([]);
   const [imgUrl, setImgUrl] = useState(null);
@@ -151,27 +207,30 @@ const ProductPostForm = () => {
     fd.append("size", product.size);
     fd.append("color", product.color);
     fd.append("stock", product.stock);
+    // fd.append("colorQuantity", product.colorQuantity);
+    // console.log("AQUI",product)
     dispatch(addProducts(fd, config));
-    setProduct(newProduct);
+    // setProduct(newProduct);
     swal({
-      title: "Product Edited",
+      title: "Product Created",
       icon: "success",
       button: true,
     }).then(function () {
-      window.location.reload()
+      // window.location.reload()
     });
   };
 
   return (
-    <div class="grid grid-cols-2 gap-2 pt-20 bg-gray-200">
+    <div class="grid grid-cols-2  gap-2 pt-20 bg-gray-200">
       <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
         <div class="container mx-auto">
-          <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+          <div class="max-w-md -mx-2 my-10 bg-white p-5 rounded-md shadow-sm">
             <div class="text-center">
               <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
                 Post New Product
               </h1>
             </div>
+            {/* COLOR */}
             <div class="m-7">
               <form onSubmit={handleSubmit}>
                 <div class="mb-6">
@@ -192,7 +251,7 @@ const ProductPostForm = () => {
                     class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   />
                 </div>
-                <div class="mb-6">
+                <div class="mb-6 w-full">
                   <label
                     for="color"
                     class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
@@ -204,12 +263,64 @@ const ProductPostForm = () => {
                     type="text"
                     name="color"
                     placeholder="Color"
-                    value={product.color}
+                    // value={product.color}
+                    required
+                    class="w-28 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                  />
+                  <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                  <input id="stock" placeholder="Stock" type="number" className="w-24 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+
+                  <button type="button" onClick={handleMultipleInput} className="ml-4">+</button><br />
+                  {product.color && product.color.length > 0 &&
+                    product.color.map((color, i) => {
+                      return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color} {product.size[i]} {product.stock[i]}</p>
+                    })}
+                </div>
+                <div class="mb-6">
+                  {/* <label
+                    for="size"
+                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    Size
+                  </label> */}
+                  {/* <input
+                    id="size"
+                    type="text"
+                    name="size"
+                    // value={product.size}
+                    // onChange={handleInputChange}
+                    placeholder="Size"
+                    class="w-32 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                                    focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
+                                 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
+                                 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                    required
+                  /> */}
+                  {/* <button type="button" onClick={handleMultipleInput} className="ml-4">+</button><br /> */}
+                  {/* {product.size && product.size.length > 0 &&
+                    product.size.map((size, i) => {
+                      return <p onClick={deleteSize} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{size}</p>
+                    })} */}
+                </div>
+                <div class="mb-6 mt-4">
+                  {/* <label
+                    for="stock"
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                  >
+                    Stock
+                  </label>
+                  <input
+                    id="stock"
+                    type="number"
+                    name="stock"
+                    value={product.stock}
                     onChange={handleInputChange}
+                    placeholder="Stock"
                     required
                     class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                  />
+                  /> */}
                 </div>
+
                 {/* genre */}
                 <div>
                   <div class="mb-1"><label for="genres" class="text-sm text-gray-600 dark:text-gray-400">Genres</label></div>
@@ -229,24 +340,6 @@ const ProductPostForm = () => {
                   </label>
                 </div>
                 {/* fin genre */}
-                <div class="mb-6 mt-4">
-                  <label
-                    for="stock"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Stock
-                  </label>
-                  <input
-                    id="stock"
-                    type="number"
-                    name="stock"
-                    value={product.stock}
-                    onChange={handleInputChange}
-                    placeholder="Stock"
-                    required
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                  />
-                </div>
                 <div class="mb-6">
                   <label
                     for="price"
@@ -266,27 +359,6 @@ const ProductPostForm = () => {
                                 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                  />
-                </div>
-                <div class="mb-6">
-                  <label
-                    for="size"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Size
-                  </label>
-                  <input
-                    id="size"
-                    type="text"
-                    name="size"
-                    value={product.size}
-                    onChange={handleInputChange}
-                    placeholder="Size"
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
-                                    focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
-                                 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
-                                 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                    required
                   />
                 </div>
                 <div class="mb-6">
@@ -392,7 +464,7 @@ const ProductPostForm = () => {
       <div>
         <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
           <div class="container mx-auto">
-            <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-</div>sm">
+            <div class="max-w-md px-22 mx-8 my-10 bg-white p-5 rounded-md shadow-</div>sm">
               <div class=" justify-center justify-items-center content-center items-center">
                 <div className="card">
                   <div className="flex justify-center">
