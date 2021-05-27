@@ -1,5 +1,6 @@
 const Product = require("./../models/Product");
 const asyncHandler = require("express-async-handler");
+const Stock = require("../models/Stock");
 const mongoose = require("mongoose");
 const path = require("path");
 const fs = require("fs");
@@ -26,7 +27,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
   const products = await Product.find({ ...keyword })
     .populate("categories")
     .populate("productReview")
-    
+    .populate("stock")
     .limit(pageSize)
     .skip(pageSize * (page - 1));
     
@@ -39,7 +40,10 @@ const getProducts = asyncHandler(async (req, res, next) => {
 });
 
 const getProductsById = (req, res) => {
-  Product.findById(req.params.id).populate("productReview").then((product) => {
+  Product.findById(req.params.id)
+  .populate("productReview")
+  .populate("stock")
+  .then((product) => {
     if (!product) {
       return res.status(404).end();
     }
@@ -134,25 +138,43 @@ const getProductsFilterByCategory = (req, res) => {
 
 const addProducts = async (req, res) => {
   try {
-    const { name, price, brand, description, stock, size, color, categories, genre, productReview} =
+    const { name, price, brand, description, stock, size, color, categories, genre, productReview } =
       req.body;
     let images = [];
     const categoriesArray = categories.split(",")
-    if(req.files){
-      for(let i = 0; i<req.files.length; i++ ){
+    if (req.files) {
+      for (let i = 0; i < req.files.length; i++) {
         images.push(req.files[i].filename);
       }
     }
+    let colorArray = color.split(",");
+    let sizeArray = size.split(",");
+    let stockArray = stock.split(",");
+    let stockId = []
+
+    if (colorArray && colorArray.length > 0) {
+      colorArray.map((c, i) => {
+        const newStock = Stock({
+          _id: new mongoose.Types.ObjectId(),
+          colorName: c,
+          sizeName: sizeArray[i],
+          stock: stockArray[i]
+        })
+        newStock.save();
+        stockId.push(newStock._id);
+      })
+    }
+
     const product = Product({
       _id: new mongoose.Types.ObjectId(),
       name: name,
       price: price,
       brand: brand,
       description: description,
-      stock: stock,
+      stock: stockId,
       genre: genre,
-      size: size,
-      color: color,
+      // size: size,
+      // color: colorId,
       categories: categoriesArray,
       img: images,
       productReview: Product._id
@@ -160,7 +182,7 @@ const addProducts = async (req, res) => {
 
     const productStored = await product.save();
 
-    res.status(201).send({ productStored });
+    res.status(201).send({ product });
   } catch (e) {
     res.status(500).send({ message: e.errors });
   }
