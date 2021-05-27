@@ -173,7 +173,7 @@ const updateUser = async(req,res) => {
                 if(error){
                     return res.status(400).json({message:{message:"There was an Error in saving the change", style:"red"}})
                 }
-                res.status(200).json({userUpdated})
+                res.status(200).json({result: userUpdated})
             })
         }
     });

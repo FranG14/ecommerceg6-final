@@ -67,8 +67,10 @@ export const getUserById = (id) => async(dispatch) => {
 }
 
 export const editUser = (payload) => async(dispatch) => {
-	return await api.editProduct(payload)
+	return await api.editUser(payload)
 	.then((userEdit) => {
+		localStorage.setItem('profile', JSON.stringify(userEdit.data))
+
 		dispatch({
 			type: EDIT_USER,
 			payload: userEdit.data
@@ -103,6 +105,7 @@ export const deleteUser = (payload) => async(dispatch) => {
 export const toggleAdmin = (payload) => async (dispatch) => {
 	return await api.toggleAdmin(payload)
 	.then((users) => {
+		localStorage.setItem('profile', JSON.stringify(users.data))
 		dispatch({
 			type: ADMIN_USER,
 			payload: users.data
