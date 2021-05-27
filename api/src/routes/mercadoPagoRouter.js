@@ -16,7 +16,7 @@ server.get("/:userId", async(req, res, next) => {
 
   const {userId} = req.params;
   //const foundCart = await Cart.find({userId},); 
-  const foundCart = await Cart.find({$and: [{userId: userId}, {state: "active"}]})
+  const foundCart = await Cart.find({$and: [{userId: userId}, {state: "Active"}]})
   if(!foundCart||foundCart.length==0) return res.json({message:"Cart Not Found"});
 
   let items_ml=[]
@@ -92,7 +92,7 @@ server.post("/pagos", (req, res) => {
     cart.payment_id= payment_id
     cart.payment_status= payment_status
     cart.merchant_order_id = merchant_order_id
-    cart.status = "completed"
+    cart.state = "Sent"
     console.info('Salvando order')
     cart.save()
     .then((_) => {

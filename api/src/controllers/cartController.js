@@ -6,7 +6,7 @@ const Product = require ('./../models/Product')
 const getActiveCartFromUser = async(req, res)=> {
     const {userId} = req.params;
     // console.log("entra al",userId)
-    let cart = await Cart.findOne({$and:[{userId}, {state:'active'}]});
+    let cart = await Cart.findOne({$and:[{userId}, {state:'Active'}]});
 
     if(!cart){
         const newCart = await Cart.create({
@@ -30,7 +30,7 @@ const addItem = async(req, res) => {
     const { productId, quantity } = req.body;
 
     try{
-        let cart = await Cart.findOne({$and:[{userId}, {state:'active'}]});
+        let cart = await Cart.findOne({$and:[{userId}, {state:'Active'}]});
 
         let newItem = await Product.findOne({_id: productId})
         
@@ -86,7 +86,7 @@ const incrementProductUnit = async(req, res) => {
     // console.log(req.body)
 
     try{
-        let cart = await Cart.findOne({$and:[{userId}, {state:'active'}]});
+        let cart = await Cart.findOne({$and:[{userId}, {state:'Active'}]});
 
         if(!cart) return res.status(404).json({message:'Cart not found'})
 
@@ -142,7 +142,7 @@ const decrementProductUnit = async(req, res) => {
     const {userId} = req.params;
     const {productId} = req.query;
     try{
-        let cart = await Cart.findOne({$and:[{userId}, {state:'active'}]});
+        let cart = await Cart.findOne({$and:[{userId}, {state:'Active'}]});
         if(!cart) return res.status(404).json({message:'Cart not found'})
 
         let itemFound = await Product.findOne({_id: productId})
@@ -201,12 +201,12 @@ const stateChange = async(req, res) => {
     //    return res.status(400).json({message: 'New State not found'});
     //}
     //res.json({state:req.query.state})
-    const statesArray = ['active','Paid', 'Cancelled', 'On it`s Way', 'Delivered']
+    const statesArray = ['Active', 'Cancelled', 'Sent', 'Delivered']
     if(!statesArray.includes(state)) return res.status(400).json({message:'State not valid'})
 
     try{
         //let cart = await Cart.findOne({userId});
-        let cart = await Cart.findOne({_id:cartId}) //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'active'}]}
+        let cart = await Cart.findOne({_id:cartId}) //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
         if(cart){
             //res.status(200).json({message:'entre aqui'})
             cart.state = req.query.state; 
@@ -255,7 +255,7 @@ const removeProductFromCart = async(req,res)=>{
     console.log("ENTRA",userId,productId)
     let cartFiltered = [];
     try{
-        let cart = await Cart.findOne({$and:[{userId}, {state:'active'}]});
+        let cart = await Cart.findOne({$and:[{userId}, {state:'Active'}]});
         let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId));
 
         cart.totalAmount =  cart.totalAmount - cart.items[itemIndex].price * cart.items[itemIndex].quantity

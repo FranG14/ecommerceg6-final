@@ -23,9 +23,10 @@ function HomePagoAcreditado(props){
         if(objHome.bandera){
             objHome.bandera=false
 
-            fetch(`http://localhost:3001/carts/${props.match.params.userId}/changestate?state=completed`,{
+            fetch(`http://localhost:3001/carts/${props.match.params.userId}`,{
 
-                    method:"POST"
+              method: "POST",
+              body: {state: "Sent"}
                 })
                 .then(res=>res.json())
                 .then(res=>{
