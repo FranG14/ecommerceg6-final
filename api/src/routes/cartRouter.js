@@ -9,7 +9,8 @@ const {
     stateChange,
     removeProductFromCart,
     incrementProductUnit,
-    decrementProductUnit
+    decrementProductUnit,
+    getCartsById
 } = require('../controllers/cartController')
 
 // ------------------------------ ROUTES Cart ---------------------------- //
@@ -33,7 +34,7 @@ server.post('/:userId', addItem);
 //==========================================================================//
                 //Ruta para cambiar estado del cart
 //==========================================================================//
-server.put('/:userId', stateChange)
+server.put('/:cartId', stateChange)
 //==========================================================================//
                 //Ruta para quitar producto al cart 
 //==========================================================================//
@@ -47,5 +48,6 @@ server.put('/decrement/:userId', decrementProductUnit)
 //==========================================================================//
 server.put('/increment/:userId', incrementProductUnit)
 //==========================================================================//
+server.get('/:_id', getCartsById)
 
 module.exports = server;

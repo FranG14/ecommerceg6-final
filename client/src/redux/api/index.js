@@ -36,13 +36,18 @@ export const addItem = (product, userId) => API.post(`/carts/${userId}`, product
 //Remueve un producto por completo del cart de un usuario. Ejemplo de body : {"productId": "60a0896ee2e38c2fa0b2fe74"}
 export const removeProductFromCart = (product, userId,colorName,sizeName) => API.put(`/carts/remove/${userId}?productId=${product}&colorName=${colorName}&sizeName=${sizeName}`);
 //Cambia el estado de un cart de un usuario. Ejemplo de body: {"state": "cancelled"}
-export const changeCartState = (state, userId) => API.put(`/carts/${userId}`, state);
+export const changeCartState = (state, userId) => API.put(`/carts/${userId}?state=${state}`);
 //Decrementa por uno la cantidad de un producto del cart. Ejemplo de body:  {"productId": "60a0896ee2e38c2fa0b2fe74"}
 //No se puede decrementar por debajo de 0
 export const decrementProductUnit = (product, userId,colorName,sizeName) => API.put(`/carts/decrement/${userId}?productId=${product}&colorName=${colorName}&sizeName=${sizeName}`);
 //Incrementa por uno la cantidad de un producto del cart. Ejemplo de body:  {"productId": "60a0896ee2e38c2fa0b2fe74"}
 //No se puede aumentar por encima del stock
 export const incrementProductUnit = (product, userId,colorName,sizeName) => API.put(`/carts/increment/${userId}?productId=${product}&colorName=${colorName}&sizeName=${sizeName}`)
+//Trae carro por id de carro
+export const getCartsById = (cartId) => API.get(`/carts/${cartId}`);
+
+
+
 
 //PRODUCT
 export const getAllProducts = (page) => API.get(`/products?page=${page}`);
