@@ -10,7 +10,7 @@ import { changeCartState, getAllCarts } from "../../redux/actions/cart_actions";
 const OrdersTable = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        //dispatch(getAllCarts());
+        dispatch(getAllCarts());
     }, []);
 
     const orderArray = useSelector(
@@ -129,7 +129,7 @@ const OrdersTable = () => {
                             </td>
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                 {c.items && c.items.length > 0 ? c.items.map((a, id) => {
-                                    return <h1>{a.name} ({a.quantity})</h1>
+                                    return <h1>{a.name} {a.colorName} {a.sizeName} ({a.quantity})</h1>
                                 }) : <h1>No Products</h1>}
                             </td>
 
@@ -139,7 +139,7 @@ const OrdersTable = () => {
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                                 {c.state}
                             </td>
-                            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                            {/* <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                                 <select id="status" onChange={handleSelect}>
                                     <option>Active</option>
                                     <option>Paid</option>
@@ -147,8 +147,8 @@ const OrdersTable = () => {
                                     <option>Delivered</option>
                                     <option>Cancelled</option>
                                 </select>
-                                <button onClick={() => changeState(selectedState, c?.userId?._id)} class="h-8 px-2 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">✍</button>
-                            </td>
+                                <button onClick={() => changeState(selectedState, c?._id)} class="h-8 px-2 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">✍</button>
+                            </td> */}
 
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                                 <button class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700"> <Link to={'/orders/state/' + c._id}>✍</Link> </button>

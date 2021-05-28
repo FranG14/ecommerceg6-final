@@ -1,12 +1,12 @@
 import * as api from '../api/index.js';
 import { 
     GET_ACTIVE_CART_FROM_USER, GET_ACTIVE_CART_FROM_USER_SUCCESS, GET_ACTIVE_CART_FROM_USER_ERROR,
-    GET_ALL_CARTS, GET_CARTS_BY_USER,
+    GET_ALL_CARTS, GET_CARTS_BY_USER, GET_ALL_CARTS_SUCCESS, GET_ALL_CARTS_ERROR,
     DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_ERROR,
     CHANGE_CART_STATE, CHANGE_CART_STATE_SUCCESS, CHANGE_CART_STATE_ERROR,
     DECREMENT_PRODUCT_UNIT, DECREMENT_PRODUCT_UNIT_SUCCESS, DECREMENT_PRODUCT_UNIT_ERROR,
     INCREMENT_PRODUCT_UNIT, INCREMENT_PRODUCT_UNIT_SUCCESS, INCREMENT_PRODUCT_UNIT_ERROR,
-    ADD_ITEM, ADD_ITEM_SUCCESS, ADD_ITEM_ERROR
+    ADD_ITEM, ADD_ITEM_SUCCESS, ADD_ITEM_ERROR, GET_CART_BY_ID_SUCCESS, GET_CART_BY_ID_ERROR, GET_CART_BY_ID
 } from '../constants/';
 //=============================================//
 ///////////////////NOT LOGGED////////////////////
@@ -211,9 +211,47 @@ export const incrementProductUnit = (product, userId,colorName,colorSize) => asy
 }
 
 //=============================================//
-
+export const getAllCarts = () => async(dispatch) => {
+    dispatch({
+        type: GET_ALL_CARTS
+    });
+    return await api.getAllCarts()
+    .then((active)=>{
+        console.log("ACTION",active.data)
+        dispatch({
+            type: GET_ALL_CARTS_SUCCESS,
+            payload: active.data
+        })
+        localStorage.setItem('cart', JSON.stringify(active.data))
+    })
+    .catch((error)=> {
+        dispatch({
+            type: GET_ALL_CARTS_ERROR,
+            payload: error,
+        })
+    })
+}
 //=============================================//
-
+export const getCartsById = (cartId) => async(dispatch) => {
+    dispatch({
+        type: GET_CART_BY_ID
+    });
+    return await api.getCartsById(cartId)
+    .then((cart)=>{
+        console.log("ACTION",cart.data)
+        dispatch({
+            type: GET_CART_BY_ID_SUCCESS,
+            payload: cart.data
+        })
+        localStorage.setItem('cart', JSON.stringify(cart.data))
+    })
+    .catch((error)=> {
+        dispatch({
+            type: GET_CART_BY_ID_ERROR,
+            payload: error,
+        })
+    })
+}
 //=============================================//
     export function addToCart(obj) {
         return {

@@ -4,7 +4,7 @@ import {
   BUY,
 
   ADD_ITEM, ADD_ITEM_SUCCESS, ADD_ITEM_ERROR,
-  DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_ERROR,
+  DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_ERROR, GET_CART_BY_ID, GET_CART_BY_ID_SUCCESS, GET_CART_BY_ID_ERROR,
   GET_ACTIVE_CART_FROM_USER, GET_ACTIVE_CART_FROM_USER_SUCCESS,DECREMENT_PRODUCT_UNIT_SUCCESS,INCREMENT_PRODUCT_UNIT_SUCCESS, GET_ACTIVE_CART_FROM_USER_ERROR, CHANGE_CART_STATE, CHANGE_CART_STATE_SUCCESS, INCREMENT_PRODUCT_UNIT, CHANGE_CART_STATE_ERROR, GET_REVIEWS_ID, GET_ALL_CARTS_SUCCESS
 } from "../constants";
 //{name:"test",price:100,brand:"a"},{name:"test2",price:100,brand:"a"}
@@ -42,6 +42,7 @@ const cartReducer = (state = initialState, action) => {
       console.log("entra")
       return { ...state, cart: action.payload, isLoading: false, error: null }
     case CHANGE_CART_STATE_ERROR:
+      console.log("erroooooooooooooor")
       return { ...state, isLoading: false, error: action.payload }
     case INCREMENT_PRODUCT_UNIT_SUCCESS:
       // console.log("entra", action.payload)
@@ -49,6 +50,8 @@ const cartReducer = (state = initialState, action) => {
     case DECREMENT_PRODUCT_UNIT_SUCCESS:
       return {...state,cart:action.payload}
     case GET_ALL_CARTS_SUCCESS:
+      return { ...state, cart: action.payload }
+    case GET_CART_BY_ID_SUCCESS:
       return { ...state, cart: action.payload }
     //======REDUCER VIEJO (A DEPRECAR)======// 
     case ADD_TO_CART:

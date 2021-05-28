@@ -204,14 +204,14 @@ const stateChange = async (req, res) => {
     const { cartId } = req.params;
     const { state } = req.query;
 
-    //console.log("El user id es: "+userId+" y el state es: "+state)
+    console.log("El user id es: "+cartId+" y el state es: "+state)
     //return res.json({user:userId,state})
     //return res.json({stado:req.query.state})
     //if(!req.query?.state) {
     //    return res.status(400).json({message: 'New State not found'});
     //}
     //res.json({state:req.query.state})
-    const statesArray = ['Active', 'Cancelled', 'Sent', 'Delivered']
+    const statesArray = ['Active', 'Cancelled', "On it's Way", 'Paid', 'Delivered']
     if (!statesArray.includes(state)) return res.status(400).json({ message: 'State not valid' })
 
     try {
@@ -289,6 +289,22 @@ const removeProductFromCart = async (req, res) => {
 }
 //==========================================================================//
 
+const getCartsById = async (req, res) => {
+    const { _id } = req.params;
+    const pageSize = req.query.pageSize || 15;
+    const page = req.query.page || 1;
+
+    const count = await Cart.countDocuments();
+    let carts = await Cart.find({ _id })
+        .populate("userId")
+        .limit(pageSize)
+        .skip(pageSize * (page - 1));
+    return res.json({ carts, current: page, pages: Math.ceil(count / pageSize) });
+
+}
+
+//==========================================================================//
+
 module.exports = {
     addItem,
     stateChange,
@@ -297,5 +313,6 @@ module.exports = {
     getActiveCartFromUser,
     removeProductFromCart,
     incrementProductUnit,
-    decrementProductUnit
+    decrementProductUnit,
+    getCartsById
 }
