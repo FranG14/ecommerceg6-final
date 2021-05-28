@@ -104,7 +104,7 @@ export const getCartFromUser = (userId) => async(dispatch) => {
 
 //=============================================//
 export const addItem = (productBody, userId) => async (dispatch) => {
-    // console.log("DENTRO DEL ACTION",productBody)
+    console.log("DENTRO DEL ACTION",productBody)
     if(!userId){
         addItemNotLogged(productBody)
     } else {
@@ -113,6 +113,7 @@ export const addItem = (productBody, userId) => async (dispatch) => {
         })
         return await api.addItem(productBody, userId)
         .then((cart)=>{
+            console.log("ACTION",cart.data)
             dispatch({
                 type:ADD_ITEM_SUCCESS,
                 payload: cart.data
@@ -194,6 +195,7 @@ export const incrementProductUnit = (product, userId) => async(dispatch) => {
     })
     return await api.incrementProductUnit(product,userId)
     .then((cart)=>{
+        console.log("ACCCIONNN",cart.data)
         dispatch({
             type: INCREMENT_PRODUCT_UNIT_SUCCESS,
             payload: cart.data
