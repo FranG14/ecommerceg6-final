@@ -32,7 +32,7 @@ const addItem = async (req, res) => {
     try {
         let cart = await Cart.findOne({ $and: [{ userId }, { state: 'Active' }] });
 
-        let newItem = await Product.findOne({ _id: productId }).populate("stock")
+        let newItem = await Product.findOne({ _id: productId })
         let stockSelected = newItem.stock.find(prop => prop.colorName === colorName && prop.sizeName === sizeName);
         newItem.stock = stockSelected;
 
@@ -49,8 +49,10 @@ const addItem = async (req, res) => {
 
             for (let i = 0; i < cart.items.length; i++) {
                 if (cart.items[i].productId.equals(productId)) {
-                    itemIndex = i;
-                    break;
+                    if (cart.items[i].colorName === colorName && cart.items[i].sizeName === sizeName) {
+                        itemIndex = i;
+                        break;
+                    }
                 }
             }
 
@@ -59,10 +61,6 @@ const addItem = async (req, res) => {
                 let productItem = cart.items[itemIndex]
                 productItem.quantity += quantity;
                 cart.items[itemIndex] = productItem;
-                // cart.items[itemIndex].productId = newItem;   
-                cart.items[itemIndex].colorName = colorName;
-                cart.items[itemIndex].sizeName = sizeName;
-                cart.items[itemIndex].stock = stock;
             }
             else {
                 console.log("Not found")
@@ -93,7 +91,7 @@ const addItem = async (req, res) => {
 //==========================================================================//
 const incrementProductUnit = async (req, res) => {
     const { userId } = req.params;
-    const { productId } = req.query;
+    const { productId,colorName,sizeName } = req.query;
     // console.log(req.body)
 
     try {
@@ -101,15 +99,15 @@ const incrementProductUnit = async (req, res) => {
 
         if (!cart) return res.status(404).json({ message: 'Cart not found' })
 
-        let itemFound = await Product.findOne({ _id: productId }).populate("stock")
+        let itemFound = await Product.findOne({ _id: productId })
         if (!itemFound) return res.status(404).json({
             message: 'Product not found'
         })
 
         const price = itemFound.price;
         const stock = itemFound.stock;
-
-        let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId));
+        console.log("ITEMFOUND",itemFound)
+        let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId) && i.colorName === colorName && i.sizeName === sizeName);
 
         if (itemIndex === -1) {
 
@@ -117,10 +115,9 @@ const incrementProductUnit = async (req, res) => {
         }
         //========================================//
         let productItem = cart.items[itemIndex]
-        console.log("DENTRO DE PRODUCTITEM",productItem)
+
         let totalQuantity = 0
-        
-        if(productItem.stock >= productItem.quantity){
+        if (productItem.stock >= productItem.quantity) {
             productItem.quantity += 1;
             cart.items?.map(prop => { totalQuantity += prop.quantity })
             cart.items[itemIndex] = productItem
@@ -153,7 +150,7 @@ const incrementProductUnit = async (req, res) => {
 //==========================================================================//
 const decrementProductUnit = async (req, res) => {
     const { userId } = req.params;
-    const { productId } = req.query;
+    const { productId,colorName,sizeName } = req.query;
     try {
         let cart = await Cart.findOne({ $and: [{ userId }, { state: 'Active' }] });
         if (!cart) return res.status(404).json({ message: 'Cart not found' })
@@ -167,7 +164,7 @@ const decrementProductUnit = async (req, res) => {
         const price = itemFound.price;
 
 
-        let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId));
+        let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId) && i.colorName === colorName && i.sizeName === sizeName);
 
         if (itemIndex === -1) return res.status(400).json({ message: 'Item not found' })
         //========================================//
@@ -266,17 +263,17 @@ const getCartsByUser = async (req, res) => {
 //==========================================================================//
 const removeProductFromCart = async (req, res) => {
     const { userId } = req.params;
-    const { productId } = req.query;
-    console.log("ENTRA", userId, productId)
+    const { productId,colorName,sizeName } = req.query;
+    console.log("ENTRA", userId, productId,colorName,sizeName)
     let cartFiltered = [];
     try {
         let cart = await Cart.findOne({ $and: [{ userId }, { state: 'Active' }] });
-        let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId));
+        let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId) && i.colorName === (colorName) && i.sizeName === (sizeName));
 
         cart.totalAmount = cart.totalAmount - cart.items[itemIndex].price * cart.items[itemIndex].quantity
 
         cart.items.map((prop, i) => {
-            if (prop.productId != productId) {
+            if (i !== itemIndex) {
                 cartFiltered.push(cart.items[i])
             }
         })
