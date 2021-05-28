@@ -2,19 +2,12 @@ import React, { useEffect, useState } from "react";
 import { detailProduct } from "../../redux/actions/products_actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { addItem, addToCart } from "../../redux/actions/cart_actions";
+import { addItem, addToCart, getCartFromUser } from "../../redux/actions/cart_actions";
 import UniversalNavBar from "../UniversalNavBar/universalNavBar";
 import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
-import { filterById } from "../../redux/actions/reviews_actions";
-
-function mapStateToProps(state) {
-  return {
-    cart: state.cart,
-  };
-}
 
 function DetailProduct() {
   var { id } = useParams();
@@ -51,6 +44,13 @@ function DetailProduct() {
     })
     setStockArray({ ...stockArray, colors: arrayColor, sizes: arraySize })
   }
+  const [addCart, setAddCart] = useState({
+    productId: id,
+    quantity: 1,
+    colorName:"",
+    sizeName:"",
+    stock:""
+  });
 
   const [productStock, setProductStock] = useState(" ");
   const hasStock = () => {
@@ -61,7 +61,13 @@ function DetailProduct() {
     let selectSizeValue = selectSize.options[selectSize.selectedIndex].innerText;
     let inStock = productsArray.stock.find(prop => prop.colorName === selectColorValue && prop.sizeName === selectSizeValue)
     setProductStock(inStock)
-  }
+    if(inStock){
+        setAddCart({...addCart,
+            colorName:inStock.colorName,
+            sizeName:inStock.sizeName,
+            stock:inStock.stock});
+        }
+}
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
@@ -79,17 +85,16 @@ function DetailProduct() {
     reviewsFilter = reviewsRating.slice(-15);
   }
 
-  const [addCart, setAddCart] = useState({
-    productId: id,
-    quantity: 1,
-  });
-
   function addProductToCart() {
+    console.log("anda el carrito sin loguear",user)
+
     fetch(
       `http://localhost:3001/carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
       }`
     );
-    if (user) {
+
+    dispatch(getCartFromUser(user?._id ||undefined))
+    // if (user) {
       swal({
         title: "Your Product Was Added to Cart!",
         icon: carro,
@@ -97,7 +102,7 @@ function DetailProduct() {
         dangerMode: true,
       });
       dispatch(addItem(addCart, user?.result._id));
-    }
+    // }
   }
   const averageRating = () => {
     let sum = 0;

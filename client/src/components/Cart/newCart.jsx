@@ -51,8 +51,8 @@ const NewCart = () => {
     }
     const [itemQuantity, setitemQuantity] = useState(totalQuantity)
     const [totalPrice, setTotalprice] = useState(totalAmount)
-    const deleteC = (userId, productId) => {
-        dispatch(deleteItem(productId, userId))
+    const deleteC = (userId, cart) => {
+        dispatch(deleteItem(cart.productId, userId,cart.colorName,cart.sizeName))
         swal({
             title: "Product Removed From Cart",
             message: "Updating Cart",
@@ -65,18 +65,20 @@ const NewCart = () => {
     }
 
     const increment = (user, cart) => {
-        const productBody = { productId: cart.productId };
+        const productBody = { productId: cart?.productId };
+        console.log("asdsd",cart.productId)
         setitemQuantity(itemQuantity + 1)
-        dispatch(incrementProductUnit(productBody.productId, user.result._id)); // {"productId": cart.productId} , user.result._id
+        dispatch(incrementProductUnit(productBody.productId, user.result._id,cart.colorName,cart.sizeName)); // {"productId": cart.productId} , user.result._id
         //Actualizar el numerito del medio acá
         totalItems()
         //Vean de ponerle un disable al boton de + si el número es igual al stock 
         //(Ahora traigo en el esquema de Cart el stock de cada producto)
     }
     const decrement = (user, cart) => {
-        const productBody = { productId: cart.productId };
+        const productBody = { productId: cart?.productId };
+
         setitemQuantity(itemQuantity - 1)
-        dispatch(decrementProductUnit(productBody.productId, user.result._id))  // {"productId": cart.productId} , user.result._id
+        dispatch(decrementProductUnit(productBody.productId, user.result._id,cart.colorName,cart.sizeName))  // {"productId": cart.productId} , user.result._id
         //Acá el disable iría si el número es igual a 1
         totalItems()
     }
@@ -111,7 +113,7 @@ const NewCart = () => {
     }
 
 
-    console.log("CONSOLE DE USERcART", totalQuantity)
+    console.log("CONSOLE DE USERcART", userCart)
     return (
         <div class="bg-gray-200 h-full md:h-screen">
             <UniversalNavBar />
@@ -124,11 +126,11 @@ const NewCart = () => {
                             <div class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
                                 <div class="flex justify-between px-4 items-center">
                                     <div class="text-lg font-semibold">
-                                        <p>{cart.name}</p>
+                                        <p>{cart.name} {cart.colorName} {cart.sizeName}</p>
                                         <p class="text-gray-400 text-base">${cart.price}</p>
                                     </div>
                                     <div class="text-lg font-semibold ">
-                                        <button onClick={() => deleteC(user.result._id, cart.productId)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
+                                        <button onClick={() => deleteC(user.result._id, cart)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
                                             <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
@@ -157,7 +159,7 @@ const NewCart = () => {
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
                                                 </svg>
                                             </button>
-                                            <p> {cart.quantity} </p>
+                                            <p> {cart.quantity}</p>
                                             <button onClick={() => increment(user, cart)} disabled={cart.quantity === cart.stock} class="focus:outline-none bg-pink-700 hover:bg-pink-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

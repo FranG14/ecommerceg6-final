@@ -30,6 +30,7 @@ function HomePagoAcreditado(props){
                 })
                 .then(res=>res.json())
                 .then(res=>{
+                  console.log("AAAAA",res)
                     //alert(JSON.stringify(res))
                     props.buy()
                 })

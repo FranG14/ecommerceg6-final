@@ -83,6 +83,7 @@ export const decrementProductUnitNotLogged = (productId) => {
 /////////////////////LOGGED//////////////////////
 //=============================================//
 export const getCartFromUser = (userId) => async(dispatch) => {
+    console.log("LLEGA")
     dispatch({
         type: GET_ACTIVE_CART_FROM_USER
     });
@@ -104,7 +105,7 @@ export const getCartFromUser = (userId) => async(dispatch) => {
 
 //=============================================//
 export const addItem = (productBody, userId) => async (dispatch) => {
-    // console.log("DENTRO DEL ACTION",productBody)
+    console.log("DENTRO DEL ACTION",productBody)
     if(!userId){
         addItemNotLogged(productBody)
     } else {
@@ -113,6 +114,7 @@ export const addItem = (productBody, userId) => async (dispatch) => {
         })
         return await api.addItem(productBody, userId)
         .then((cart)=>{
+            console.log("ACTION",cart.data)
             dispatch({
                 type:ADD_ITEM_SUCCESS,
                 payload: cart.data
@@ -127,14 +129,14 @@ export const addItem = (productBody, userId) => async (dispatch) => {
     }
 }
 //=============================================//
-export const deleteItem = (product, userId) => async(dispatch) =>{
+export const deleteItem = (product, userId,colorName,colorSize) => async(dispatch) =>{
     if(!userId){
-        deleteItemNotLogged(product)
+        deleteItemNotLogged(product,colorName,colorSize)
     } else {
         dispatch({
             type: DELETE_ITEM
         })
-        return await api.removeProductFromCart(product,userId)
+        return await api.removeProductFromCart(product,userId,colorName,colorSize)
         .then((cart) => {
             dispatch({
                 type: DELETE_ITEM_SUCCESS,
@@ -169,11 +171,11 @@ export const changeCartState = (state, userId) => async(dispatch) => {
     })
 }
 //=============================================//
-export const decrementProductUnit = (product, userId) => async(dispatch) => {
+export const decrementProductUnit = (product, userId,colorName,colorSize) => async(dispatch) => {
     dispatch({
         type: DECREMENT_PRODUCT_UNIT
     })
-    return await api.decrementProductUnit(product,userId)
+    return await api.decrementProductUnit(product,userId,colorName,colorSize)
     .then((cart)=>{
         dispatch({
             type: DECREMENT_PRODUCT_UNIT_SUCCESS,
@@ -188,12 +190,13 @@ export const decrementProductUnit = (product, userId) => async(dispatch) => {
     })
 }
 //=============================================//
-export const incrementProductUnit = (product, userId) => async(dispatch) => {
+export const incrementProductUnit = (product, userId,colorName,colorSize) => async(dispatch) => {
     dispatch({
         type: INCREMENT_PRODUCT_UNIT
     })
-    return await api.incrementProductUnit(product,userId)
+    return await api.incrementProductUnit(product,userId,colorName,colorSize)
     .then((cart)=>{
+        console.log("ACCCIONNN",cart.data)
         dispatch({
             type: INCREMENT_PRODUCT_UNIT_SUCCESS,
             payload: cart.data
