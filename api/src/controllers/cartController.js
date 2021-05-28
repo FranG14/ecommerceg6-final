@@ -220,6 +220,7 @@ const stateChange = async (req, res) => {
         if (cart) {
             //res.status(200).json({message:'entre aqui'})
             cart.state = req.query.state;
+            cart.fechaCierre=new Date() 
             cart = await cart.save()
 
             res.status(200).json({ carts:[cart] })
