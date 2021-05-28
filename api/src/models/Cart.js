@@ -8,6 +8,9 @@ const cartSchema = new Schema({
     productId: {type:Schema.Types.ObjectId, ref:'Product'},
     name:{ type: String },
     quantity: { type:Number, required: true, min:[1], default: 1 },
+    colorName:{type: String},
+    sizeName: {type: String},
+    stock: {type: Number},
     price: Float
   }],
   state:{ type: String, default: 'Active' },
