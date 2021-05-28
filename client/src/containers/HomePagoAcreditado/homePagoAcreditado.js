@@ -12,6 +12,7 @@ import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import image4 from '../../assets/image4.jpg'
+import swal from "sweetalert"
 const { REACT_APP_API } = process.env;
 
 let objHome = { bandera: true }
@@ -25,20 +26,15 @@ function HomePagoAcreditado(props) {
     if (objHome.bandera) {
       objHome.bandera = false
       if (orderData._id) {
-        dispatch(changeCartState("Paid",orderData._id))
-        // fetch(`${REACT_APP_API}carts/${orderData._id}?state=Paid`, {
-        //   method: "POST",
-        //   // body: {state: "Sent"}
-        // })
-        //   .then(res => res.json())
-        //   .then(res => {
-        //     console.log("AAAAA", res)
-        //     //alert(JSON.stringify(res))
-        //     props.buy()
-        //   })
-        //   .catch(err => {
-        //     alert(err)
-        //   })
+        dispatch(changeCartState("Paid", orderData._id))
+        swal({
+          title: 'Thanks for Buying!!',
+          text: 'You are Being Redirected',
+          icon: "success"
+        }).then(function () {
+          // window.location.replace(https://e-commerce-g6.netlify.app/)
+          window.location.replace("http://localhost:3000/")
+        });
       }
     }
   }, [props])

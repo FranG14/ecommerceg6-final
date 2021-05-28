@@ -20,7 +20,7 @@ export default function UserDetail() {
         (state) => (state.cartReducer.cart && state.cartReducer.cart && state.cartReducer.cart.carts) ? state.cartReducer.cart.carts : state.cartReducer
     );
     console.log("USER DATAA", orderData)
-    const [selectedState, setSelectedState] = useState("")
+    const [selectedState, setSelectedState] = useState("Paid")
     const handleSelect = () => {
         let select = document.getElementById("status")
         if (select) {
