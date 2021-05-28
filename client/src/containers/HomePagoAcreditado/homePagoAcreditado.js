@@ -12,6 +12,7 @@ import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import image4 from '../../assets/image4.jpg'
+const { REACT_APP_API } = process.env;
 
 let objHome={bandera:true}
 
@@ -23,7 +24,7 @@ function HomePagoAcreditado(props){
         if(objHome.bandera){
             objHome.bandera=false
 
-            fetch(`http://localhost:3001/carts/${props.match.params.userId}`,{
+            fetch(`${REACT_APP_API}carts/${props.match.params.userId}`,{
 
               method: "POST",
               body: {state: "Sent"}

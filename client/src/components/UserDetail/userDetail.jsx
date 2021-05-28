@@ -94,6 +94,15 @@ export default function UserDetail() {
                                         </Link>
                                     }
 
+{
+                                        user.result?.username &&
+                                        <Link to={"/carts/" + user.result._id}  >
+                                            <button className="mr-5  bg-blue-500 hover:bg-blue-700 flex justify-center text-white font-bold py-2 px-4 mt-4 rounded-full">
+                                                Historial de Compras
+				                </button>
+                                        </Link>
+                                    }
+
                                     <button className="mr-5  bg-red-700 hover:bg-red-900 text-white  flex justify-center font-bold py-2 mt-4 w-32 rounded-full" onClick={logout}>
                                         Logout
 				                         </button>

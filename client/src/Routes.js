@@ -27,6 +27,8 @@ import NewCartNotLogged from './components/Cart/newCartNotLogged';
 import OrdersTable from "./components/OrderTable/orderTable";
 import OrderState from "./components/OrderTable/orderState";
 //import NewUserForm from "./components/LogIn-Register/newUserForm.jsx"
+import HistorialCompras from "./containers/HistorialCompras/historialCompras"
+import CarroDetallado from "./containers/CarroDetallado/carroDetallado"
 
 
 export default function Routes() {
@@ -60,6 +62,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/payment/:id" component={MercadoPago} />
       <Route exact path="/home/:userId" component={HomePagoAcreditado} />
+      <Route exact path="/carts/:userId" component={HistorialCompras}/>
+      <Route exact path="/detalle/:idCarro/usuario/:userId" component={CarroDetallado}/>
+
       {/*>>>>>>>>>>>>>>> ADMIN ROUTES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
       <Route exact path="/admin">
         <AdminCatalog />

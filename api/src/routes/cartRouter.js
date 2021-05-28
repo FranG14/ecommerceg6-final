@@ -25,6 +25,7 @@ server.get('/', getAllCarts)
                 //Ruta para obtener cart activo del user (o crearlo)
 //==========================================================================//
 server.get('/active/:userId', getActiveCartFromUser)
+server.get('/:userId', getCartsByUser)
 //==========================================================================//
                 //Ruta para agregar item (producto) al cart
 //==========================================================================//
