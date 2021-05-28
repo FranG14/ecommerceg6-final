@@ -43,6 +43,15 @@ export default function AdminAction() {
 
                         </div>
 
+                        <div class="flex mb-4 items-center border-4 border-gray-400">
+                            <p class="w-full text-grey-darkest p-4">Orders Table</p>
+                            <Link to="/orders">
+
+                                <button class="flex-no-shrink p-2 ml-4 mr-2  rounded hover:text-black  text-green font-semibold  hover:bg-yellow-300">➡</button>
+                            </Link>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
