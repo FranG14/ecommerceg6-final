@@ -8,6 +8,7 @@ import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
+const { REACT_APP_API } = process.env;
 
 function DetailProduct() {
   var { id } = useParams();
@@ -89,7 +90,7 @@ function DetailProduct() {
     console.log("anda el carrito sin loguear",user)
 
     fetch(
-      `http://localhost:3001/carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
+      `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
       }`
     );
 
