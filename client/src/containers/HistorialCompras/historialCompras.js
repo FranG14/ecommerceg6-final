@@ -20,6 +20,7 @@ function HistorialCompras(props){
     }
 
     function parseDate(input) {
+        console.log("ENTRA AL PARSE INT",input)
         var parts = input.match(/(\d+)/g);
         // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
         return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
@@ -49,7 +50,7 @@ function HistorialCompras(props){
         .then(res=>{
             let carts=[]
             for(let i=0;i<res.carts.length;i++){
-                if(res.carts[i].state=="completed"){
+                if(res.carts[i].state=="Paid"){
                     carts.push(res.carts[i])
                 }
             }

@@ -95,7 +95,7 @@ server.post("/pagos", (req, res) => {
       cart.payment_id = payment_id
       cart.payment_status = payment_status
       cart.merchant_order_id = merchant_order_id
-      cart.state = "Sent"
+      cart.state = "Paid"
       // console.info('Salvando order')
       cart.save()
         .then((_) => {
