@@ -216,14 +216,14 @@ const stateChange = async (req, res) => {
 
     try {
         //let cart = await Cart.findOne({userId});
-        let cart = await Cart.findOne({ _id: cartId }) //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
+        let cart = await Cart.findOne({ _id: cartId }).populate("userId") //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
         if (cart) {
             //res.status(200).json({message:'entre aqui'})
             cart.state = req.query.state;
             cart.fechaCierre=new Date() 
             cart = await cart.save()
 
-            res.status(200).json({ message: 'Cart updated' })
+            res.status(200).json({ carts:[cart] })
         } else {
             res.status(400).json({ message: 'Cart not found' })
         }

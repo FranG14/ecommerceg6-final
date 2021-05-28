@@ -39,7 +39,7 @@ const cartReducer = (state = initialState, action) => {
     case CHANGE_CART_STATE:
       return { ...state, isLoading: true, error: null }
     case CHANGE_CART_STATE_SUCCESS:
-      console.log("entra")
+      console.log("entra al change",action.payload)
       return { ...state, cart: action.payload, isLoading: false, error: null }
     case CHANGE_CART_STATE_ERROR:
       console.log("erroooooooooooooor")
