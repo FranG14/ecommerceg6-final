@@ -35,6 +35,7 @@ server.post('/:userId', addItem);
                 //Ruta para cambiar estado del cart
 //==========================================================================//
 server.put('/:cartId', stateChange)
+server.post('/:userId/changestate', stateChange)
 //==========================================================================//
                 //Ruta para quitar producto al cart 
 //==========================================================================//
