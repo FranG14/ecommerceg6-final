@@ -121,7 +121,7 @@ function DetailProduct() {
     // if (user) {
     //Este dispatch reemplaza al fetch que estaba antes
 
-    dispatch(getCartFromUser(user?.result._id || undefined))
+    // dispatch(getCartFromUser(user?.result._id || undefined))
 
     swal({
       title: "Your Product Was Added to Cart!",

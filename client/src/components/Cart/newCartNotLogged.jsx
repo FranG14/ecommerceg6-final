@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react'
 import UniversalNavBar from '../UniversalNavBar/universalNavBar'
 import Footer from '../../containers/Footer/footer'
 import { useDispatch, useSelector } from 'react-redux';
-import { decrementProductUnitNotLogged, getCartNotLogged, incrementProductUnitNotLogged } from '../../redux/actions/cart_actions';
+import { decrementProductUnitNotLogged, deleteItemNotLogged, getCartNotLogged, incrementProductUnitNotLogged } from '../../redux/actions/cart_actions';
 import { useParams } from 'react-router';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const NewCartNotLogged = () => {
-    const userCart = getCartNotLogged()
+    let userCart = getCartNotLogged()
     const [total, setTotal] = useState({ totalItems: 0, totalPrice: 0 })
+    const[incrementCart,setIncrementCart] = useState(false);
+    const[decrementCart,setDecrementCart] = useState(false);
+    const [itemDeleted,setItemDeleted] = useState(false);
 
     const totalItems = () => {
         let totalItems = 0
@@ -20,34 +24,27 @@ const NewCartNotLogged = () => {
         setTotal({ ...total, totalItems: totalItems, totalPrice: totalPrice })
     }
     console.log("AAAAAAAAAAAA", userCart)
-    // const deleteC = (userId, productId) => {
-    //     dispatch(deleteItem(userId, productId))
-    //     swal({
-    //         title: "Product Removed From Cart",
-    //         message: "Updating Cart",
-    //         icon: "warning",
-    //         button: true,
-    //         dangerMode: true,
-    //     }).then(function () {
-    //         window.location.reload()
-    //     })
-    // }
 
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(getCartFromUser(id))
-    //     totalItems()
-    //     console.log("TEST")
-    // }, [])
-
-    const increment = (id) => {
-        incrementProductUnitNotLogged(id)
+    const increment = (id,color,size) => {
+        setIncrementCart(!incrementCart);
+        setDecrementCart(false);
+        incrementProductUnitNotLogged(id,color,size)
         console.log("MAS")
     }
-    const decrement = (id) => {
-        decrementProductUnitNotLogged(id)
+    const decrement = (id,color,size) => {
+        setDecrementCart(!decrementCart);
+        setIncrementCart(false);
+        decrementProductUnitNotLogged(id,color,size)
         console.log("MENOS")
     }
+
+    const deleteItemCart = (id,color,size) => {
+        deleteItemNotLogged(id,color,size);
+    }
+    
+    useEffect(() => {
+        userCart = getCartNotLogged()
+    },[incrementCart,decrementCart])
 
     return (
         <div class="bg-gray-200 h-full md:h-screen">
@@ -56,6 +53,7 @@ const NewCartNotLogged = () => {
                 <div class="col-span-12 sm:col-span-12 md:col-span-7 lg:col-span-8 xxl:col-span-8">
                     {userCart?.items && userCart?.items.length > 0 && userCart.items.map(cart => {
                         return (
+                            
                             <div class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
                                 <div class="flex justify-between px-4 items-center">
                                     <div class="text-lg font-semibold">
@@ -63,7 +61,7 @@ const NewCartNotLogged = () => {
                                         <p class="text-gray-400 text-base">${cart.price}</p>
                                     </div>
                                     <div class="text-lg font-semibold transform rotate-45 ">
-                                        <button class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
+                                        <button onClick = {deleteItemCart(cart.productId,cart.colorName,cart.sizeName)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
                                             <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
@@ -87,13 +85,13 @@ const NewCartNotLogged = () => {
                                     </div>
                                     <div class="text-lg py-2">
                                         <div class="flex flex-row space-x-2 w-full items-center rounded-lg">
-                                            <button onClick={() => decrement(cart.productId)} disabled={cart.quantity === 1} class="focus:outline-none bg-pink-700 hover:bg-pink-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center ">
+                                            <button onClick={() => decrement(cart.productId,cart.colorName,cart.sizeName)} disabled={cart.quantity === 1} class="focus:outline-none bg-pink-700 hover:bg-pink-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
                                                 </svg>
                                             </button>
                                             <p> {cart.quantity} </p>
-                                            <button onClick={() => increment(cart.productId)} disabled={cart.quantity === cart.stock} class="focus:outline-none bg-pink-700 hover:bg-pink-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center ">
+                                            <button onClick={() => increment(cart.productId,cart.colorName,cart.sizeName)} disabled={cart.quantity === cart.stock} class="focus:outline-none bg-pink-700 hover:bg-pink-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                                                 </svg>
