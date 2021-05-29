@@ -8,7 +8,7 @@ import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
-const { REACT_APP_API } = process.env;
+
 
 function DetailProduct() {
   var { id } = useParams();
@@ -88,14 +88,17 @@ function DetailProduct() {
 
   function addProductToCart() {
     console.log("anda el carrito sin loguear",user)
-
+/*
     fetch(
       `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
       }`
     );
 
-    dispatch(getCartFromUser(user?.result._id ||undefined))
+    dispatch(getCartFromUser(user?.result._id ||undefined))*/
     // if (user) {
+    //Este dispatch reemplaza al fetch que estaba antes
+    dispatch(getCartFromUser(user?._id ||undefined))
+
       swal({
         title: "Your Product Was Added to Cart!",
         icon: carro,

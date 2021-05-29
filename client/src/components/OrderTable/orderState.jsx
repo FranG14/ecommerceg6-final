@@ -19,8 +19,8 @@ export default function UserDetail() {
     const orderData = useSelector(
         (state) => (state.cartReducer.cart && state.cartReducer.cart && state.cartReducer.cart.carts) ? state.cartReducer.cart.carts : state.cartReducer
     );
-    console.log("USER DATAA", id)
-    const [selectedState, setSelectedState] = useState("")
+    console.log("USER DATAA", orderData)
+    const [selectedState, setSelectedState] = useState("Paid")
     const handleSelect = () => {
         let select = document.getElementById("status")
         if (select) {
@@ -33,7 +33,7 @@ export default function UserDetail() {
         //Por ahora traigo el user guardado en el localStorage.
         //Después traigo un Usuario por params
         dispatch(getCartsById(id))
-    }, [])
+    }, [dispatch])
 
     const changeState = (state, cartId) => {
         dispatch(changeCartState(state, cartId))
@@ -75,7 +75,6 @@ export default function UserDetail() {
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>👤 Total: $ {cart.totalAmount}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📍 Status: {cart.state}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📭 Change Status: <select id="status" onChange={handleSelect}>
-                                    <option>Active</option>
                                     <option>Paid</option>
                                     <option>On it's Way</option>
                                     <option>Delivered</option>

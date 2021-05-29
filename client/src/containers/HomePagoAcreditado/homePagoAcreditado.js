@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
-import { Link } from "react-router-dom" 
-import {buy} from "../../redux/actions/cart_actions"
-import { connect } from "react-redux"
+import { Link } from "react-router-dom"
+import { buy, changeCartState, getCartFromUser } from "../../redux/actions/cart_actions"
+import { connect, useDispatch, useSelector } from "react-redux"
 import UniversalNavBar from "../../components/UniversalNavBar/universalNavBar"
 import Footer from '../Footer/footer';
 import nike2 from '../../assets/nike2.jpg'
@@ -12,13 +12,14 @@ import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import image4 from '../../assets/image4.jpg'
+import swal from "sweetalert"
 const { REACT_APP_API } = process.env;
 
 let objHome={bandera:true}
 
 function HomePagoAcreditado(props){
                 
-
+/*
     useEffect(()=>{
         
         if(objHome.bandera){
@@ -46,7 +47,36 @@ function HomePagoAcreditado(props){
     },[])
 
     return(
-        <div>
+        <div>*/
+let objHome = { bandera: true }
+
+function HomePagoAcreditado(props) {
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    dispatch(getCartFromUser(props.match.params.userId))
+    if (objHome.bandera) {
+      objHome.bandera = false
+      if (orderData._id) {
+        dispatch(changeCartState("Paid", orderData._id))
+        swal({
+          title: 'Thanks for Buying!!',
+          text: 'You are Being Redirected',
+          icon: "success"
+        }).then(function () {
+          // window.location.replace(https://e-commerce-g6.netlify.app/)
+          window.location.replace("http://localhost:3000/")
+        });
+      }
+    }
+  }, [props])
+  const orderData = useSelector(
+    (state) => (state.cartReducer.cart && state.cartReducer.cart.cart) ? state.cartReducer.cart.cart : state.cartReducer
+  );
+  console.log("order id", orderData)
+  return (
+    <div>
 
       <body class="bg-white font-serif">
 
@@ -164,12 +194,12 @@ function HomePagoAcreditado(props){
       </body>
       <Footer />
     </div>
-    )
+  )
 }
-let mapToStateProps = (state) =>{
-    return {
-        test: state.userReducer
-    }
+let mapToStateProps = (state) => {
+  return {
+    test: state.userReducer
+  }
 }
 //export default HomePagoAcreditado
-export default connect(mapToStateProps, { buy })(HomePagoAcreditado); 
+export default connect(mapToStateProps, { buy })(HomePagoAcreditado);

@@ -20,6 +20,7 @@ function HistorialCompras(props){
     }
 
     function parseDate(input) {
+        console.log("ENTRA AL PARSE INT",input)
         var parts = input.match(/(\d+)/g);
         // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
         return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
@@ -52,6 +53,12 @@ function HistorialCompras(props){
                 if(res.carts[i].state=="Paid"){
                     carts.push(res.carts[i])
                 }
+                if(res.carts[i].state=="On it's Way"){
+                    carts.push(res.carts[i])
+                }
+                if(res.carts[i].state=="Delivered"){
+                    carts.push(res.carts[i])
+                }
             }
             carts.sort((a,b)=>{
                 if(parseDate(a.fechaCierre).getTime()>parseDate(b.fechaCierre).getTime()){
@@ -80,7 +87,7 @@ function HistorialCompras(props){
                                     <img src="https://img.icons8.com/cotton/64/000000/fast-cart.png" style={{width:"25px"}}/>
                                     <span className="text-lg font-bold  text-blue-500">{"Numero de orden: "+element._id}</span>
                                     <span className="flex-grow inline-block"></span>
-                                    <span className="text-lg font-bold  text-blue-500">{element.fechaCierre}</span>
+                                    <span className="text-lg font-bold  text-blue-500">{element.fechaCierre.split(".")[0].split("T")[0]+ " / " + element.fechaCierre.split(".")[0].split("T")[1]}</span>
                                 </div>
                             </div>
                             <div className="bg-gray-400" style={{height:"1px"}}></div>

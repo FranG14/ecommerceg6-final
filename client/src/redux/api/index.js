@@ -44,7 +44,7 @@ export const decrementProductUnit = (product, userId,colorName,sizeName) => API.
 //No se puede aumentar por encima del stock
 export const incrementProductUnit = (product, userId,colorName,sizeName) => API.put(`/carts/increment/${userId}?productId=${product}&colorName=${colorName}&sizeName=${sizeName}`)
 //Trae carro por id de carro
-export const getCartsById = (cartId) => API.get(`/carts/${cartId}`);
+export const getCartsById = (cartId) => API.get(`/carts/id/${cartId}`);
 
 
 
