@@ -15,6 +15,39 @@ import image4 from '../../assets/image4.jpg'
 import swal from "sweetalert"
 const { REACT_APP_API } = process.env;
 
+//let objHome={bandera:true}
+
+//function HomePagoAcreditado(props){
+                
+/*
+    useEffect(()=>{
+        
+        if(objHome.bandera){
+            objHome.bandera=false
+
+            fetch(`${REACT_APP_API}carts/${props.match.params.userId}/changestate2?state=Paid`,{
+
+              method: "POST",
+              body: {state: "Paid"}
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                  console.log("AAAAA",res)
+                    alert(JSON.stringify(JSON.stringify(res)))
+                    props.buy()
+                })
+                .catch(err=>{
+                    alert(err)
+                })
+                
+            
+            
+        }
+        
+    },[])
+
+    return(
+        <div>*/
 let objHome = { bandera: true }
 
 function HomePagoAcreditado(props) {
@@ -26,18 +59,66 @@ function HomePagoAcreditado(props) {
     if (objHome.bandera) {
       objHome.bandera = false
       if (orderData._id) {
-        dispatch(changeCartState("Paid", orderData._id))
-        swal({
-          title: 'Thanks for Buying!!',
-          text: 'You are Being Redirected',
-          icon: "success"
-        }).then(function () {
-          // window.location.replace(https://e-commerce-g6.netlify.app/)
-          window.location.replace("http://localhost:3000/")
-        });
+        //dispatch(changeCartState("Paid", orderData._id))
+
+
+        fetch(`${REACT_APP_API}carts/${props.match.params.userId}/cambiarestado/finalizado?state=Paid`,{
+
+          method: "POST",
+          body: {state: "Paid"}
+            })
+            .then(res=>res.json())
+            .then(res=>{
+              //console.log("AAAAA",res)
+                //alert(JSON.stringify(JSON.stringify(res)))
+                props.buy()
+                swal({
+                  title: 'Thanks for Buying!!',
+                  text: 'You are Being Redirected',
+                  icon: "success"
+                }).then(function () {
+                  // window.location.replace(https://e-commerce-g6.netlify.app/)
+                  window.location.replace("http://localhost:3000/")
+                });
+            })
+            .catch(err=>{
+                alert(err)
+            })
+
+
+
+
+        
       }
     }
   }, [props])
+
+  useEffect(()=>{
+        
+    if(objHome.bandera){
+        objHome.bandera=false
+
+        fetch(`${REACT_APP_API}carts/${props.match.params.userId}/changestate2?state=Paid`,{
+
+          method: "POST",
+          body: {state: "Paid"}
+            })
+            .then(res=>res.json())
+            .then(res=>{
+              console.log("AAAAA",res)
+                alert(JSON.stringify(JSON.stringify(res)))
+                props.buy()
+            })
+            .catch(err=>{
+                alert(err)
+            })
+            
+        
+        
+    }
+    
+},[])
+
   const orderData = useSelector(
     (state) => (state.cartReducer.cart && state.cartReducer.cart.cart) ? state.cartReducer.cart.cart : state.cartReducer
   );

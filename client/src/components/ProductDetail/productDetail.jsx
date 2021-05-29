@@ -8,6 +8,7 @@ import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
+const { REACT_APP_API } = process.env;
 
 
 function DetailProduct() {
@@ -88,9 +89,32 @@ function DetailProduct() {
 
   function addProductToCart() {
     console.log("anda el carrito sin loguear",user)
+/*
+    fetch(
+      `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
+      }`
+    );
+      alert("El user id es:"+user?.result._id)
+      alert("El id producto es: "+addCart.productId)
+    dispatch(getCartFromUser(user?.result._id ||undefined))
 
+    swal({
+      title: "Your Product Was Added to Cart!",
+      icon: carro,
+      button: true,
+      dangerMode: true,
+    });
+    //dispatch(addItem(addCart, user?.result._id));
+
+    fetch(`${REACT_APP_API}carts/${user.result._id}`,{
+      body:JSON.stringify({productId:addCart.productId,quantity:1}),
+      method:"POST"
+    })*/
+
+    // if (user) {
     //Este dispatch reemplaza al fetch que estaba antes
-    dispatch(getCartFromUser(user?._id ||undefined))
+    
+    dispatch(getCartFromUser(user?.result._id ||undefined))
 
       swal({
         title: "Your Product Was Added to Cart!",
@@ -99,8 +123,10 @@ function DetailProduct() {
         dangerMode: true,
       });
       dispatch(addItem(addCart, user?.result._id));
-    // }
+    // };
   }
+
+
   const averageRating = () => {
     let sum = 0;
     if (reviewsFilter && reviewsFilter.length > 0) {
