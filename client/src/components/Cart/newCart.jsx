@@ -67,7 +67,7 @@ const NewCart = () => {
 
     const increment = (user, cart) => {
         const productBody = { productId: cart?.productId };
-        console.log("asdsd", cart.productId)
+        console.log("asdsd", cart)
         setitemQuantity(itemQuantity + 1)
         dispatch(incrementProductUnit(productBody.productId, user.result._id, cart.colorName, cart.sizeName)); // {"productId": cart.productId} , user.result._id
         //Actualizar el numerito del medio acá

@@ -28,7 +28,7 @@ export const login = (formData, history) => async (dispatch) => {
             payload: u.data
         })
     })
-    //.then(history.push('/'))
+    .then(() => history.push('/'))
     .catch ((error) => {
         dispatch({
             type:LOGIN_ERROR,
@@ -55,7 +55,7 @@ export const register = (formData, history) => async (dispatch) => {
             payload: u.data
         })
     })
-    //.then(history.push('/'))
+    .then(() => history.push('/'))
     .catch((error)=> {
         dispatch({
             type:REGISTER_ERROR,
@@ -97,7 +97,7 @@ export const googleLogIn = (formData, history) => async(dispatch) => {
             payload: u.data
         })
     })
-    //.then(history.push('/'))
+    .then(() => history.push('/'))
     .catch((error)=>{
         dispatch({
             type:GOOGLE_LOGIN_ERROR,

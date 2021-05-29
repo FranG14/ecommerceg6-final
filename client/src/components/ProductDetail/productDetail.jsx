@@ -49,9 +49,11 @@ function DetailProduct() {
   const [addCart, setAddCart] = useState({
     productId: id,
     quantity: 1,
-    colorName:"",
-    sizeName:"",
-    stock:""
+    colorName: "",
+    sizeName: "",
+    stock: "",
+    productName: "",
+    price: "",
   });
 
   const [productStock, setProductStock] = useState(" ");
@@ -62,14 +64,19 @@ function DetailProduct() {
     let selectColorValue = selectColor.options[selectColor.selectedIndex].innerText;
     let selectSizeValue = selectSize.options[selectSize.selectedIndex].innerText;
     let inStock = productsArray.stock.find(prop => prop.colorName === selectColorValue && prop.sizeName === selectSizeValue)
+    console.log(productsArray)
     setProductStock(inStock)
-    if(inStock){
-        setAddCart({...addCart,
-            colorName:inStock.colorName,
-            sizeName:inStock.sizeName,
-            stock:inStock.stock});
-        }
-}
+    if (inStock) {
+      setAddCart({
+        ...addCart,
+        colorName: inStock.colorName,
+        sizeName: inStock.sizeName,
+        productName: productsArray.name,
+        price: productsArray.price,
+        stock: inStock.stock
+      });
+    }
+  }
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
@@ -88,15 +95,33 @@ function DetailProduct() {
   }
 
   function addProductToCart() {
-    console.log("anda el carrito sin loguear",user)
-/*
-    fetch(
-      `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
-      }`
-    );
-      alert("El user id es:"+user?.result._id)
-      alert("El id producto es: "+addCart.productId)
-    dispatch(getCartFromUser(user?.result._id ||undefined))
+    console.log("anda el carrito sin loguear", user)
+    /*
+        fetch(
+          `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
+          }`
+        );
+          alert("El user id es:"+user?.result._id)
+          alert("El id producto es: "+addCart.productId)
+        dispatch(getCartFromUser(user?.result._id ||undefined))
+    
+        swal({
+          title: "Your Product Was Added to Cart!",
+          icon: carro,
+          button: true,
+          dangerMode: true,
+        });
+        //dispatch(addItem(addCart, user?.result._id));
+    
+        fetch(`${REACT_APP_API}carts/${user.result._id}`,{
+          body:JSON.stringify({productId:addCart.productId,quantity:1}),
+          method:"POST"
+        })*/
+
+    // if (user) {
+    //Este dispatch reemplaza al fetch que estaba antes
+
+    dispatch(getCartFromUser(user?.result._id || undefined))
 
     swal({
       title: "Your Product Was Added to Cart!",
@@ -104,25 +129,7 @@ function DetailProduct() {
       button: true,
       dangerMode: true,
     });
-    //dispatch(addItem(addCart, user?.result._id));
-
-    fetch(`${REACT_APP_API}carts/${user.result._id}`,{
-      body:JSON.stringify({productId:addCart.productId,quantity:1}),
-      method:"POST"
-    })*/
-
-    // if (user) {
-    //Este dispatch reemplaza al fetch que estaba antes
-    
-    dispatch(getCartFromUser(user?.result._id ||undefined))
-
-      swal({
-        title: "Your Product Was Added to Cart!",
-        icon: carro,
-        button: true,
-        dangerMode: true,
-      });
-      dispatch(addItem(addCart, user?.result._id));
+    dispatch(addItem(addCart, user?.result._id));
     // };
   }
 

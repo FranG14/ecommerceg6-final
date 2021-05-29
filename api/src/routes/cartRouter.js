@@ -37,7 +37,6 @@ server.post('/:userId', addItem);
 //==========================================================================//
 server.put('/:cartId', stateChange)
 server.post('/:userId/changestate', stateChange)
-server.post('/:userId/cambiarestado/finalizado', stateChangePagoAcreditado)
 //==========================================================================//
                 //Ruta para quitar producto al cart 
 //==========================================================================//

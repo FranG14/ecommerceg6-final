@@ -32,12 +32,12 @@ const initialState = {
 const AuthForm = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [outcome, setOutcome] = useState('');
+    const [outcome, setOutcome] = useState({});
     const [isSignup, setIsSignup] = useState(false);
     let [formData, setFormData] = useState(initialState);
 
 
-    const currentMessage = useSelector(state => state.authenticationReducer.authData?.message)
+    const currentMessage = useSelector(state => state.authenticationReducer.authData)
     //const message =JSON.parse(localStorage.getItem('profile'))?.message;
     const dispatch = useDispatch();
     const history = useHistory();
@@ -64,31 +64,46 @@ const AuthForm = () => {
                 })
             }
             else {
-                swal({
-                    title: 'Successfully Registered',
-                    text: 'Welcome!',
-                    icon: "success"
-                }).then(function () {
-                    // window.location.replace(`https://e-commerce-g6.netlify.app/`)
-                   window.location.replace(`http://localhost:3000/`) 
-                });
                 dispatch(register(formData, history))
-                // setOutcome(currentMessage)
+                    .then(() => {
+                        if (currentMessage?.message) {
+                            swal({
+                                title: currentMessage?.message?.message,
+                                text: 'Please Try Again',
+                                icon: "warning"
+                            })
+                        } else {
+                            swal({
+                                title: "Successfully Registered",
+                                text: 'Welcome!',
+                                icon: "success"
+                            })
+                        }
+                    });
             }
-
         } else {
-            swal({
-                title: 'Successfully Logged In',
-                text: 'Welcome Back!',
-                icon: "success"
-            }).then(function () {
-                // window.location.replace(`https://e-commerce-g6.netlify.app/`)
-                window.location.replace(`http://localhost:3000/`) 
-            });
-            dispatch(login(formData, history));
-            // setOutcome(currentMessage)
+            dispatch(login(formData, history))
+                .then(() => {
+                    //console.log(currentMessage)
+                    //setOutcome(currentMessage?.message)
+                    if (currentMessage?.message) {
+                        swal({
+                            title: currentMessage?.message?.message,
+                            text: 'Please Try Again',
+                            icon: "warning"
+                        })
+                    } else {
+                        swal({
+                            title: "Successfully Logged",
+                            text: 'Welcome Back!',
+                            icon: "success"
+                        })
+                    }
+                })
         }
     }
+    // window.location.replace(`https://e-commerce-g6.netlify.app/`)
+    //window.location.replace(`http://localhost:3000/`) 
 
     const toggleForm = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
@@ -113,9 +128,9 @@ const AuthForm = () => {
                 icon: "success"
             }).then(function () {
                 // window.location.replace(`https://e-commerce-g6.netlify.app/`)
-                window.location.replace(`http://localhost:3000/`) 
-                });
-                dispatch(googleLogIn(formData, history))
+                //window.location.replace(`http://localhost:3000/`) 
+            });
+            dispatch(googleLogIn(formData, history))
 
         } catch (error) {
             console.log(error);
@@ -340,11 +355,11 @@ const AuthForm = () => {
                         </div>
                         }
 
-                        <br />
+                        {/* <br />
                         <h2 style={{ color: `${outcome.style}`, fontWeight: 800 }}>
                             {outcome.message}
                         </h2>
-                        <br />
+                        <br /> */}
                         <GoogleLogin
                             clientId="990763304984-umq5mpevotk3odllue9hhm1mvct032ft.apps.googleusercontent.com"
                             render={(renderProps) => (
