@@ -49,7 +49,7 @@ function HistorialCompras(props){
         .then(res=>{
             let carts=[]
             for(let i=0;i<res.carts.length;i++){
-                if(res.carts[i].state=="completed"){
+                if(res.carts[i].state=="Paid"){
                     carts.push(res.carts[i])
                 }
             }

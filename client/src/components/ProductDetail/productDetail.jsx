@@ -94,7 +94,7 @@ function DetailProduct() {
       }`
     );
 
-    dispatch(getCartFromUser(user?._id ||undefined))
+    dispatch(getCartFromUser(user?.result._id ||undefined))
     // if (user) {
       swal({
         title: "Your Product Was Added to Cart!",

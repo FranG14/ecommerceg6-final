@@ -31,11 +31,11 @@ const addItem = async (req, res) => {
     const { productId, quantity, colorName, sizeName, stock } = req.body;
     try {
         let cart = await Cart.findOne({ $and: [{ userId }, { state: 'Active' }] });
-
+    
         let newItem = await Product.findOne({ _id: productId })
-        let stockSelected = newItem.stock.find(prop => prop.colorName === colorName && prop.sizeName === sizeName);
-        newItem.stock = stockSelected;
-
+        //let stockSelected = newItem.stock.find(prop => prop.colorName === colorName && prop.sizeName === sizeName);
+        //newItem.stock = stockSelected;
+        return res.json()
         // console.log("dentro del stock elegido",newItem)
 
         if (!newItem) return res.status(404).json({ message: 'Product not found' })
@@ -206,7 +206,7 @@ const stateChange = async (req, res) => {
 
     console.log("El user id es: "+cartId+" y el state es: "+state)
     //return res.json({user:userId,state})
-    //return res.json({stado:req.query.state})
+    //return res.json({cartId,state})
     //if(!req.query?.state) {
     //    return res.status(400).json({message: 'New State not found'});
     //}
@@ -220,7 +220,45 @@ const stateChange = async (req, res) => {
         if (cart) {
             //res.status(200).json({message:'entre aqui'})
             cart.state = req.query.state;
-            cart.fechaCierre=new Date() 
+            
+            cart = await cart.save()
+
+            res.status(200).json({ message: 'Cart updated' })
+        } else {
+            res.status(400).json({ message: 'Cart not found' })
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: 'There was and error' })
+    }
+}
+
+const stateChangePagoAcreditado = async (req, res) => {
+    const { userId } = req.params;
+    const { state } = req.query;
+
+    console.log("El user id es: "+userId+" y el state es: "+state)
+    //return res.json({user:userId,state})
+    //return res.json({cartId,state})
+    //if(!req.query?.state) {
+    //    return res.status(400).json({message: 'New State not found'});
+    //}
+    //res.json({state:req.query.state})
+    const statesArray = ['Active', 'Cancelled', "On it's Way", 'Paid', 'Delivered']
+    if (!statesArray.includes(state)) return res.status(400).json({ message: 'State not valid' })
+
+    try {
+        //let cart = await Cart.findOne({userId});
+        let cart = await Cart.findOne({$and:[{userId}, {state:'Active'}]}) //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
+        if (cart) {
+            //res.status(200).json({message:'entre aqui'})
+            cart.state = req.query.state;
+
+            if(state=="Paid"){
+                cart.state="Paid"
+                cart.fechaCierre=new Date() 
+            }
+            
             cart = await cart.save()
 
             res.status(200).json({ message: 'Cart updated' })
@@ -315,5 +353,6 @@ module.exports = {
     removeProductFromCart,
     incrementProductUnit,
     decrementProductUnit,
-    getCartsById
+    getCartsById,
+    stateChangePagoAcreditado
 }

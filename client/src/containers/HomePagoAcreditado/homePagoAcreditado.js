@@ -24,15 +24,15 @@ function HomePagoAcreditado(props){
         if(objHome.bandera){
             objHome.bandera=false
 
-            fetch(`${REACT_APP_API}carts/${props.match.params.userId}`,{
+            fetch(`${REACT_APP_API}carts/${props.match.params.userId}/changestate?state=Paid`,{
 
               method: "POST",
-              body: {state: "Sent"}
+              body: {state: "Paid"}
                 })
                 .then(res=>res.json())
                 .then(res=>{
                   console.log("AAAAA",res)
-                    //alert(JSON.stringify(res))
+                    alert(JSON.stringify(JSON.stringify(res)))
                     props.buy()
                 })
                 .catch(err=>{
