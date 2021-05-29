@@ -36,7 +36,7 @@ const addItem = async (req, res) => {
         let newItem = await Product.findOne({ _id: productId })
         //let stockSelected = newItem.stock.find(prop => prop.colorName === colorName && prop.sizeName === sizeName);
         //newItem.stock = stockSelected;
-        return res.json()
+        //return res.json()
         // console.log("dentro del stock elegido",newItem)
 
         if (!newItem) return res.status(404).json({ message: 'Product not found' })
