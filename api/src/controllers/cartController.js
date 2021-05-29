@@ -1,6 +1,7 @@
 const { ObjectId } = require('bson');
 const Cart = require('./../models/Cart');
 const Product = require('./../models/Product')
+const {transporter} = require("../mailer")
 //==========================================================================//
 
 const getActiveCartFromUser = async (req, res) => {
@@ -216,14 +217,49 @@ const stateChange = async (req, res) => {
 
     try {
         //let cart = await Cart.findOne({userId});
-        let cart = await Cart.findOne({ _id: cartId }) //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
+        let cart = await Cart.findOne({ _id: cartId }).populate("userId") //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
         if (cart) {
             //res.status(200).json({message:'entre aqui'})
             cart.state = req.query.state;
             cart.fechaCierre=new Date() 
             cart = await cart.save()
-
-            res.status(200).json({ message: 'Cart updated' })
+            if (cart.state === "Paid") {
+                let foo = await transporter.sendMail({
+                    from: '"Ecommerce" <ecommerceg6ft11@gmail.com>', // sender address
+                    to: cart.userId.email, // list of receivers
+                    subject: "Compra realizada", // Subject line
+                    text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
+                    html: "<b>Hello world?</b>", // html body
+                });
+            }
+            if (cart.state === "On it's Way") {
+                let foo = await transporter.sendMail({
+                    from: '"Ecommerce" <ecommerceg6ft11@gmail.com>', // sender address
+                    to: cart.userId.email, // list of receivers
+                    subject: "Your order is On it's Way", // Subject line
+                    text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
+                    html: "<b>Hello world?</b>", // html body
+                });
+            }
+            if (cart.state === "Delivered") {
+                let foo = await transporter.sendMail({
+                    from: '"Ecommerce" <ecommerceg6ft11@gmail.com>', // sender address
+                    to: cart.userId.email, // list of receivers
+                    subject: "Your order has arrived", // Subject line
+                    text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
+                    html: "<b>Hello world?</b>", // html body
+                });
+            }
+            if (cart.state === "Cancelled") {
+                let foo = await transporter.sendMail({
+                    from: '"Ecommerce" <ecommerceg6ft11@gmail.com>', // sender address
+                    to: cart.userId.email, // list of receivers
+                    subject: "Your order has been Cancelled", // Subject line
+                    text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
+                    html: "<b>Hello world?</b>", // html body
+                });
+            }
+            res.status(200).json({ carts:[cart] })
         } else {
             res.status(400).json({ message: 'Cart not found' })
         }

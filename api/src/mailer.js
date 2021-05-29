@@ -14,4 +14,12 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+// let foo = await transporter.sendMail({
+//     from: '"Ecommerce" <ecommerceg6ft11@gmail.com>', // sender address
+//     to: "franbbr110@gmail.com", // list of receivers
+//     subject: "Compra realizada", // Subject line
+//     text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
+//     html: "<b>Hello world?</b>", // html body
+// });
+
 module.exports = { transporter };

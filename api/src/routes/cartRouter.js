@@ -49,6 +49,6 @@ server.put('/decrement/:userId', decrementProductUnit)
 //==========================================================================//
 server.put('/increment/:userId', incrementProductUnit)
 //==========================================================================//
-server.get('/:_id', getCartsById)
+server.get('/id/:_id', getCartsById)
 
 module.exports = server;
