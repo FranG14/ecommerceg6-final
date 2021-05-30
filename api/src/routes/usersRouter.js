@@ -9,7 +9,9 @@ const {
     deleteUser,
     toggleAdmin,
     getUserById,
-    changePassword
+    changePassword,
+    addAddress,
+    removeAddress
 } = require("../controllers/userController");
 
 //-------------------------Route Users--------------------------//
@@ -25,5 +27,8 @@ server.put('/toggle/:_id', toggleAdmin);
 server.put('/password/:_id', changePassword);
 
 server.delete('/:_id', deleteUser);
+
+server.post('/address/:_id', addAddress);
+server.put('/address/:_id', removeAddress);
 //-------------------------------------------------------------//
 module.exports = server;
