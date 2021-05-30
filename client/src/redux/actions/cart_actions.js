@@ -32,7 +32,10 @@ export const addItemNotLogged = (productBody) => {
     let price = productBody.price;
     let quantity = productBody.quantity;
     let productId = productBody.productId;
+    // let colorName = productBody.colorName
+    // let sizeName = productBody.sizeName
 
+    console.log("Product Body -------- ", productBody)
     let productIndex = cart.items.findIndex((i) => i.productId === productId);
     if(productIndex === -1){
         cart.items.push(productBody);
@@ -44,14 +47,14 @@ export const addItemNotLogged = (productBody) => {
     localStorage.setItem('cart', JSON.stringify(cart))
 }
 //=============================================//
-export const deleteItemNotLogged = (product) => {
+export const deleteItemNotLogged = (productId) => {
     let cart = getCartNotLogged();
-    let productIndex = cart.items.findIndex((i) => i.productId === product.productId);
-    if( productIndex === -1){
+    let productIndex = cart.items.findIndex((i) => i.productId === productId);
+    if( productIndex > -1){
         const price = cart.items[productIndex].price;
         const quantity = cart.items[productIndex].quantity;
         
-        const items = cart.items.filter = ((i) => i.productId !== product.productId);
+        const items = cart.items.filter((i) => i.productId !== productId);
         cart.items = items;
         cart.totalAmount -= price * quantity;
         localStorage.setItem('cart', JSON.stringify(cart))
@@ -61,7 +64,7 @@ export const deleteItemNotLogged = (product) => {
 export const incrementProductUnitNotLogged = (productId) => {
     let cart = getCartNotLogged();
     let productIndex = cart.items.findIndex((i) => i.productId === productId);
-    if( productIndex === -1){
+    if( productIndex > -1){
         const price = cart.items[productIndex].price;
         cart.items[productIndex].quantity++;
         cart.totalAmount+=price;
@@ -72,7 +75,7 @@ export const incrementProductUnitNotLogged = (productId) => {
 export const decrementProductUnitNotLogged = (productId) => {
     let cart = getCartNotLogged();
     let productIndex = cart.items.findIndex((i) => i.productId === productId);
-    if( productIndex === -1){
+    if( productIndex > -1){
         const price = cart.items[productIndex].price;
         cart.items[productIndex].quantity--;
         cart.totalAmount-=price;
