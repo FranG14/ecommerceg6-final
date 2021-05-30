@@ -8,10 +8,10 @@ import swal from 'sweetalert';
 const TableProduct = () => {
   const dispatch = useDispatch();
 
-  const { allProducts, isLoading } = useSelector(
-    (state) => state.productsReducer
+  const productsArray = useSelector(
+    (state) => state.productsReducer.allProducts?.products
   );
-  let productsArray = allProducts.products
+
   console.log("ppppp", productsArray)
   const [page, setPage] = useState(1)
 
@@ -22,7 +22,6 @@ const TableProduct = () => {
   const prev = () => {
     setPage(page - 1)
   }
-  console.log("!!!!!!!!!", productsArray);
 
   useEffect(() => {
     dispatch(getAllProducts(page));
@@ -109,13 +108,22 @@ const TableProduct = () => {
                 {c.brand}
               </td>
               <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                {c.color}
+                {c.stock && c.stock.length > 0 && 
+                c.stock.map(prop => {
+                  return <p>{prop.colorName}</p>
+                })}
               </td>
               <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                {c.size}
+              {c.stock && c.stock.length > 0 && 
+                c.stock.map(prop => {
+                  return <p>{prop.sizeName}</p>
+                })}
               </td>
               <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                {c.stock}
+              {c.stock && c.stock.length > 0 && 
+                c.stock.map(prop => {
+                  return <p>{prop.stock}</p>
+                })}
               </td>
               <td class="p-2 border-r flex justify-center">
 

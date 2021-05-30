@@ -13,10 +13,11 @@ import {
 //=============================================//
 export const getCartNotLogged = () => {
     const getCart = JSON.parse(localStorage.getItem('cart'))
+    console.log("BBBBB",getCart)
     if (!getCart){
         const newCart = {
             userId: null,
-            items:[],
+            items:[], 
             state: 'active',
             totalAmount: 0
         }
@@ -28,6 +29,7 @@ export const getCartNotLogged = () => {
 //=============================================//
 export const addItemNotLogged = (productBody) => {
     let cart = getCartNotLogged();
+    console.log("CCCCC",cart)
     console.log("ADDITEMNOTLOGGED",productBody)
     let price = productBody.price;
     let quantity = productBody.quantity;
@@ -47,14 +49,17 @@ export const addItemNotLogged = (productBody) => {
     localStorage.setItem('cart', JSON.stringify(cart))
 }
 //=============================================//
-export const deleteItemNotLogged = (product) => {
+export const deleteItemNotLogged = (id,color,size) => {
+    console.log("ENRRA ACA")
     let cart = getCartNotLogged();
-    let productIndex = cart.items.findIndex((i) => i.productId === product.productId);
-    if( productIndex === -1){
+    console.log("ASDSADSADSAD",cart)
+    let productIndex = cart.items.findIndex((i) => i.productId === id && i.colorName === color && i.sizeName === size);
+    if( productIndex > -1){
+        console.log("ENTRASDASDsa")
         const price = cart.items[productIndex].price;
         const quantity = cart.items[productIndex].quantity;
         
-        const items = cart.items.filter = ((i) => i.productId !== product.productId);
+        const items = cart.items.filter((i) => i.productId !== id  && i.colorName !== color && i.sizeName !== size);
         cart.items = items;
         cart.totalAmount -= price * quantity;
         localStorage.setItem('cart', JSON.stringify(cart))
@@ -92,6 +97,7 @@ export const getCartFromUser = (userId) => async(dispatch) => {
     });
     return await api.getActiveCartFromUser(userId)
     .then((active)=>{
+        console.log("ACTIVE",active.data)
         dispatch({
             type: GET_ACTIVE_CART_FROM_USER_SUCCESS,
             payload: active?.data
@@ -108,7 +114,7 @@ export const getCartFromUser = (userId) => async(dispatch) => {
 
 //=============================================//
 export const addItem = (productBody, userId) => async (dispatch) => {
-    console.log("DENTRO DEL ACTION",productBody)
+    console.log("DENTRO DEL ACTION",productBody,userId)
     if(!userId){
         addItemNotLogged(productBody)
     } else {

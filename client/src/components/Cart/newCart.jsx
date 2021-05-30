@@ -14,7 +14,7 @@ const NewCart = () => {
     // const user = useSelector(state =>
     //      state.userReducer)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
+    console.log("USERRRR",user)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCartFromUser(user?.result?._id))

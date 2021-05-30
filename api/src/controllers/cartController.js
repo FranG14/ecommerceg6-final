@@ -102,7 +102,7 @@ const addItem = async (req, res) => {
         totalAmount: quantity * price,
       });
 
-      return res.status(201).json({ newCart });
+      return res.status(201).json({ });
     }
   } catch (error) {
     console.log(error);
