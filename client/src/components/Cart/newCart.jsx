@@ -93,7 +93,7 @@ const NewCart = () => {
 
         document.getElementById("ch").setAttribute("disabled", true)
 
-        fetch(`${REACT_APP_API}mercadopago/${usuario?.result?._id}`)
+        fetch(`https://e-commerce-g6-back-final.herokuapp.com/mercadopago/${usuario?.result?._id}`)
             .then(res => res.json())
             .then((res) => {
                 console.log(res)

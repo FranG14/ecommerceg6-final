@@ -13,7 +13,7 @@ function Catalogo() {
 
   useEffect(() => {
     dispatch(getAllProducts(page));
-  }, [page,dispatch]);
+  }, [page, dispatch]);
 
   const next = () => {
     setPage(page + 1);
@@ -22,13 +22,13 @@ function Catalogo() {
     setPage(page - 1);
   };
   // console.log("ESTE ES EL ARRAY DE CATALOGO", productsArray)
-  if(productsArray.keyword === true && productsArray.products.length === 0){
+  if (productsArray.keyword === true && productsArray.products.length === 0) {
     productsArray.keyword = false
     swal({
       title: "Product not found!",
       button: true,
       dangerMode: true,
-  })
+    })
   }
   return (
     <div className=" mt-20 ">
@@ -46,13 +46,13 @@ function Catalogo() {
         <div className="flex-auto">
           <div className="grid sm:grid-cols-3  sm:grid-rows-5  grid-cols-1 justify-center justify-items-center content-center items-center">
             {productsArray?.products ? (
-              productsArray.products.map((producto,key) => {
+              productsArray.products.map((producto, key) => {
                 return (
-                  <Link key = {key}
+                  <Link key={key}
                     style={{ textDecoration: "none", outline: "none" }}
                     to={`/product/${producto._id}`}
                   >
-                    <div key = {key} className="card bg-white mb-5">
+                    <div key={key} className="card bg-white mb-5">
                       {/* {producto.img.length > 0 && */}
                       {/* {/* src para localhost  {`http://localhost:3001/products/image/${producto.img}`} */}
                       <img
