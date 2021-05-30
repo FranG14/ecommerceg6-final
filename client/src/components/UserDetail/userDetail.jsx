@@ -5,7 +5,7 @@ import { Link, useLocation, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import UniversalNavBar from '../UniversalNavBar/universalNavBar'
 import Footer from '../../containers/Footer/footer'
-import { getUserById } from '../../redux/actions/user_actions'
+import { getUserById, removeAddress } from '../../redux/actions/user_actions'
 
 export default function UserDetail() {
     // const {id} = match.params;
@@ -21,7 +21,7 @@ export default function UserDetail() {
     const userData = useSelector(
         (state) => state.userReducer.user.list.userFound
     );
-    //console.log("USER DATAA", userData)
+    console.log("USER DATAA", userData?.addresses)
     useEffect(() => {
         //Por ahora traigo el user guardado en el localStorage.
         //Después traigo un Usuario por params
@@ -34,6 +34,11 @@ export default function UserDetail() {
         dispatch(getUserById(user?.result?._id))
         setUser(JSON.parse(localStorage.getItem('profile')));
     }, [location])
+
+    const handleRemoveAddress = (userId, addressId) => {
+        console.log("REMOVE", userId, addressId)
+        removeAddress(userId, addressId)
+    }
 
     const logout = () => {
         dispatch({ type: "LOGOUT" });
@@ -66,14 +71,40 @@ export default function UserDetail() {
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>👤 Name: {(userData) ? userData?.firstname : ""}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>👤 Surname: {(userData) ? userData?.lastname : ""}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📧 E-Mail: {(userData) ? userData?.email : ""}</p>
-                                <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📌 Street: {(userData) ? userData?.street : ""} {(userData) ? userData?.streetNumber : ""}</p>
+                                {/* <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📌 Street: {(userData) ? userData?.street : ""} {(userData) ? userData?.streetNumber : ""}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📍 State: {(userData) ? userData?.state : ""}</p>
-                                <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📭 Zip Code: {(userData) ? userData?.zipcode : ""}</p>
+                                <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📭 Zip Code: {(userData) ? userData?.zipcode : ""}</p> */}
+                                <hr/>
+                                {(userData && userData?.addresses?.length > 0) ? userData.addresses.map((a) => {
+                                    return (
+                                        <div class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
+                                            <div class="flex justify-between px-4 items-center">
+                                                <div class="text-lg font-semibold">
+                                                    <p>{a.address}</p>
+                                                </div>
+                                            <div class="text-lg font-semibold transform rotate-45 ">
+                                                <button onClick={() => handleRemoveAddress(userData?._id, a._id)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }): <p>No addresses added</p>
+                        }
 
                                 <div className="grid grid-cols-2 grid-row-2 pt-12 pb-8   text-center content-between">
                                     <Link to={"/MyProfile/Edit/" + user.result._id}>
                                         <button className="mr-5  bg-green-700 flex justify-center hover:bg-green-900 text-white font-bold py-2 px-6  mt-4 rounded-full">
                                             Edit profile 🖍
+				                </button>
+
+                                    </Link>
+                                    <Link to={"/MyProfile/addAddress/" + user.result._id}>
+                                        <button className="mr-5  bg-green-700 flex justify-center hover:bg-green-900 text-white font-bold py-2 px-6  mt-4 rounded-full">
+                                            Add an Address 🖍
 				                </button>
 
                                     </Link>

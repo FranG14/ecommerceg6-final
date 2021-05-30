@@ -9,7 +9,11 @@ import {
 	SEARCH_USER,
 	ADMIN_USER,
 	GET_ERROR_ADMIN,
-	EDIT_PASSWORD
+	EDIT_PASSWORD,
+	ADD_ADDRESS,
+	ADD_ADDRESS_ERROR,
+	REMOVE_ADDRESS,
+	REMOVE_ADDRESS_ERROR
 } from '../constants';
 
 //const { REACT_APP_API } = 'https://e-commerce-g6-back.herokuapp.com/'; // En local comentar esta linea
@@ -136,4 +140,38 @@ export const editPassword = (id, payload) => async(dispatch) => {
         payload: err.response,
 		})
 	})
+}
+
+export const addAddress = (id, payload) => async(dispatch) => {
+    return await api.addAddress(id, payload)
+    .then((edit) => {
+        dispatch({
+            type: ADD_ADDRESS,
+            payload: edit.data
+        })
+        localStorage.setItem('profile', JSON.stringify(edit?.data))
+    })
+    .catch((error) => {
+        dispatch({
+            type: ADD_ADDRESS_ERROR,
+            payload: error?.response?.data
+        })
+    })
+}
+
+export const removeAddress = (id, addressId) => async(dispatch) => {
+    return await api.removeAddress(id, addressId)
+    .then((edit) => {
+        dispatch({
+            type: REMOVE_ADDRESS,
+            payload: edit.data
+        })
+        localStorage.setItem('profile', JSON.stringify(edit?.data))
+    })
+    .catch((error) => {
+        dispatch({
+            type: REMOVE_ADDRESS_ERROR,
+            payload: error?.response?.data
+        })
+    })
 }

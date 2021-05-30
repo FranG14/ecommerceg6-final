@@ -66,6 +66,7 @@ const AuthForm = () => {
             else {
                 dispatch(register(formData, history))
                     .then(() => {
+                        //Usar async?
                         if (currentMessage?.message) {
                             swal({
                                 title: currentMessage?.message?.message,
