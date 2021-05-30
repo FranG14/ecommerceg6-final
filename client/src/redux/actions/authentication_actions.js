@@ -10,7 +10,7 @@ import {
 import * as api from '../api/index.js';
 
 //=====================================================================================//
-export const login = (formData, history) => async (dispatch) => {
+export const login = (formData, history, swalert) => async (dispatch) => {
     dispatch({
         type: LOGIN
     });
@@ -28,16 +28,30 @@ export const login = (formData, history) => async (dispatch) => {
             payload: u.data
         })
     })
-    //.then(history.push('/'))
+    .then(() => history.push('/'))
+    .then(async()=> {
+        const message =  await JSON.parse(localStorage.getItem('profile'))
+        swalert({
+            title: message?.message?.message,
+            text: 'Welcome Back!',
+            icon: `success`
+        })
+    })
     .catch ((error) => {
         dispatch({
             type:LOGIN_ERROR,
-            payload:error.response.data,
+            payload:error?.response?.data,
+
         });
+        swalert({
+            title: error?.response?.data?.message?.message,
+            text: 'Try again!',
+            icon: `warning`
+        })
     });
 };
 //=====================================================================================//
-export const register = (formData, history) => async (dispatch) => {
+export const register = (formData, history, swalert) => async (dispatch) => {
     dispatch({
         type: REGISTER
     });
@@ -55,11 +69,24 @@ export const register = (formData, history) => async (dispatch) => {
             payload: u.data
         })
     })
-    //.then(history.push('/'))
+    .then(async()=> {
+        const message =  await JSON.parse(localStorage.getItem('profile'))
+        swalert({
+            title: message?.message?.message,
+            text: 'Welcome!',
+            icon: `success`
+        })
+    })
+    .then(() => history.push('/'))
     .catch((error)=> {
         dispatch({
             type:REGISTER_ERROR,
             payload: error.response.data
+        })
+        swalert({
+            title: error?.response?.data?.message?.message,
+            text: 'Try again!',
+            icon: `warning`
         })
     })
 }
@@ -97,7 +124,7 @@ export const googleLogIn = (formData, history) => async(dispatch) => {
             payload: u.data
         })
     })
-    //.then(history.push('/'))
+    .then(() => history.push('/'))
     .catch((error)=>{
         dispatch({
             type:GOOGLE_LOGIN_ERROR,

@@ -10,7 +10,8 @@ const {
     removeProductFromCart,
     incrementProductUnit,
     decrementProductUnit,
-    getCartsById
+    getCartsById,
+    stateChangePagoAcreditado
 } = require('../controllers/cartController')
 
 // ------------------------------ ROUTES Cart ---------------------------- //

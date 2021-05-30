@@ -27,6 +27,8 @@ function HomePagoAcreditado(props) {
       objHome.bandera = false
       if (orderData._id) {
         dispatch(changeCartState("Paid", orderData._id))
+        document.getElementById("red").click()
+        /*
         swal({
           title: 'Thanks for Buying!!',
           text: 'You are Being Redirected',
@@ -34,7 +36,7 @@ function HomePagoAcreditado(props) {
         }).then(function () {
           // window.location.replace(https://e-commerce-g6.netlify.app/)
           window.location.replace("http://localhost:3000/")
-        });
+        });*/
       }
     }
   }, [props])
@@ -46,7 +48,7 @@ function HomePagoAcreditado(props) {
     <div>
 
       <body class="bg-white font-serif">
-
+        <Link to="/" id="red" style={{display:"none"}}></Link>
         {/* <header class="flex flex-wrap items-center justify-between px-12 h-32 -mb-32 relative"> */}
         <UniversalNavBar />
         {/* <ul class="order-last md:order-first flex-1 flex justify-center md:justify-start list-reset">
@@ -153,7 +155,7 @@ function HomePagoAcreditado(props) {
         </div>
 
         {/* <div class="bg-black text-white text-center text-sm py-12">
-          <p>Copyright © 2019 Henry</p>
+          <p>Copyright Â© 2019 Henry</p>
         </div> */}
 
 
