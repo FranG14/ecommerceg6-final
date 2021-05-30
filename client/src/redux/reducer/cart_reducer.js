@@ -1,10 +1,8 @@
 import {
   ADD_TO_CART,
-  DEL_FROM_CART,
   BUY,
-
   ADD_ITEM, ADD_ITEM_SUCCESS, ADD_ITEM_ERROR,
-  DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_ERROR, GET_CART_BY_ID, GET_CART_BY_ID_SUCCESS, GET_CART_BY_ID_ERROR,
+  DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_ERROR, GET_CART_BY_ID_SUCCESS, 
   GET_ACTIVE_CART_FROM_USER, GET_ACTIVE_CART_FROM_USER_SUCCESS,DECREMENT_PRODUCT_UNIT_SUCCESS,INCREMENT_PRODUCT_UNIT_SUCCESS, GET_ACTIVE_CART_FROM_USER_ERROR, CHANGE_CART_STATE, CHANGE_CART_STATE_SUCCESS, INCREMENT_PRODUCT_UNIT, CHANGE_CART_STATE_ERROR, GET_REVIEWS_ID, GET_ALL_CARTS_SUCCESS
 } from "../constants";
 //{name:"test",price:100,brand:"a"},{name:"test2",price:100,brand:"a"}
@@ -32,20 +30,16 @@ const cartReducer = (state = initialState, action) => {
     case DELETE_ITEM:
       return { ...state, isLoading: true, error: null }
     case DELETE_ITEM_SUCCESS:
-      console.log("aaaaaaaaaaaaaa")
       return { ...state, cart: action.payload, isLoading: false, error: null }
     case DELETE_ITEM_ERROR:
       return { ...state, isLoading: false, error: action.payload }
     case CHANGE_CART_STATE:
       return { ...state, isLoading: true, error: null }
     case CHANGE_CART_STATE_SUCCESS:
-      console.log("entra al change",action.payload)
       return { ...state, cart: action.payload, isLoading: false, error: null }
     case CHANGE_CART_STATE_ERROR:
-      console.log("erroooooooooooooor")
       return { ...state, isLoading: false, error: action.payload }
     case INCREMENT_PRODUCT_UNIT_SUCCESS:
-      // console.log("entra", action.payload)
       return { ...state, cart: action.payload }
     case DECREMENT_PRODUCT_UNIT_SUCCESS:
       return {...state,cart:action.payload}
@@ -57,16 +51,9 @@ const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return { cart: [...state.cart, action.payload] };
     case DELETE_ITEM:
-      console.log("entra al delete")
-      return {
-        ...state,
-        cart: action.payload, isLoading: false, error: false
-      }
+      return {...state, cart: action.payload, isLoading: false, error: false}
     case BUY:
-      return {
-        cart: action.payload
-      }
-
+      return {cart: action.payload}
     default:
       return state;
   }

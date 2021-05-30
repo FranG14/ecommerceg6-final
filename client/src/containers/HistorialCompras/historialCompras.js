@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
 import UniversalNavBar from "../../components/UniversalNavBar/universalNavBar"
 import Footer from "../Footer/footer"
-import {useDispatch,useSelector} from "react-redux"
-import {getCartsUser} from "../../redux/actions/cart_actions"
 import {Link} from "react-router-dom"
 const { REACT_APP_API } = process.env;
 
@@ -14,7 +12,6 @@ function HistorialCompras(props){
     //const cartList = useSelector((state)=>state.cartReducer.cartsList)
     //useDispatch(getCartsUser(props.match.params.userId))
     async function touch(elemento){
-        //alert(elemento)
         await setIdCarro(elemento)
         document.getElementById("redirectCarro").click()
     }
@@ -22,29 +19,10 @@ function HistorialCompras(props){
     function parseDate(input) {
         console.log("ENTRA AL PARSE INT",input)
         var parts = input.match(/(\d+)/g);
-        // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
         return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
       }
 
     useEffect(()=>{
-        /*
-        for(let i=0;i<cartList.carts.length;i++){
-            if(cartList.carts[i].state=="completed"){
-                carts.push(cartList.carts[i])
-            }
-        }
-        let carts=[]
-        carts.sort((a,b)=>{
-            if(a.fechaCierre.getTime()>b.fechaCierre.getTime()){
-                return 1;
-            }
-            if(a.fechaCierre.getTime()<b.fechaCierre.getTime()){
-                return -1;
-            }
-            return 0;
-        })
-        setCarritos(carts)*/
-        
        fetch(`${REACT_APP_API}carts/${props.match.params.userId}`)
         .then(res=>res.json())
         .then(res=>{

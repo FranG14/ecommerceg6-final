@@ -21,7 +21,6 @@ const EditProduct = () => {
   const productPreview = useSelector(
     (state) => state.productsReducer.allProducts);
 
-  // console.log("ACAAA",categoryPreview)
   useEffect(() => {
     dispatch(getCategories());
 
@@ -90,7 +89,7 @@ const EditProduct = () => {
     setSelectedFile(event.target.files);
     setImgUrl(URL.createObjectURL(event.target.files[0]));
   };
-  // console.log("idddddd",product)
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const fd = new FormData();
@@ -179,21 +178,21 @@ const EditProduct = () => {
     <div>
       <UniversalNavBar />
 
-      <div class="grid grid-cols-2 gap-2 bg-gray-200">
-        <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
-          <div class="container mx-auto">
-            <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
-              <div class="text-center">
-                <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
+      <div className="grid grid-cols-2 gap-2 bg-gray-200">
+        <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
+          <div className="container mx-auto">
+            <div className="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+              <div className="text-center">
+                <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
                   Edit Product
                 </h1>
               </div>
-              <div class="m-7">
+              <div className="m-7">
                 <form onSubmit={handleSubmit}>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="name"
-                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Product
                     </label>
@@ -205,13 +204,13 @@ const EditProduct = () => {
                       onChange={handleInputChange}
                       placeholder="Product"
                       required
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="color"
-                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Color
                     </label>
@@ -223,32 +222,32 @@ const EditProduct = () => {
                       value={product.color}
                       onChange={handleInputChange}
                       required
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     />
                   </div>
                   {/* genre */}
                   <div>
-                    <div class="mb-1"><label for="genres" class="text-sm text-gray-600 dark:text-gray-400">Genres</label></div>
-                    <label class="inline-flex items-center mt-3">
-                      <input type="checkbox" name="genre" value="men" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">Men</span>
+                    <div className="mb-1"><label for="genres" className="text-sm text-gray-600 dark:text-gray-400">Genres</label></div>
+                    <label className="inline-flex items-center mt-3">
+                      <input type="checkbox" name="genre" value="men" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">Men</span>
                     </label>
-                    <label class="inline-flex items-center mt-3">
-                      <input type="checkbox" name="genre" value="woman" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">Woman</span>
+                    <label className="inline-flex items-center mt-3">
+                      <input type="checkbox" name="genre" value="woman" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">Woman</span>
                     </label>
-                    <label class="inline-flex items-center mt-3">
-                      <input type="checkbox" name="genre" value="unisex" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">Unisex</span>
+                    <label className="inline-flex items-center mt-3">
+                      <input type="checkbox" name="genre" value="unisex" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">Unisex</span>
                     </label>
-                    <label class="inline-flex items-center mt-3">
-                      <input type="checkbox" name="genre" value="boys" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">boys</span>
-                    </label><label class="inline-flex items-center mt-3">
-                      <input type="checkbox" name="genre" value="girls" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700">girls</span>
+                    <label className="inline-flex items-center mt-3">
+                      <input type="checkbox" name="genre" value="boys" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">boys</span>
+                    </label><label className="inline-flex items-center mt-3">
+                      <input type="checkbox" name="genre" value="girls" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700">girls</span>
                     </label>
                   </div>
                   {/* genre end */}
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="stock"
-                      class="text-sm text-gray-600 dark:text-gray-400"
+                      className="text-sm text-gray-600 dark:text-gray-400"
                     >
                       Stock
                     </label>
@@ -260,13 +259,13 @@ const EditProduct = () => {
                       onChange={handleInputChange}
                       placeholder="Stock"
                       required
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="price"
-                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Price
                     </label>
@@ -278,16 +277,16 @@ const EditProduct = () => {
                       value={product.price}
                       onChange={handleInputChange}
                       required
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                   focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                   dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                   dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="size"
-                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Size
                     </label>
@@ -298,17 +297,17 @@ const EditProduct = () => {
                       value={product.size}
                       onChange={handleInputChange}
                       placeholder="Size"
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                       focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                    dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                    dark:focus:ring-gray-900 dark:focus:border-gray-500"
                       required
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="brand"
-                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Brand
                     </label>
@@ -319,17 +318,17 @@ const EditProduct = () => {
                       value={product.brand}
                       onChange={handleInputChange}
                       placeholder="Brand"
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                       focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                    dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                    dark:focus:ring-gray-900 dark:focus:border-gray-500"
                       required
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="description"
-                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                      className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Description
                     </label>
@@ -340,7 +339,7 @@ const EditProduct = () => {
                       value={product.description}
                       onChange={handleInputChange}
                       placeholder="Product Description"
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
                                   focus:ring focus:ring-indigo-100 
                                   focus:border-indigo-300 dark:bg-gray-700 
                                   dark:text-white dark:placeholder-gray-500 
@@ -349,10 +348,10 @@ const EditProduct = () => {
                       required
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="category"
-                      class="block text-xs font-semibold text-gray-600 mt-2 uppercase"
+                      className="block text-xs font-semibold text-gray-600 mt-2 uppercase"
                     >
                       Category
                     </label>
@@ -377,10 +376,10 @@ const EditProduct = () => {
                       <p className="text-sm mt-2 -mb-2">Can't find your Category? <Link to='/postCategory' className="underline text-sm text-blue-800">Add New One</Link></p>
                     </label>
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <label
                       for="img"
-                      class="block text-xs font-semibold text-gray-600 mt-2 uppercase"
+                      className="block text-xs font-semibold text-gray-600 mt-2 uppercase"
                     >
                       Images
                     </label>
@@ -389,16 +388,16 @@ const EditProduct = () => {
                     </label>
                   </div>
 
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <button
                       type="submit"
                       onClick={handleSubmit}
-                      class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
+                      className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none"
                     >
                       Edit Product
                     </button>
                   </div>
-                  <p class="text-base text-center text-gray-400" id="result"></p>
+                  <p className="text-base text-center text-gray-400" id="result"></p>
                 </form>
               </div>
             </div>
@@ -408,10 +407,10 @@ const EditProduct = () => {
         {/* CARD ORIGINAL*/}
 
         <div className="mt-40">
-          <div class="bg-gray-200 dark:bg-gray-900">
-            <div class="container mx-auto">
-              <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-</div>sm">
-                <div class=" justify-center justify-items-center content-center items-center">
+          <div className="bg-gray-200 dark:bg-gray-900">
+            <div className="container mx-auto">
+              <div className="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-</div>sm">
+                <div className=" justify-center justify-items-center content-center items-center">
                   <div className="card flex justify-center">
                     <img
                       src={`http://localhost:3001/products/image/${productPreview.img}`}
@@ -438,10 +437,10 @@ const EditProduct = () => {
             <div></div>
           </div>
           {/* CARD DE PREVIZUALIZACION */}
-          <div class="bg-gray-200 dark:bg-gray-900">
-            <div class="container mx-auto">
-              <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-</div>sm">
-                <div class=" justify-center justify-items-center content-center items-center">
+          <div className="bg-gray-200 dark:bg-gray-900">
+            <div className="container mx-auto">
+              <div className="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-</div>sm">
+                <div className=" justify-center justify-items-center content-center items-center">
                   <div className="card justify-center">
                     <div className="flex justify-center">
                       <img

@@ -94,12 +94,8 @@ const AuthForm = () => {
                 title: "Successfully Logged In with Google",
                 text: 'Welcome Back!',
                 icon: "success"
-            }).then(function () {
-                // window.location.replace(`https://e-commerce-g6.netlify.app/`)
-                //window.location.replace(`http://localhost:3000/`) 
-            });
+            })
             dispatch(googleLogIn(formData, history))
-
         } catch (error) {
             console.log(error);
         }
@@ -117,25 +113,23 @@ const AuthForm = () => {
             <div>
                 <UniversalNavBar />
             </div>
-            <div class="grid min-h-screen mt-20 place-items-center bg-gray-200">
-                <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
+            <div className="grid min-h-screen mt-20 place-items-center bg-gray-200">
+                <div className="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
             px-6 py-10 sm:px-10 sm:py-6 
             bg-white rounded-lg shadow-md lg:shadow-lg mt-10 mb-10">
-                    <h1 class="text-xl font-semibold">{isSignup ? 'Register' : 'Log in'}</h1>
+                    <h1 className="text-xl font-semibold">{isSignup ? 'Register' : 'Log in'}</h1>
                     <form
-                        class="mt-6"
+                        className="mt-6"
                         onSubmit={handleSubmit}>
-
-
                         {
                             isSignup && (
                                 <>
                                     <label
-                                        class="block text-xs font-semibold text-gray-600 uppercase"
+                                        className="block text-xs font-semibold text-gray-600 uppercase"
                                     >Username</label>
                                     <br />
                                     <input
-                                        class="block w-full py-3 px-1 mt-2
+                                        className="block w-full py-3 px-1 mt-2
                                     text-gray-800 appearance-none 
                         border-b-2 border-gray-200
                         focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -146,11 +140,11 @@ const AuthForm = () => {
 
                                     <br />
                                     <label
-                                        class="block text-xs font-semibold text-gray-600 uppercase"
+                                        className="block text-xs font-semibold text-gray-600 uppercase"
                                     >First Name</label>
                                     <br />
                                     <input
-                                        class="block w-full py-3 px-1 mt-2
+                                        className="block w-full py-3 px-1 mt-2
                         text-gray-800 appearance-none 
                         border-b-2 border-gray-200
                         focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -161,12 +155,12 @@ const AuthForm = () => {
 
                                     <br />
                                     <label
-                                        class="block text-xs font-semibold text-gray-600 uppercase">
+                                        className="block text-xs font-semibold text-gray-600 uppercase">
                                         Last Name
                         </label>
                                     <br />
                                     <input
-                                        class="block w-full py-3 px-1 mt-2
+                                        className="block w-full py-3 px-1 mt-2
                         text-gray-800 appearance-none 
                         border-b-2 border-gray-200
                         focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -181,12 +175,12 @@ const AuthForm = () => {
 
                         <br />
                         <label
-                            class="block text-xs font-semibold text-gray-600 uppercase">
+                            className="block text-xs font-semibold text-gray-600 uppercase">
                             E-mail
                 </label>
                         <br />
                         <input
-                            class="block w-full py-3 px-1 mt-2
+                            className="block w-full py-3 px-1 mt-2
                 text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -198,13 +192,13 @@ const AuthForm = () => {
                         <br />
 
                         <div >
-                            <label class="block text-xs font-semibold text-gray-600 uppercase">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase">
                                 Password
                 </label>
                             <br />
 
                             <input
-                                class="block w-full py-3 px-1 mt-2
+                                className="block w-full py-3 px-1 mt-2
                 text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -218,12 +212,12 @@ const AuthForm = () => {
 
 
                             {isSignup && <div>
-                                <label class="block text-xs font-semibold text-gray-600 uppercase">
+                                <label className="block text-xs font-semibold text-gray-600 uppercase">
                                     Confirm Password
                 </label>
                                 <br />
                                 <input
-                                    class="block w-full py-3 px-1 mt-2
+                                    className="block w-full py-3 px-1 mt-2
                 text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -238,14 +232,14 @@ const AuthForm = () => {
                         </div>
                         {isSignup && <div>
                             <br />
-                            <h1 class="text-xl font-semibold">
+                            <h1 className="text-xl font-semibold">
                                 Address Information
                 </h1>
                             <br />
                             <label>Street Number</label>
                             <br />
                             <input
-                                class="block w-full py-3 px-1 mt-2
+                                className="block w-full py-3 px-1 mt-2
                 text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -257,12 +251,12 @@ const AuthForm = () => {
                             />
                             <br />
                             <label
-                                class="block text-xs font-semibold text-gray-600 uppercase">
+                                className="block text-xs font-semibold text-gray-600 uppercase">
                                 Street Name
                 </label>
                             <br />
                             <input
-                                class="block w-full py-3 px-1 mt-2
+                                className="block w-full py-3 px-1 mt-2
                             text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -273,12 +267,12 @@ const AuthForm = () => {
                                 type='text'
                             />
                             <br />
-                            <label class="block text-xs font-semibold text-gray-600 uppercase">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase">
                                 State
                 </label>
                             <br />
                             <input
-                                class="block w-full py-3 px-1 mt-2
+                                className="block w-full py-3 px-1 mt-2
                             text-gray-800 appearance-none 
                             border-b-2 border-gray-200
                             focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -289,12 +283,12 @@ const AuthForm = () => {
                                 type='text'
                             />
                             <br />
-                            <label class="block text-xs font-semibold text-gray-600 uppercase">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase">
                                 Country
                 </label>
                             <br />
                             <input
-                                class="block w-full py-3 px-1 mt-2
+                                className="block w-full py-3 px-1 mt-2
                 text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -305,12 +299,12 @@ const AuthForm = () => {
                                 type='text'
                             />
                             <br />
-                            <label class="block text-xs font-semibold text-gray-600 uppercase">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase">
                                 Zip Code
                 </label>
                             <br />
                             <input
-                                class="block w-full py-3 px-1 mt-2
+                                className="block w-full py-3 px-1 mt-2
                             text-gray-800 appearance-none 
                 border-b-2 border-gray-200
                 focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -332,7 +326,7 @@ const AuthForm = () => {
                             clientId="990763304984-umq5mpevotk3odllue9hhm1mvct032ft.apps.googleusercontent.com"
                             render={(renderProps) => (
                                 <button
-                                    class="w-full bg-red-700 py-3 px-4 mt-5 rounded-sm justify-center
+                                    className="w-full bg-red-700 py-3 px-4 mt-5 rounded-sm justify-center
                     hover:bg-red-600 hover:shadow-none
                     text-white font-bold  
                     focus:outline-none focus:shadow-outline 
@@ -348,7 +342,7 @@ const AuthForm = () => {
 
                         <input
                             type="submit"
-                            class="w-full py-3 mt-5 bg-green-700 rounded-sm
+                            className="w-full py-3 mt-5 bg-green-700 rounded-sm
                 font-medium text-white uppercase
                 focus:outline-none hover:bg-green-600 hover:shadow-none"
                             value={isSignup ? 'Register' : 'Log In'} />
@@ -358,7 +352,7 @@ const AuthForm = () => {
                     </form>
 
                     <button
-                        class="w-full py-3 mt-5 bg-green-700 rounded-sm
+                        className="w-full py-3 mt-5 bg-green-700 rounded-sm
              font-medium text-white uppercase
              focus:outline-none hover:bg-green-600 hover:shadow-none"
                         onClick={toggleForm}>

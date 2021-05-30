@@ -6,7 +6,6 @@ const secret = 'test';
 
 //==========================================================================//
 const login = async(req, res) => {
-    console.log(req.body);
     const {email, password} = req.body;
 
     try {
@@ -17,8 +16,8 @@ const login = async(req, res) => {
         const token = jwt.sign({email: oldUser.email, id: oldUser._id}, secret, {expiresIn: '1hr'});
         res.status(201).json({result: oldUser,token, message:{message:"Log in Successful", style:"green"}});
     } catch(error){
-        res.status(500).json({message:{message:'Something went wrong', style:"red"}});
         console.log(error);
+        res.status(500).json({message:{message:'Something went wrong', style:"red"}});
     }
 }
 //==========================================================================//
@@ -41,7 +40,7 @@ const register = async(req,res) => {
     if(!req.body) return res.status(403).end()
     
     const addresses = []
-    if( streetNumber && street && state && country && zipcode ){ //${apartment ? apartment : ''}
+    if( streetNumber && street && state && country && zipcode ){ 
         const stringedAddress = `${streetNumber} ${street} Str., ${state} ${country} (${zipcode})`
         addresses.push({address:stringedAddress})
     } 
@@ -63,8 +62,6 @@ const register = async(req,res) => {
         )  
             
         const token = jwt.sign({email:result.email, id: result._id}, secret, {expiresIn: '1hr'} );
-        //result.addresses.push({address: stringedAddress})
-            //result.save()
         return res.status(201).json({ result, token, message:{message:"Registered Successfully", style:"green"}})
     } catch (error) {
         console.log(error)
@@ -90,11 +87,7 @@ const googleLogin = async(req, res) => {
             const token = jwt.sign({email: oldUser.email, id: oldUser._id}, secret, {expiresIn: '1hr'})
             return res.status(201).json({result: oldUser,token, message:{message:"Log in Successful", style:"green"}})
         } else {
-
-
-            //return res.status(400).json({message:'In order to login with Google, you should register first'})
-        
-            //===============REGISTRO POR GOOGLE================//
+            //===============GOOGLE REGISTER================//
 
             const result = await User.create({
                 username,
@@ -107,7 +100,7 @@ const googleLogin = async(req, res) => {
             return res.status(201).json({ result, token, message:{message:"Registered with Google Successfully", style:"green"} })
         }
     } catch(error) {
-        console.log("ERROR", error)
+        console.log(error)
         return res.status(500).json({message:{message:"Something went wrong", style:'red'}});
     }
 }
@@ -127,7 +120,6 @@ const getUsers = async(req, res, next) => {
 
     const count = await User.countDocuments({ ...keyword});
     const users = await User.find({ ...keyword})
-    //.populate("categories") => Revisar esto
     .limit(pageSize)
     .skip(pageSize * (page -1));
 
@@ -152,7 +144,7 @@ const updateUser = async(req,res) => {
     if(req.body.password!=""){
         hashedPassword = await bcrypt.hash(req.body.password, 12)
     }
-    //Chequear que el username y/o email nuevos no estén ya registrados
+    //Checking if new email or new username is not taken
     const oldEmail = await User.findOne({$and:[{email: req.body.email}, {_id:{$ne:req.params._id}}]});
     if(oldEmail) return res.status(400).json({ message: {message:'E-mail already taken', style:"red"}});
 
@@ -247,7 +239,6 @@ const changePassword = async(req,res) => {
                         {message:"There was an Error while saving the changes"}
                     )
                 }
-                //console.log(userUpdated)
                 res.status(200).json(userUpdated)
             })
         }           
@@ -299,7 +290,6 @@ const removeAddress = async(req, res) => {
         if(!userUpdated) return res.status(404).json({message: 'User Not Found'})
         
         userUpdated.addresses = userUpdated.addresses.filter((a) => !a._id.equals(addressId))
-        
         userUpdated.save(function(error) {
             if(error){
                 return res.status(400).json({message:'There was an error'})

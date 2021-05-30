@@ -14,11 +14,6 @@ function CarroDetallado(props){
     const [carrito,setCarrito]=useState({})
 
     useEffect(async ()=>{
-
-        //await props.getCartsUser(props.match.params.userId)
-
-        //props.carritos.carts.filter(element=>element._id==props.match.params.idCarro).map(arr=>setCarrito(arr[0]))
-
         fetch(`${REACT_APP_API}carts/${props.match.params.userId}`)
             .then(res=>res.json())
             .then(res=>{
@@ -56,11 +51,6 @@ function CarroDetallado(props){
                                 }else{
                                     color="blue-100"
                                 }
-                                //<tr>
-                                //    <td className="text-3xl font-bold text-blue-500 text-center">{element.name}</td>
-                                //    <td className="text-3xl font-bold text-blue-500 text-center">{element.quantity}</td>
-                                //    <td className="text-3xl font-bold text-blue-500 text-center">{element.price}</td>
-                                //</tr>
                              return(
                                 <tr>
                                     <td className={`text-3xl font-bold bg-${color} text-center`}>{element.name}</td>
@@ -96,60 +86,3 @@ function CarroDetallado(props){
 
 export default CarroDetallado
 
-//export default connect(mapStateToProps,{getCartsUser})(CarroDetallado)
-/*
-
-carrito.items.map(element=>{
-                            return(
-                                <div className="flex w-full justify-around">
-                                    <span>{element.name}</span>
-                                    <span>{element.quantity}</span>
-                                    <span>{element.price}</span>
-                                </div>
-                            );
-                        })
-
-
-*/
-/*
-
-
-
-
-
-                <div className="flex flex-col h-screen">
-                    <div className="flex w-full justify-around mt-6">
-                        <span className="text-3xl font-bold text-blue-500">Producto</span>
-                        <span className="text-3xl font-bold text-blue-500">Cantidad</span>
-                        <span className="text-3xl font-bold text-blue-500">Precio Unitario</span>
-                    </div>
-                    {
-                        carrito.hasOwnProperty("items")?
-                        carrito.items.map(element=>{
-                         return(
-                            <div className="flex w-full justify-around my-2">
-                                <span className="text-3xl font-bold text-blue-500">{element.name}</span>
-                                <span className="text-3xl font-bold text-blue-500">{element.quantity}</span>
-                                <span className="text-3xl font-bold text-blue-500">{element.price}</span>
-                            </div>
-                             );
-                         }):
-                      <div></div>
-                    }
-                    <div className="w-full h-full"></div>
-                    <div className="bg-gray-300" style={{height:"1px"}}></div>
-                    {
-                        carrito.hasOwnProperty("items")?
-                        <div className="flex w-full justify-around mb-6">
-                                <span className="text-3xl font-bold text-blue-500">TOTAL</span>
-                            
-                                <span className="text-3xl font-bold text-blue-500">{carrito.totalAmount}</span>
-                        </div>:
-                      <div></div>
-                    }
-                </div>
-
-
-
-
-*/

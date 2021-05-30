@@ -19,7 +19,6 @@ export const login = (formData, history, swalert) => async (dispatch) => {
         localStorage.setItem('profile', JSON.stringify(u.data))
         //Agregando el cart del local storage al usuario logueado
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
-        //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
             localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
         }         
@@ -60,7 +59,6 @@ export const register = (formData, history, swalert) => async (dispatch) => {
         localStorage.setItem('profile', JSON.stringify(u.data))
         //Agregando el cart del local storage al usuario logueado
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
-        //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
             localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
         }  
@@ -115,7 +113,6 @@ export const googleLogIn = (formData, history) => async(dispatch) => {
         localStorage.setItem('profile', JSON.stringify(u.data))
         //Agregando el cart del local storage al usuario logueado
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
-        //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
             localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
         }  
@@ -139,7 +136,6 @@ export const changePassword = (passwords, history) => async(dispatch) => {
     });
     return await api.changePassword(passwords)
     .then((p)=>{
-        console.log("A ver qué onda esto",p.data)
         dispatch({
             type: CHANGE_PASSWORD_SUCCESS,
             payload: p.data

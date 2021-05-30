@@ -1,6 +1,5 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "../Catalog/catalog.css"
 import UniversalNavBar from "../UniversalNavBar/universalNavBar";
 import Footer from "../../containers/Footer/footer";
@@ -73,21 +72,21 @@ const AddReview = () => {
         console.log(reviewSend)
     };
     return (
-        <div class="  bg-gray-200">
+        <div className="  bg-gray-200">
             <UniversalNavBar />
             <form onSubmit={handleSubmit}>
-                <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
-                    <div class="container mx-auto">
-                        <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
-                            <div class="text-center">
-                                <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Add Review</h1>
+                <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
+                    <div className="container mx-auto">
+                        <div className="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+                            <div className="text-center">
+                                <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Add Review</h1>
 
                             </div>
-                            <div class="m-7">
+                            <div className="m-7">
                                 <form >
-                                    <div class="mb-6">
+                                    <div className="mb-6">
 
-                                        <label for="review" class="block mb-2 text-lg text-gray-600 dark:text-gray-400">Review:</label>
+                                        <label for="review" className="block mb-2 text-lg text-gray-600 dark:text-gray-400">Review:</label>
                                         <input id="review"
                                             type="text"
                                             name="review"
@@ -95,11 +94,11 @@ const AddReview = () => {
                                             onChange={handleInputChange}
                                             placeholder="Your Review"
                                             required
-                                            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                                            className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                                     </div>
 
-                                    <div class="mb-6 text-3xl">
-                                        <label for="rating" class="block mb-2 text-lg text-gray-600 dark:text-gray-400">Rating:</label>
+                                    <div className="mb-6 text-3xl">
+                                        <label for="rating" className="block mb-2 text-lg text-gray-600 dark:text-gray-400">Rating:</label>
                                         <StarRatingComponent
                                             id="rating"
                                             name="rating"
@@ -113,7 +112,7 @@ const AddReview = () => {
                                             name="rating"
                                             value={review.rating}
                                             placeholder="Product rating"
-                                            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
+                                            className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
                                 focus:ring focus:ring-indigo-100 
                                 focus:border-indigo-300 dark:bg-gray-700 
                                 dark:text-white dark:placeholder-gray-500 
@@ -122,8 +121,8 @@ const AddReview = () => {
                                         /> */}
 
                                     </div>
-                                    <div class="mb-6">
-                                        <button type="submit" onClick={handleSubmit} class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Add</button>
+                                    <div className="mb-6">
+                                        <button type="submit" onClick={handleSubmit} className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Add</button>
                                     </div>
                                 </form>
                             </div>

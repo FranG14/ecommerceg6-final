@@ -151,25 +151,25 @@ function DetailProduct() {
   return (
     <div>
       <UniversalNavBar />
-      <section class="text-gray-700 body-font overflow-hidden mt-10 bg-gray-200">
-        <div class="container px-5  py-28 mx-auto">
-          <div class="lg:w-4/5 mx-auto flex flex-wrap bg-gray-100 pr-5 rounded sm:w-auto">
+      <section className="text-gray-700 body-font overflow-hidden mt-10 bg-gray-200">
+        <div className="container px-5  py-28 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap bg-gray-100 pr-5 rounded sm:w-auto">
             {productsArray.img && productsArray.img.length > 0 && (
               <img
                 alt="ecommerce"
-                class="lg:w-1/2 w-full object-cover object-center pl-5 py-5 rounded border "
+                className="lg:w-1/2 w-full object-cover object-center pl-5 py-5 rounded border "
                 onClick={changeImage}
                 src={`http://localhost:3001/products/image/${productsArray.img[imagePos]}`}
               />
             )}
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 class="text-2xl pl-4 title-font text-gray-500 tracking-widest">
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-2xl pl-4 title-font text-gray-500 tracking-widest">
                 {productsArray.brand}
               </h2>
-              <h1 class="text-gray-900 pl-4 text-3xl title-font font-medium mb-1">
+              <h1 className="text-gray-900 pl-4 text-3xl title-font font-medium mb-1">
                 {productsArray.name}
               </h1>
-              <h2 class="text-l title-font pl-4 text-gray-500 tracking-widest">
+              <h2 className="text-l title-font pl-4 text-gray-500 tracking-widest">
                 {!productStock ? (
                   <h2 className="text-red-500">No Stock</h2>
                 ) : productStock && productStock.stock < 10 ? (
@@ -178,8 +178,8 @@ function DetailProduct() {
                   <h2>In Stock.</h2>
                 )}
               </h2>
-              <div class="flex mb-4 pl-3">
-                <span class="flex items-center">
+              <div className="flex mb-4 pl-3">
+                <span className="flex items-center">
                   {productsArray.productReview &&
                     productsArray.productReview.length === 0 ? (
                     <h2>No reviews</h2>
@@ -197,20 +197,20 @@ function DetailProduct() {
                     ""
                   ) : (
                     <Link to={"/reviews/" + productsArray._id}>
-                      <span class="text-gray-600 ml-3 text-lg">Reviews</span>
+                      <span className="text-gray-600 ml-3 text-lg">Reviews</span>
                     </Link>
                   )}
                 </span>
-                <span class="flex ml-3 pl-3 -mr-3 py-2 border-l-2 border-gray-200"></span>
+                <span className="flex ml-3 pl-3 -mr-3 py-2 border-l-2 border-gray-200"></span>
                 <Link to={"/reviews/add/" + productsArray._id}>
-                  <span class="text-gray-600 ml-3 text-lg">Add Review</span>
+                  <span className="text-gray-600 ml-3 text-lg">Add Review</span>
                 </Link>
               </div>
-              <p class="leading-relaxed pl-4">{productsArray.description}</p>
-              <div class="flex mt-6 pl-4 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                <div class="flex items-center">
-                  <span class="mr-3">Color</span>
-                  <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+              <p className="leading-relaxed pl-4">{productsArray.description}</p>
+              <div className="flex mt-6 pl-4 items-center pb-5 border-b-2 border-gray-200 mb-5">
+                <div className="flex items-center">
+                  <span className="mr-3">Color</span>
+                  <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                     <option>Select</option>
                     {stockArray && stockArray.colors.length > 0
                       ? stockArray.colors.map((c, id) => {
@@ -223,10 +223,10 @@ function DetailProduct() {
                       : ""}
                   </select>
                 </div>
-                <div class="flex ml-6 items-center">
-                  <span class="mr-3">Size</span>
-                  <div class="relative">
-                    <select onChange={hasStock} id="sizeSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+                <div className="flex ml-6 items-center">
+                  <span className="mr-3">Size</span>
+                  <div className="relative">
+                    <select onChange={hasStock} id="sizeSelect" className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                       <option>Select</option>
                       {stockArray && stockArray.colors.length > 0
                         ? stockArray.sizes.map((c, id) => {
@@ -238,14 +238,14 @@ function DetailProduct() {
                         })
                         : ""}
                     </select>
-                    <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                    <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                       <svg
                         fill="none"
                         stroke="currentColor"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        class="w-4 h-4"
+                        className="w-4 h-4"
                         viewBox="0 0 24 24"
                       >
                         <path d="M6 9l6 6 6-6"></path>
@@ -254,14 +254,14 @@ function DetailProduct() {
                   </div>
                 </div>
               </div>
-              <div class="flex mb-4 pl-4">
-                <span class="title-font font-medium text-2xl mt-1 text-gray-900">
+              <div className="flex mb-4 pl-4">
+                <span className="title-font font-medium text-2xl mt-1 text-gray-900">
                   ${productsArray.price}
                 </span>
                 {productStock && productStock.stock >= 1 ? (
                   // <a to={`/cart/${id}`}>
                   <button
-                    class="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded"
+                    className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded"
                     onClick={addProductToCart}
                   >
                     Add to Cart
@@ -272,7 +272,7 @@ function DetailProduct() {
                 )}
                 {productStock && productStock.stock >= 1 ? (
                   <Link to="/payment">
-                    <button class="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
+                    <button className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
                       Buy
                     </button>
                   </Link>

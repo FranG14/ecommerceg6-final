@@ -21,7 +21,7 @@ function Catalogo() {
   const prev = () => {
     setPage(page - 1);
   };
-  // console.log("ESTE ES EL ARRAY DE CATALOGO", productsArray)
+
   if(productsArray.keyword === true && productsArray.products.length === 0){
     productsArray.keyword = false
     swal({
