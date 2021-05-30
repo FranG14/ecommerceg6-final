@@ -15,7 +15,7 @@ const userSchema = new Schema({
             type: 'String',
             required: "E-mail address is required",
             unique: true,
-            match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+            match: /[a-z0-9!#$%&'+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'+/=?^_`{|}~-]+)@(?:[a-z0-9](?:[a-z0-9-][a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
         },
         firstname:{
             type: 'String',
@@ -58,7 +58,8 @@ const userSchema = new Schema({
             type: 'Boolean',
             required: true,
             default: false
-        }
+        },
+        addresses:[{address:{type:String}}]
     },
     {
         timestamps: false
