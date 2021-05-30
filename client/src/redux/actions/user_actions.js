@@ -84,6 +84,26 @@ export const editUser = (payload) => async(dispatch) => {
 	})
 }
 
+export const editUserAdmin = (payload,admin) => async(dispatch) => {
+	return await api.editUser(payload)
+	.then((userEdit) => {
+		if(userEdit.data._id==admin.result._id){
+			localStorage.setItem('profile', JSON.stringify(userEdit.data))
+		}
+		
+		dispatch({
+			type: EDIT_USER,
+			payload: userEdit.data
+		})
+	})
+	.catch((err) => {
+		dispatch({
+			type: EDIT_USER,
+        	payload: err.response,
+		})
+	})
+}
+
 
 export const deleteUser = (payload) => async(dispatch) => {
 	return await api.delUser(payload)

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import UniversalBar from '../UniversalNavBar/universalNavBar';
 import Footer from '../../containers/Footer/footer';
 import { Redirect, useParams } from 'react-router-dom';
-import { getUserById, editUser } from '../../redux/actions/user_actions'
+import { getUserById, editUserAdmin } from '../../redux/actions/user_actions'
 import swal from "sweetalert";
 
 export default function UserTableEdit() {
@@ -23,6 +23,7 @@ export default function UserTableEdit() {
         state: "",
         country: "",
         zipCode: "",
+        password: ""
     };
     const [user, setUser] = useState(newUser)
 
@@ -47,20 +48,38 @@ export default function UserTableEdit() {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        const userSend = {
-            id: user.id,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
-
-            street: user.street,
-            streetNumber: user.streetNumber,
-            state: user.state,
-            country: user.country,
-            zipcode: user.zipcode,
-
-        };
-        dispatch(editUser(userSend));
+        let userSend;
+        if(user.password==""){
+            userSend = {
+                id: user.id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+    
+                street: user.street,
+                streetNumber: user.streetNumber,
+                state: user.state,
+                country: user.country,
+                zipcode: user.zipcode,
+    
+            };
+        }else{
+            userSend = {
+                id: user.id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+    
+                street: user.street,
+                streetNumber: user.streetNumber,
+                state: user.state,
+                country: user.country,
+                zipcode: user.zipcode,
+                password: user.password
+            };
+        }
+        //alert(JSON.stringify(localStorage.getItem('profile')))
+        dispatch(editUserAdmin(userSend,localStorage.getItem('profile')));
         setUser(newUser)
         swal({
             title: "User Edited",
@@ -190,6 +209,18 @@ export default function UserTableEdit() {
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
                             required
+                        />
+                        <input
+                            value={user.contrasenia}
+                            onChange={handleInputChange}
+                            id="password"
+                            type="text"
+                            name="password"
+                            placeholder="password"
+                            class="block w-full py-3 px-1 mt-2 mb-4
+                    text-gray-800 appearance-none 
+                    border-b-2 border-gray-100
+                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
                         />
                         <button type="submit" class="w-full py-3 mt-5 bg-green-700 rounded-sm
                     font-medium text-white uppercase
