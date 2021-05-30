@@ -148,7 +148,10 @@ const updateUser = async(req,res) => {
     country,
     zipcode
     } = req.body;
-
+    let hashedPassword
+    if(req.body.password!=""){
+        hashedPassword = await bcrypt.hash(req.body.password, 12)
+    }
     //Chequear que el username y/o email nuevos no estén ya registrados
     const oldEmail = await User.findOne({$and:[{email: req.body.email}, {_id:{$ne:req.params._id}}]});
     if(oldEmail) return res.status(400).json({ message: {message:'E-mail already taken', style:"red"}});
@@ -173,6 +176,9 @@ const updateUser = async(req,res) => {
             userUpdated.state = state ? state : userUpdated.state
             userUpdated.country = country ? country : userUpdated.country;
             userUpdated.zipcode = zipcode ? zipcode : userUpdated.zipcode;
+            if(req.body.password){
+                userUpdated.password=hashedPassword
+            }
             userUpdated.save(function(error){
                 if(error){
                     return res.status(400).json({message:{message:"There was an Error in saving the change", style:"red"}})
