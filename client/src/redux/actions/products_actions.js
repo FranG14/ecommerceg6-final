@@ -9,7 +9,8 @@ import {
   ADD_PRODUCT_SUCCESS,
   ADD_PRODUCT_ERROR,
   DETAIL_PRODUCT,
-  SEARCH_PRODUCTS
+  SEARCH_PRODUCTS,
+  EDIT_STOCK,DELETE_STOCK
 } from "../constants";
 
 
@@ -101,5 +102,27 @@ export const editProduct = (payload) => async(dispatch) => {
         })
     })
     .catch((error) => console.log(error))
+}
+
+export const stockUpdated = (id,quantity) => async(dispatch) => {
+  return await api.editStock(id,quantity)
+    .then((stock) => {
+      dispatch({
+        type: EDIT_STOCK,
+        payload: stock.data
+      })
+  })
+  .catch((error) => console.log(error))
+}
+
+export const deleteProductStock = (id) => async(dispatch) => {
+  return await api.deleteStock(id)
+    .then((stock) => {
+      dispatch({
+        type: DELETE_STOCK,
+        payload: stock.data
+      })
+  })
+  .catch((error) => console.log(error))
 }
 

@@ -272,6 +272,7 @@ console.log("ACAAAAAAAA",productsArray)
 
         </ul>
       </div >
+      {/* arreglar */}
       <div className="flex">
         <button onClick={handleSubmit} className="w-32 h-14 inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">Apply Filter</button>
         {filterName.size && <p onClick={() => setFilterName({ ...filterName, size: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.size}</p>}

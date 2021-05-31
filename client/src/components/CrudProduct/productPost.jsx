@@ -70,17 +70,6 @@ const ProductPostForm = () => {
         stock: product.stock.concat(stock)
       })
     }
-    // if (size !== "") {
-    //   setProduct({
-    //     ...product,
-    //     size: product.size.concat(size)})
-    // }
-    // if (stock !== "") {
-    //   setProduct({
-    //     ...product,
-    //     stock: product.stock.concat(stock)})
-    // }
-    console.log("color", product)
   }
 
   const deleteColor = (e) => {
@@ -96,7 +85,7 @@ const ProductPostForm = () => {
         filterStock.push(product.stock[i]);
       }
     })
-    console.log("entra", product)
+    // console.log("entra", product)
     setProduct({ ...product, color: filterColor, size: filterSize, stock: filterStock });
   }
 

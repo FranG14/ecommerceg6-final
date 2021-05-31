@@ -11,6 +11,8 @@ export const DETAIL_PRODUCT = 'DETAIL_PRODUCT';
 export const SEARCH_PRODUCTS = "SEARCH_PRODUCTS";
 export const FILTER_BY_BRAND = "FILTER_BY_BRAND";
 export const FILTER_BY_SIZE = "FILTER_BY_SIZE";
+export const EDIT_STOCK = "EDIT_STOCK";
+export const DELETE_STOCK = "DELETE_STOCK";
 
 //USER
 export const GET_USER_ID = "GET_USER_ID";
