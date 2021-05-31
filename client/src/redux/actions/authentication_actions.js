@@ -21,7 +21,7 @@ export const login = (formData, history, swalert) => async (dispatch) => {
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
         //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
-            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
+            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity , colorName: i.colorName, sizeName: i.sizeName, stock: i.stock}, u.data?.result?._id))
         }         
         dispatch({
             type: LOGIN_SUCCESS,
@@ -62,7 +62,7 @@ export const register = (formData, history, swalert) => async (dispatch) => {
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
         //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
-            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
+            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity, colorName: i.colorName, sizeName: i.sizeName, stock: i.stock}, u.data?.result?._id))
         }  
         dispatch({
             type: REGISTER_SUCCESS,

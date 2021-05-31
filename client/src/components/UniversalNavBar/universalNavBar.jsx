@@ -23,7 +23,7 @@ export default function UniversalNavBar(props) {
   const [input, setInput] = useState({
     name: "",
   });
-  const [selectedProduct,setSelectedProduct] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(false);
 
   useEffect(() => {
     const token = user?.token;
@@ -129,10 +129,10 @@ export default function UniversalNavBar(props) {
         </label>
         <ul class="menu">
           <li className="-py-2">
-            <Link to="/">Home</Link>
+            <Link to="/Shop">Shop</Link>
           </li>
           <li className="-py-2">
-            <Link to="/Shop">Shop</Link>
+            <Link to="/design">Create T-Shirt</Link>
           </li>
           {user?.result?.username ? (
             <li className="-py-2">
@@ -187,7 +187,7 @@ export default function UniversalNavBar(props) {
           />
           <div className="-mt-2 ml-2">
             {productsArray &&
-              productsArray.length > 0 && !selectedProduct && 
+              productsArray.length > 0 && !selectedProduct &&
               input.name !== "" &&
               productsArray.map((prop, key) => {
                 return (
