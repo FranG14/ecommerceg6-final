@@ -288,7 +288,8 @@ const addAddress = async(req, res) => {
 //==========================================================================//
 const removeAddress = async(req, res) => {
     const {_id} = req.params;
-    const {addressId} = req.query; //Me copé y les puse query en vez de body :)
+    const {addressId} = req.body; 
+    console.log(addressId)
 
     const userFound = await User.findOne({_id}, async(error, userUpdated) => {
         if(error){

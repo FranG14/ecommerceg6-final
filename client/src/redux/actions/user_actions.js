@@ -162,7 +162,7 @@ export const editPassword = (id, payload) => async(dispatch) => {
 	})
 }
 
-export const addAddress = (id, payload) => async(dispatch) => {
+export const addAddress = (id, payload, history, swal) => async(dispatch) => {
     return await api.addAddress(id, payload)
     .then((edit) => {
         dispatch({
@@ -171,15 +171,29 @@ export const addAddress = (id, payload) => async(dispatch) => {
         })
         localStorage.setItem('profile', JSON.stringify(edit?.data))
     })
+	.then(async()=> {
+        swal({
+            title: "Done!",
+            text: 'Address Added',
+            icon: `success`
+        })
+    })
+    .then(() => history.push('/myProfile'))
     .catch((error) => {
         dispatch({
             type: ADD_ADDRESS_ERROR,
             payload: error?.response?.data
         })
+		swal({
+            title: "Error",
+            text: 'All fields are required',
+            icon: `warning`
+        })
     })
 }
 
 export const removeAddress = (id, addressId) => async(dispatch) => {
+	console.log("ACTION REMOVE ADDRESS")
     return await api.removeAddress(id, addressId)
     .then((edit) => {
         dispatch({
