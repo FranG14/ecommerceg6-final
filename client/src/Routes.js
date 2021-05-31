@@ -30,6 +30,7 @@ import AddAddressForm from './components/UserEdit/addAddressForm';
 //import NewUserForm from "./components/LogIn-Register/newUserForm.jsx"
 import HistorialCompras from "./containers/HistorialCompras/historialCompras"
 import CarroDetallado from "./containers/CarroDetallado/carroDetallado"
+import TshirtFeature from "./components/T-Shirt/tshirtFeature";
 
 
 export default function Routes() {
@@ -65,7 +66,9 @@ export default function Routes() {
       <Route exact path="/home/:userId" component={HomePagoAcreditado} />
       <Route exact path="/carts/:userId" component={HistorialCompras}/>
       <Route exact path="/detalle/:idCarro/usuario/:userId" component={CarroDetallado}/>
-
+      <Route exact path="/design">
+        <TshirtFeature />
+      </Route>
       {/*>>>>>>>>>>>>>>> ADMIN ROUTES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
       <Route exact path="/admin">
         <AdminCatalog />

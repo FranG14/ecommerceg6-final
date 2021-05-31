@@ -1,0 +1,35 @@
+.drawing-area {
+  position: absolute;
+  top: 60px;
+  left: 122px;
+  z-index: 10;
+  width: 170px;
+  height: 365px;
+  margin-top: -7px;
+}
+
+.canvas-container {
+  width: 170px;
+  height: 365px;
+  position: relative;
+  user-select: none;
+  margin-left: -13px;
+  margin-top: -7px;
+}
+
+#tshirt-div {
+  width: 360px;
+  height: 548px;
+  position: relative;
+  background-color: #fff;
+}
+
+#canvas {
+  position: absolute;
+  width: 200px;
+  height: 400px;
+  left: 0px;
+  top: 0px;
+  user-select: none;
+  cursor: default;
+}
