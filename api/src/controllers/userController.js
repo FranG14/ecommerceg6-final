@@ -38,8 +38,13 @@ const register = async(req,res) => {
         zipcode
     } = req.body;
     
-    if(!req.body) res.status(403).end()
-
+    if(!req.body) return res.status(403).end()
+    
+    const addresses = []
+    if( streetNumber && street && state && country && zipcode ){ //${apartment ? apartment : ''}
+        const stringedAddress = `${streetNumber} ${street} Str., ${state} ${country} (${zipcode})`
+        addresses.push({address:stringedAddress})
+    } 
     if(password !== confirmPassword) return res.status(400).json({message: {message:'Passwords don`t match', style:"red"}})
     try{
         const oldUser = await User.findOne({email});
@@ -52,18 +57,17 @@ const register = async(req,res) => {
             firstname,
             lastname,
             phone,
-            streetNumber,
-            street,
-            state,
-            country,
-            zipcode,
+            addresses,
             isAdmin:false
             }
-        )
+        )  
+            
         const token = jwt.sign({email:result.email, id: result._id}, secret, {expiresIn: '1hr'} );
-        res.status(201).json({ result, token, message:{message:"Registered Successfully", style:"green"}})
+        //result.addresses.push({address: stringedAddress})
+            //result.save()
+        return res.status(201).json({ result, token, message:{message:"Registered Successfully", style:"green"}})
     } catch (error) {
-        
+        console.log(error)
         res.status(500).json({message:{message:"Something went wrong", style:"red"}}); 
     }
 }
@@ -144,7 +148,10 @@ const updateUser = async(req,res) => {
     country,
     zipcode
     } = req.body;
-
+    let hashedPassword
+    if(req.body.password!=""){
+        hashedPassword = await bcrypt.hash(req.body.password, 12)
+    }
     //Chequear que el username y/o email nuevos no estén ya registrados
     const oldEmail = await User.findOne({$and:[{email: req.body.email}, {_id:{$ne:req.params._id}}]});
     if(oldEmail) return res.status(400).json({ message: {message:'E-mail already taken', style:"red"}});
@@ -169,6 +176,9 @@ const updateUser = async(req,res) => {
             userUpdated.state = state ? state : userUpdated.state
             userUpdated.country = country ? country : userUpdated.country;
             userUpdated.zipcode = zipcode ? zipcode : userUpdated.zipcode;
+            if(req.body.password){
+                userUpdated.password=hashedPassword
+            }
             userUpdated.save(function(error){
                 if(error){
                     return res.status(400).json({message:{message:"There was an Error in saving the change", style:"red"}})
@@ -244,6 +254,62 @@ const changePassword = async(req,res) => {
     )
 }
 //==========================================================================//
+const addAddress = async(req, res) => {
+    const {_id} = req.params;
+    const { 
+        streetNumber, 
+        street,
+        apartment,
+        state,
+        country,
+        zipcode
+    } = req.body;
+
+    if(!streetNumber || !street || !state || !country || !zipcode) return res.status(400).json({message: 'Fields Missing'});
+
+    const stringedAddress = `${streetNumber} ${street}Str.${apartment ? apartment : ''}, ${state} ${country} (${zipcode})`
+    
+    const userFound = await User.findOne({_id}, async(error, userUpdated) => {
+        if(error){
+            return res.status(400).json({
+                message:"There was an Error"
+            })
+        }
+        if(!userUpdated) return res.status(404).json({message: 'User Not Found'})
+        userUpdated.addresses.push({address:stringedAddress})
+        userUpdated.save(function(error) {
+            if(error){
+                return res.status(400).json({message:'There was an error'})
+            }
+            res.status(200).json({result:userUpdated})
+        }) 
+    })
+}
+//==========================================================================//
+const removeAddress = async(req, res) => {
+    const {_id} = req.params;
+    const {addressId} = req.body; 
+    console.log(addressId)
+
+    const userFound = await User.findOne({_id}, async(error, userUpdated) => {
+        if(error){
+            return res.status(400).json({
+                message:"There was an Error"
+            })
+        }
+        if(!userUpdated) return res.status(404).json({message: 'User Not Found'})
+        
+        userUpdated.addresses = userUpdated.addresses.filter((a) => !a._id.equals(addressId))
+        
+        userUpdated.save(function(error) {
+            if(error){
+                return res.status(400).json({message:'There was an error'})
+            }
+            res.status(200).json({result:userUpdated})
+        }) 
+    })
+}
+//==========================================================================//
 module.exports = { 
     login, 
     register, 
@@ -253,6 +319,8 @@ module.exports = {
     deleteUser, 
     toggleAdmin, 
     getUserById,
-    changePassword 
+    changePassword,
+    addAddress,
+    removeAddress 
     }
 //==========================================================================//

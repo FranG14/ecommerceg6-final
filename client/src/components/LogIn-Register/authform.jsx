@@ -41,7 +41,7 @@ const AuthForm = () => {
     //const message =JSON.parse(localStorage.getItem('profile'))?.message;
     const dispatch = useDispatch();
     const history = useHistory();
-
+    //const swalert = swal();
 
     //================ HANDLERS =======================//
     const handleChange = (e) => {
@@ -64,42 +64,10 @@ const AuthForm = () => {
                 })
             }
             else {
-                dispatch(register(formData, history))
-                    .then(() => {
-                        if (currentMessage?.message) {
-                            swal({
-                                title: currentMessage?.message?.message,
-                                text: 'Please Try Again',
-                                icon: "warning"
-                            })
-                        } else {
-                            swal({
-                                title: "Successfully Registered",
-                                text: 'Welcome!',
-                                icon: "success"
-                            })
-                        }
-                    });
+                dispatch(register(formData, history, swal))
             }
         } else {
-            dispatch(login(formData, history))
-                .then(() => {
-                    //console.log(currentMessage)
-                    //setOutcome(currentMessage?.message)
-                    if (currentMessage?.message) {
-                        swal({
-                            title: currentMessage?.message?.message,
-                            text: 'Please Try Again',
-                            icon: "warning"
-                        })
-                    } else {
-                        swal({
-                            title: "Successfully Logged",
-                            text: 'Welcome Back!',
-                            icon: "success"
-                        })
-                    }
-                })
+            dispatch(login(formData, history,swal))
         }
     }
     // window.location.replace(`https://e-commerce-g6.netlify.app/`)

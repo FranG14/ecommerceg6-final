@@ -9,7 +9,11 @@ import {
 	SEARCH_USER,
 	ADMIN_USER,
 	GET_ERROR_ADMIN,
-	EDIT_PASSWORD
+	EDIT_PASSWORD,
+	ADD_ADDRESS,
+	ADD_ADDRESS_ERROR,
+	REMOVE_ADDRESS,
+	REMOVE_ADDRESS_ERROR
 } from '../constants';
 
 //const { REACT_APP_API } = 'https://e-commerce-g6-back.herokuapp.com/'; // En local comentar esta linea
@@ -84,6 +88,26 @@ export const editUser = (payload) => async(dispatch) => {
 	})
 }
 
+export const editUserAdmin = (payload,admin) => async(dispatch) => {
+	return await api.editUser(payload)
+	.then((userEdit) => {
+		if(userEdit.data._id==admin.result._id){
+			localStorage.setItem('profile', JSON.stringify(userEdit.data))
+		}
+		
+		dispatch({
+			type: EDIT_USER,
+			payload: userEdit.data
+		})
+	})
+	.catch((err) => {
+		dispatch({
+			type: EDIT_USER,
+        	payload: err.response,
+		})
+	})
+}
+
 
 export const deleteUser = (payload) => async(dispatch) => {
 	return await api.delUser(payload)
@@ -136,4 +160,60 @@ export const editPassword = (id, payload) => async(dispatch) => {
         payload: err.response,
 		})
 	})
+}
+
+export const addAddress = (id, payload, history, swal) => async(dispatch) => {
+    return await api.addAddress(id, payload)
+    .then((edit) => {
+        dispatch({
+            type: ADD_ADDRESS,
+            payload: edit.data
+        })
+        localStorage.setItem('profile', JSON.stringify(edit?.data))
+    })
+	.then(async()=> {
+        swal({
+            title: "Done!",
+            text: 'Address Added',
+            icon: `success`
+        })
+    })
+    .then(() => history.push('/myProfile'))
+    .catch((error) => {
+        dispatch({
+            type: ADD_ADDRESS_ERROR,
+            payload: error?.response?.data
+        })
+		swal({
+            title: "Error",
+            text: 'All fields are required',
+            icon: `warning`
+        })
+    })
+}
+
+export const removeAddress = (id, addressId, history, swal) => async(dispatch) => {
+	console.log("ACTION REMOVE ADDRESS")
+    return await api.removeAddress(id, addressId)
+    .then((edit) => {
+        dispatch({
+            type: REMOVE_ADDRESS,
+            payload: edit.data
+        })
+        localStorage.setItem('profile', JSON.stringify(edit?.data))
+    })
+	.then(async()=> {
+        swal({
+            title: "Done!",
+            text: 'Address removed from your Account',
+            icon: `info`
+        })
+    })
+    .then(() => history.push('/myProfile'))
+    .catch((error) => {
+        dispatch({
+            type: REMOVE_ADDRESS_ERROR,
+            payload: error?.response?.data
+        })
+    })
 }

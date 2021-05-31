@@ -14,27 +14,53 @@ const NewCartNotLogged = () => {
     const[decrementCart,setDecrementCart] = useState(false);
     const [itemDeleted,setItemDeleted] = useState(false);
 
-    const increment = (id,color,size) => {
-        setIncrementCart(!incrementCart);
-        setDecrementCart(false);
-        incrementProductUnitNotLogged(id,color,size)
+    const [incrementCart, setIncrementCart] = useState(false)
+    const [decrementCart, setDecrementCart] = useState(false)
+    const [deleteItem, setDeleteItem] = useState(false)
+
+    const totalItems = () => {
+        let totalItems = 0
+        let totalPrice = 0
+        for (var i = 0; i < userCart.length; i++) {
+            totalItems = totalItems + userCart[i].quantity
+            totalPrice = totalPrice + userCart[i].price
+        }
+        setTotal({ ...total, totalItems: totalItems, totalPrice: totalPrice })
+    }
+    console.log("AAAAAAAAAAAA", userCart)
+    const deleteC = (productId) => {
+        deleteItemNotLogged(productId)
+        setDeleteItem(!deleteItem)
+        swal({
+            title: "Product Removed From Cart",
+            message: "Updating Cart",
+            icon: "warning",
+            button: true,
+            dangerMode: true,
+        })
+    }
+
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(getCartFromUser(id))
+    //     totalItems()
+    //     console.log("TEST")
+    // }, [])
+
+    const increment = (id) => {
+        incrementProductUnitNotLogged(id)
+        setIncrementCart(!incrementCart)
         console.log("MAS")
     }
-    const decrement = (id,color,size) => {
-        setDecrementCart(!decrementCart);
-        setIncrementCart(false);
-        decrementProductUnitNotLogged(id,color,size)
+    const decrement = (id) => {
+        decrementProductUnitNotLogged(id)
+        setDecrementCart(!decrementCart)
         console.log("MENOS")
     }
 
-    const deleteItemCart = (id,color,size) => {
-        setItemDeleted(!itemDeleted)
-        deleteItemNotLogged(id,color,size);
-    }
-    
     useEffect(() => {
         userCart = getCartNotLogged()
-    },[incrementCart,decrementCart,itemDeleted])
+    }, [incrementCart, decrementCart, deleteItem])
 
     return (
         <div class="bg-gray-200 h-full md:h-screen">
@@ -51,7 +77,7 @@ const NewCartNotLogged = () => {
                                         <p class="text-gray-400 text-base">${cart.price}</p>
                                     </div>
                                     <div class="text-lg font-semibold transform rotate-45 ">
-                                        <button onClick = {() => deleteItemCart(cart.productId,cart.colorName,cart.sizeName)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
+                                        <button onClick={() => deleteC(cart.productId)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
                                             <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>

@@ -20,6 +20,10 @@ export const googleLogIn = (formData) => API.post('users/google',formData);
 export const changePassword = (passwords, _id) => API.put(`/users/password/${_id}`, passwords);
 export const updateUser = (userBody, _id) => API.put(`users/${_id}`);
 
+export const addAddress = (_id, addressBody) => API.post(`/users/address/${_id}`, addressBody);
+export const removeAddress = (_id, addressId ) => API.put(`/users/address/remove/${_id}`,addressId);
+
+
 
 //CART
 //Trae el cart activo de un usuario particular

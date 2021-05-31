@@ -1,4 +1,6 @@
-import { GET_USER_ID ,EDIT_USER, GET_USERS, DELETE_USER, SEARCH_USER, ADMIN_USER,EDIT_PASSWORD} from './../constants';
+import { GET_USER_ID ,EDIT_USER, GET_USERS, DELETE_USER, SEARCH_USER, ADMIN_USER,EDIT_PASSWORD,
+	REMOVE_ADDRESS, REMOVE_ADDRESS_ERROR, ADD_ADDRESS_ERROR, ADD_ADDRESS
+} from './../constants';
 
 const initialState = {
 	user: {
@@ -82,7 +84,7 @@ const userReducer = (state = initialState, action) => {
 					
 				}
 			}
-			case EDIT_PASSWORD:
+		case EDIT_PASSWORD:
 			console.log(action.payload)	
 			return {
 				...state,
@@ -92,6 +94,34 @@ const userReducer = (state = initialState, action) => {
 						:" "
 					
 				}
+			}
+		case ADD_ADDRESS:
+			return {
+				...state,
+				user : {
+					...state.user,
+					list: (state.user.list.userFound._id === action.payload._id)?action.payload
+					:" "
+				}
+			}
+		case ADD_ADDRESS_ERROR:
+			return {
+				...state,
+				error: action.payload
+			}
+		case REMOVE_ADDRESS:
+			return {
+				...state,
+				user : {
+					...state.user,
+					list: (state.user.list.userFound._id === action.payload._id)?action.payload
+					:" "
+				}
+			}
+		case REMOVE_ADDRESS_ERROR:
+			return {
+				...state,
+				error: action.payload
 			}
 		default: return state;
 	}

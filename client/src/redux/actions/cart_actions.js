@@ -34,8 +34,8 @@ export const addItemNotLogged = (productBody) => {
     let price = productBody.price;
     let quantity = productBody.quantity;
     let productId = productBody.productId;
-    let colorName = productBody.colorName;
-    let sizeName = productBody.sizeName;
+    // let colorName = productBody.colorName
+    // let sizeName = productBody.sizeName
 
     // console.log("Product Body -------- ", productBody)
     let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === colorName && i.sizeName === sizeName);
@@ -49,17 +49,14 @@ export const addItemNotLogged = (productBody) => {
     localStorage.setItem('cart', JSON.stringify(cart))
 }
 //=============================================//
-export const deleteItemNotLogged = (id,color,size) => {
-    console.log("ENRRA ACA")
+export const deleteItemNotLogged = (productId) => {
     let cart = getCartNotLogged();
-    console.log("ASDSADSADSAD",cart)
-    let productIndex = cart.items.findIndex((i) => i.productId === id && i.colorName === color && i.sizeName === size);
+    let productIndex = cart.items.findIndex((i) => i.productId === productId);
     if( productIndex > -1){
-        console.log("ENTRASDASDsa")
         const price = cart.items[productIndex].price;
         const quantity = cart.items[productIndex].quantity;
         
-        const items = cart.items.filter((i) => i.productId !== id  && i.colorName !== color && i.sizeName !== size);
+        const items = cart.items.filter((i) => i.productId !== productId);
         cart.items = items;
         cart.totalAmount -= price * quantity;
         localStorage.setItem('cart', JSON.stringify(cart))

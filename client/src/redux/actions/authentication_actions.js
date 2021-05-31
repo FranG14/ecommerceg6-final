@@ -10,7 +10,7 @@ import {
 import * as api from '../api/index.js';
 
 //=====================================================================================//
-export const login = (formData, history) => async (dispatch) => {
+export const login = (formData, history, swalert) => async (dispatch) => {
     dispatch({
         type: LOGIN
     });
@@ -21,7 +21,7 @@ export const login = (formData, history) => async (dispatch) => {
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
         //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
-            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
+            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity , colorName: i.colorName, sizeName: i.sizeName, stock: i.stock}, u.data?.result?._id))
         }         
         dispatch({
             type: LOGIN_SUCCESS,
@@ -29,15 +29,29 @@ export const login = (formData, history) => async (dispatch) => {
         })
     })
     .then(() => history.push('/'))
+    .then(async()=> {
+        const message =  await JSON.parse(localStorage.getItem('profile'))
+        swalert({
+            title: message?.message?.message,
+            text: 'Welcome Back!',
+            icon: `success`
+        })
+    })
     .catch ((error) => {
         dispatch({
             type:LOGIN_ERROR,
-            payload:error.response.data,
+            payload:error?.response?.data,
+
         });
+        swalert({
+            title: error?.response?.data?.message?.message,
+            text: 'Try again!',
+            icon: `warning`
+        })
     });
 };
 //=====================================================================================//
-export const register = (formData, history) => async (dispatch) => {
+export const register = (formData, history, swalert) => async (dispatch) => {
     dispatch({
         type: REGISTER
     });
@@ -48,11 +62,19 @@ export const register = (formData, history) => async (dispatch) => {
         let localStorageCart = await JSON.parse(localStorage.getItem('cart'))
         //Acá se agregan los items del local storage no logueado uno por uno
         if(localStorageCart){
-            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity}, u.data?.result?._id))
+            localStorageCart.items?.map(async(i)=> api.addItem({productId: i.productId, quantity: i.quantity, colorName: i.colorName, sizeName: i.sizeName, stock: i.stock}, u.data?.result?._id))
         }  
         dispatch({
             type: REGISTER_SUCCESS,
             payload: u.data
+        })
+    })
+    .then(async()=> {
+        const message =  await JSON.parse(localStorage.getItem('profile'))
+        swalert({
+            title: message?.message?.message,
+            text: 'Welcome!',
+            icon: `success`
         })
     })
     .then(() => history.push('/'))
@@ -60,6 +82,11 @@ export const register = (formData, history) => async (dispatch) => {
         dispatch({
             type:REGISTER_ERROR,
             payload: error.response.data
+        })
+        swalert({
+            title: error?.response?.data?.message?.message,
+            text: 'Try again!',
+            icon: `warning`
         })
     })
 }
