@@ -29,7 +29,7 @@ export const removeAddress = (_id, addressId ) => API.put(`/users/address/remove
 //Trae el cart activo de un usuario particular
 export const getActiveCartFromUser = (userId) => API.get(`/carts/active/${userId}`);
 //Trae todos los carts de todos los usuarios (Con paginado por query)
-export const getAllCarts = () => API.get('/carts/');
+export const getAllCarts = (state,page) => API.get(`/carts/?state=${state}&page=${page}`);
 //Trae todo el historial de carts de un usuario (Con paginado por query)
 export const getCartsByUser = () => API.get('/carts/userId');
 //Agrega un item al cart activo de un usuario. Ejemplo de body: 
@@ -60,6 +60,8 @@ export const detailProduct = (id) => API.get(`/products/detail/${id}`);
 export const addProducts = (body) => API.post('/products', body);
 export const deleteProduct = (payload) => API.delete(`/products/${payload}`)
 export const editProduct = (payload) => API.put(`/products/${payload.id}`, payload.data)
+export const editStock = (payload,stock) => API.put(`/products/stock/${payload}`, stock)
+export const deleteStock = (payload) => API.delete(`/products/delete/stock/${payload}`)
 
 //USER
 export const getUsers = (page) => API.get(`/users?page=${page}`);

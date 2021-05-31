@@ -1,3 +1,4 @@
+import { stockUpdated } from "../actions/products_actions";
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_SUCCESS,
@@ -13,7 +14,8 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_NAME,
   FILTER_BY_BRAND,
-  FILTER_BY_SIZE
+  FILTER_BY_SIZE,
+  EDIT_STOCK,DELETE_STOCK
 } from "../constants";
 
 const initialState = {
@@ -55,6 +57,13 @@ const productsReducer = (state = initialState, action) => {
           }
           return prod;
         })
+      }
+    case EDIT_STOCK:
+      return { ...state,
+      allProducts: action.payload}
+    case DELETE_STOCK:
+      return{...state,
+        allProducts:action.payload
       }
     case DELETE_PRODUCT:
       return {
