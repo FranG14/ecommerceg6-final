@@ -18,11 +18,6 @@ export default function UserEdit() {
         lastname: "",
         email: "",
 
-        street: "",
-        streetNumber: "",
-        state: "",
-        country: "",
-        zipCode: "",
     };
     const [user, setUser] = useState(newUser)
 
@@ -33,7 +28,6 @@ export default function UserEdit() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log("USE EFFECT")
         dispatch(getUserById(id))
     }, [id, dispatch])
 
@@ -122,76 +116,6 @@ export default function UserEdit() {
                         />
 
 
-                        <h1 class="text-xl font-semibold mt-2">Address</h1>
-                        <input
-
-                            id="streetNumber"
-                            type="number"
-                            name="streetNumber"
-                            placeholder="Street Number"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.street}
-                            onChange={handleInputChange}
-                            id="street"
-                            type="text"
-                            name="street"
-                            placeholder="Street Name"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.state}
-                            onChange={handleInputChange}
-                            id="state"
-                            type="text"
-                            name="state"
-                            placeholder="State"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.country}
-                            onChange={handleInputChange}
-                            id="country"
-                            type="text"
-                            name="country"
-                            placeholder="Country"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.zipcode}
-                            onChange={handleInputChange}
-                            id="zipcode"
-                            type="number"
-                            name="zipcode"
-                            placeholder="zipcode"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
                         <button type="submit" class="w-full py-3 mt-5 bg-green-700 rounded-sm
                     font-medium text-white uppercase
                     focus:outline-none hover:bg-green-600 hover:shadow-none">

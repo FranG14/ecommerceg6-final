@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import decode from 'jwt-decode'
+import swal from 'sweetalert';
 // import SearchBar from '../SearchBar/searchBar'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import UniversalNavBar from '../UniversalNavBar/universalNavBar'
 import Footer from '../../containers/Footer/footer'
-import { getUserById, removeAddress } from '../../redux/actions/user_actions'
+import { getUserById, removeAddress } from './../../redux/actions/user_actions'
 
 export default function UserDetail() {
     // const {id} = match.params;
@@ -21,7 +22,7 @@ export default function UserDetail() {
     const userData = useSelector(
         (state) => state.userReducer.user.list.userFound
     );
-    console.log("USER DATAA", userData?.addresses)
+
     useEffect(() => {
         //Por ahora traigo el user guardado en el localStorage.
         //Después traigo un Usuario por params
@@ -36,16 +37,15 @@ export default function UserDetail() {
     }, [location])
 
     const handleRemoveAddress = (userId, addressId) => {
-        console.log("REMOVE", userId, addressId)
-        removeAddress(userId, addressId)
+        const objAddress = {addressId:addressId}
+        console.log("REMOVE", objAddress)
+        dispatch(removeAddress(userId, objAddress,history,swal))
     }
 
     const logout = () => {
         dispatch({ type: "LOGOUT" });
-
-        history.push("/shop")
-
         setUser(null);
+        history.push("/")
     }
 
     // <h4>{user.result.username}</h4>
