@@ -87,3 +87,5 @@ export const getCategoryById = (payload) => API.get(`/categories/productCategory
 export const addCategory = (payload) => API.post(`/categories`, payload);
 export const editCategory = (payload) => API.put(`/categories/${payload.id}`,payload)
 export const deleteCategory = (payload) => API.delete(`/categories/${payload}`)
+
+

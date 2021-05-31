@@ -4,6 +4,7 @@ import UniversalBar from '../UniversalNavBar/universalNavBar';
 import Footer from '../../containers/Footer/footer';
 import { useHistory, useParams } from 'react-router-dom';
 import { getUserById, addAddress } from '../../redux/actions/user_actions'
+import {getProvincias, getMunicipios, getCalles} from '../../redux/actions/addresses_actions'
 import swal from "sweetalert";
 
 const newUser = {
@@ -25,10 +26,15 @@ export default function AddAddressForm() {
         (state) => state
     );
 
+    const addressState = useSelector(
+        (state) => (state.addressReducer) && state.addressReducer 
+    );
+
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getUserById(id))
+        dispatch(getProvincias())
     }, [id, dispatch])
 
     const handleInputChange = (e) => {
@@ -36,6 +42,7 @@ export default function AddAddressForm() {
             ...user,
             [e.target.name]: e.target.value,
         });
+        
     };
 
     const handleSubmit = (e) => {
@@ -54,6 +61,21 @@ export default function AddAddressForm() {
                     <h1 class="text-xl font-semibold">Add An Address</h1>
                     <form class="mt-6" onSubmit={handleSubmit}>
                         <h1 class="text-xl font-semibold mt-2">Address</h1>
+
+                        <select 
+                        name ="state" 
+                        id="state" 
+                        value={user.state} 
+                        onChange={handleInputChange}
+                        >
+                            {
+                                (addressState?.provincias) && addressState.provincias.map((p) => 
+                                    <option value={p}>{p}</option>
+                                )
+                            }
+                        </select>
+
+
 
                         <input
                             value={user.streetNumber}
@@ -93,7 +115,7 @@ export default function AddAddressForm() {
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
                             required
-                        />
+                        /> 
                         <input
                             value={user.country}
                             onChange={handleInputChange}

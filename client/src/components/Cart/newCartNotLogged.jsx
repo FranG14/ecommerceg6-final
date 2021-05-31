@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import UniversalNavBar from '../UniversalNavBar/universalNavBar'
 import Footer from '../../containers/Footer/footer'
+import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { decrementProductUnitNotLogged, deleteItemNotLogged, getCartNotLogged, incrementProductUnitNotLogged } from '../../redux/actions/cart_actions';
 import { useParams } from 'react-router';
@@ -115,12 +116,12 @@ const NewCartNotLogged = () => {
                         }
                         {/* <!-- End classic add -->
                         {/* <!-- Total Item --> */}
-                        <div class="flex justify-center items-center text-center">
+                        {/* <div class="flex justify-center items-center text-center">
                             <div class="text-xl font-semibold">
                                 <p>Total Item</p>
                                 <p class="text-5xl">{total.totalItems}</p>
                             </div>
-                        </div>
+                        </div> */}
                         {/* <!-- End Total Item --> */}
 
                     </div>
@@ -128,8 +129,9 @@ const NewCartNotLogged = () => {
                         {/* <!-- Total Price --> */}
                         <div class="flex justify-center items-center text-center">
                             <div class="text-xl font-semibold">
-                                <p>Total Price</p>
-                                <p class="text-5xl">${total.totalPrice}</p>
+                            <Link to={`/auth`}><button id="ch" className="bg-green-500 text-white rounded-md px-6 py-2">Log in to continue</button></Link>
+                                {/* <p>Total Price</p>
+                                <p class="text-5xl">${total.totalPrice}</p> */}
                             </div>
                         </div>
                         {/* <!-- End Total PRice --> */}
