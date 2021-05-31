@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './filterBar.css';
 import { filterByBrand, filterByName, filterByPrice, filterBySize } from "../../redux/actions/filters_actions";
 import { getCategories } from '../../redux/actions/category_actions';
+import { getAllProducts } from "../../redux/actions/products_actions";
 
 
 function FilterBar() {
@@ -10,7 +11,7 @@ function FilterBar() {
   const [filterName, setFilterName] = React.useState({ brand: "", size: "", genre: "", price: "", category: "" });
   const [filter, setFilter] = React.useState(null);
   const [applyFilter, setApplyFilter] = React.useState(false);
-
+  const [arrayBrand,setArrayBrand] = React.useState([]);
   const categoryArray = useSelector(
     (state) => state.categoriesReducer.categories.list.categories
   );
@@ -18,6 +19,7 @@ function FilterBar() {
 
   useEffect(() => {
     dispatch(getCategories())
+    brandArray() 
   }, [filterName])
 
 
@@ -27,17 +29,28 @@ function FilterBar() {
 
     console.log(filterName)
   }
-
-
+//me filtra el array y me deja los brand sin repetir
+  function brandArray() {
+    let array = [];
+    if(productsArray.products){
+      productsArray.products.map(prop => {
+        if(!array.includes(prop.brand)){
+          array.push(prop.brand);
+        }
+      })
+    }
+    setArrayBrand(array);
+  }
+console.log(arrayBrand)
   function handleSubmit() {
     dispatch(filterByBrand(filterName))
 
   }
-
+console.log("ACAAAAAAAA",productsArray)
   return (
     <div className="flex w-80 bg-gray-200 pt-4 pb-4 gap-4 justify-center">
 
-      < div className="group inline-block " >
+      < div className="group inline-block mt-4 cursor-pointer" >
         <button
           className="outline-none focus:outline-none border px-3 py-1  bg-white rounded-sm flex items-center min-w-32"
         >
@@ -124,23 +137,25 @@ function FilterBar() {
             </button>
             <ul
               className="bg-white border rounded-sm absolute top-0 right-0 
-  transition duration-150 ease-in-out origin-top-left
-  min-w-32
-  "
-            >
+              transition duration-150 ease-in-out origin-top-left
+              min-w-32">
               {/* <a href = {`/filter-by-stock/${filterName}`}> */}
-              <li onClick={handleOnClick} id="brand" name="brand" className="px-3 py-1 hover:bg-gray-100">Nike</li>
+              {/* { productsArray.products && productsArray.products.length > 0 && productsArray.products.map(prop => {
+                return <li onClick={handleOnClick} id="brand" name="brand" className="px-3 py-1 hover:bg-gray-100">{prop.brand}</li>
+              })
+              } */}
               <li className="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                 <button
-                  className="w-full text-left flex items-center outline-none focus:outline-none"
-                >
+                  className="w-full text-left flex items-center outline-none focus:outline-none">
+                
                   <span onClick={handleOnClick} id="brand" name="brand" className="pr-1 flex-1">Adidas</span>
                   <span className="mr-auto">
                   </span>
                 </button>
               </li>
               <li onClick={handleOnClick} id="brand" name="brand" className="px-3 py-1 hover:bg-gray-100">Puma</li>
-              {/* </a> */}
+              <li onClick={handleOnClick} id="brand" name="brand" className="px-3 py-1 hover:bg-gray-100">Nike</li>
+              <li onClick={handleOnClick} id="brand" name="brand" className="px-3 py-1 hover:bg-gray-100">Umbro</li>
             </ul>
           </li>
           {/* Tercer filtro Genero */}
@@ -164,10 +179,8 @@ function FilterBar() {
             </button>
             <ul
               className="bg-white border rounded-sm absolute top-0 right-0 
-  transition duration-150 ease-in-out origin-top-left
-  min-w-32
-  "
-            >
+              transition duration-150 ease-in-out origin-top-left
+              min-w-32">
               {/* <a href = {`/filter-by-genre/${filterName}`}> */}
               <li className="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                 <button
@@ -207,23 +220,11 @@ function FilterBar() {
             </button>
             <ul
               className="bg-white border rounded-sm absolute top-0 right-0 
-  transition duration-150 ease-in-out origin-top-left
-  min-w-32
-  "
-            >
+                transition duration-150 ease-in-out origin-top-left
+                min-w-32
+                ">
               <li onClick={handleOnClick} id="price" name="price" className="px-3 py-1 hover:bg-gray-100">ASC</li>
               <li onClick={handleOnClick} id="price" name="price" className="px-3 py-1 hover:bg-gray-100">DESC</li>
-              {/* <li className="rounded-sm relative px-3 py-1 hover:bg-gray-100">
-          <button
-            className="w-full text-left flex items-center outline-none focus:outline-none"
-          >
-            <a href = {`/filter-by-price/${filterName}`}>
-            <span onClick = {handleOnClick} className="pr-1 flex-1">Asc</span>
-            <span className="mr-auto">
-            </span>
-          </a>
-          </button>
-        </li> */}
 
             </ul>
           </li>
@@ -270,10 +271,14 @@ function FilterBar() {
 
 
         </ul>
-
       </div >
-      <div>
-        <button onClick={handleSubmit} className="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">Apply Filter</button>
+      <div className="flex">
+        <button onClick={handleSubmit} className="w-32 h-14 inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">Apply Filter</button>
+        {filterName.size && <p onClick={() => setFilterName({ ...filterName, size: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.size}</p>}
+        {filterName.brand && <p onClick={() => setFilterName({ ...filterName, brand: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.brand}</p>}
+        {filterName.genre && <p onClick={() => setFilterName({ ...filterName, genre: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.genre}</p>}
+        {filterName.price && <p onClick={() => setFilterName({ ...filterName, price: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.price}</p>}
+        {filterName.category && <p onClick={() => setFilterName({ ...filterName, category: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.category}</p>}
       </div>
     </div >
   )

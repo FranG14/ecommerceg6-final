@@ -72,18 +72,19 @@ function HistorialCompras(props) {
                 setCarritos(carts)
             })
     }, [])
+    console.log("CCC",carritos)
     return (
         <div>
             <UniversalNavBar />
             <div className="flex h-screen w-100 pt-28 px-5">
                 <div className="flex-grow">
-                    <table class=" cursor-pointer border-collapse w-full">
+                    <table class=" border-collapse w-full">
                         <thead>
                             <tr>
                                 <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Date of Order</th>
-                                <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">State</th>
+                            <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Product</th>
                                 <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Total</th>
-                                <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Detail</th>
+                                <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">State</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,13 +95,16 @@ function HistorialCompras(props) {
                                             {prop.fechaCierre.split(".")[0].split("T")[0] + " / " + prop.fechaCierre.split(".")[0].split("T")[1]}
                                         </td>
                                         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                            {prop.state}
+                                        {prop.items.length > 0 && prop.items.map(p => {
+                                            return <p ><Link className = "hover:text-blue-500" to ={`/product/${p.productId}`}>{p.name} {p.colorName} {p.sizeName}</Link></p>
+                                        })}
                                         </td>
                                         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                                            {prop.totalAmount}
+                                        {prop.totalAmount}
                                         </td>
+                                        
                                         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                                        <Link to={`/detalle/${idCarro}/usuario/${idDeUsuario}`} id="redirectCarro" >📄</Link>
+                                        {prop.state}
                                         </td>
                                     </tr>
                                 })

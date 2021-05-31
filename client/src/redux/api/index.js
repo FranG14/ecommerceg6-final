@@ -25,7 +25,7 @@ export const updateUser = (userBody, _id) => API.put(`users/${_id}`);
 //Trae el cart activo de un usuario particular
 export const getActiveCartFromUser = (userId) => API.get(`/carts/active/${userId}`);
 //Trae todos los carts de todos los usuarios (Con paginado por query)
-export const getAllCarts = () => API.get('/carts/');
+export const getAllCarts = (state,page) => API.get(`/carts/?state=${state}&page=${page}`);
 //Trae todo el historial de carts de un usuario (Con paginado por query)
 export const getCartsByUser = () => API.get('/carts/userId');
 //Agrega un item al cart activo de un usuario. Ejemplo de body: 

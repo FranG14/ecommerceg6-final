@@ -9,17 +9,16 @@ import { changeCartState, getAllCarts } from "../../redux/actions/cart_actions";
 
 const OrdersTable = () => {
     const dispatch = useDispatch();
+    const [page, setPage] = useState(1)
     useEffect(() => {
-        dispatch(getAllCarts());
-    }, []);
+        dispatch(getAllCarts("",page));
+    }, [page]);
 
     const orderArray = useSelector(
         (state) => state.cartReducer.cart.carts
     );
 
-
-
-    const [page, setPage] = useState(1)
+    const[filter,setFilter] = useState("Paid")
 
     const next = () => {
         setPage(page + 1)
@@ -55,55 +54,32 @@ const OrdersTable = () => {
         })
         window.location.reload()
     }
-    const [input, setInput] = useState({
-        name: "",
-    })
 
-    function handleChange(e) {
-        setInput({
-            name: e.target.value
-        })
-    };
+    const reset = () => {
+        setFilter("");
+        dispatch(getAllCarts(""))
+    }
 
-    function handleSubmit(e) {
-        e.preventDefault()
-
-        if (input.name) {
-            //dispatch(searchOrder(input.name))
-        } else if (!input.name) {
-            swal({
-                title: "Search Not Valid",
-                icon: "warning",
-                button: true,
-            })
-        }
-
-
+    const selectedFilter = (filter) => {
+        dispatch(getAllCarts(filter))
     }
     return (
         <div>
             <UniversalNavBar />
             <div className="mt-16 pt-4 mb-4 flex justify-center">
-                <button
-                    class="inline-block px-6 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">
-                    <a href="/postCategory">
-                        Create category
-                    </a>
-                </button>
-                <div class="relative mr-6 my-2 ml-2 -mt-0.5">
-                    <input type="search" class="bg-purple-white shadow rounded border-0 p-3" value={input.name} onChange={(e) => handleChange(e)} placeholder="Search by name...   " />
-                    <button className="bg-gray-200" onClick={handleSubmit}>🔍</button>
-                    <div class="absolute pin-r pin-t mt-3 mr-4 text-purple-lighter">
-                        <svg version="1.1" class="h-4 text-dark" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                            viewBox="0 0 52.966 52.966" style={{ enableBackground: "new 0 0 52.966 52.966" }} xmlSpace="preserve">
 
-                        </svg>
-
-                    </div>
+                <div class="relative mr-6 my-2 ml-2">
+                    {/* Filtros */}
+                    <select className ="h-11 rounded" id ="selectOptions" onChange = {(e) => setFilter(e.target.value)}>
+                        <option>Paid</option>
+                        <option>Cancelled</option>
+                        <option>On it´s way</option>
+                        <option>Delivered</option>
+                        <option>Active</option>
+                    </select>
+                    <button className ="inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none" onClick = {() => selectedFilter(filter)}>Filter</button>
+                    {filter && <p onClick={reset} className = "px-2 py-1 inline-block mr-2 mt-4 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 w-auto text-center">{filter} X</p>}
                 </div>
-
-
-
 
             </div >
 
@@ -139,16 +115,6 @@ const OrdersTable = () => {
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                                 {c.state}
                             </td>
-                            {/* <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                                <select id="status" onChange={handleSelect}>
-                                    <option>Active</option>
-                                    <option>Paid</option>
-                                    <option>On it's Way</option>
-                                    <option>Delivered</option>
-                                    <option>Cancelled</option>
-                                </select>
-                                <button onClick={() => changeState(selectedState, c?._id)} class="h-8 px-2 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700">✍</button>
-                            </td> */}
 
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                                 <button class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700"> <Link to={'/orders/state/' + c._id}>✍</Link> </button>

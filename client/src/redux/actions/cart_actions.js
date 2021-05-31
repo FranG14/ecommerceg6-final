@@ -220,11 +220,11 @@ export const incrementProductUnit = (product, userId,colorName,colorSize) => asy
 }
 
 //=============================================//
-export const getAllCarts = () => async(dispatch) => {
+export const getAllCarts = (state,page) => async(dispatch) => {
     dispatch({
         type: GET_ALL_CARTS
     });
-    return await api.getAllCarts()
+    return await api.getAllCarts(state,page)
     .then((active)=>{
         console.log("ACTION",active.data)
         dispatch({
