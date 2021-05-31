@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import decode from 'jwt-decode'
+import swal from 'sweetalert';
 // import SearchBar from '../SearchBar/searchBar'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -38,7 +39,7 @@ export default function UserDetail() {
     const handleRemoveAddress = (userId, addressId) => {
         const objAddress = {addressId:addressId}
         console.log("REMOVE", objAddress)
-        removeAddress(userId, objAddress)
+        dispatch(removeAddress(userId, objAddress,history,swal))
     }
 
     const logout = () => {

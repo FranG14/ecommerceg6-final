@@ -192,7 +192,7 @@ export const addAddress = (id, payload, history, swal) => async(dispatch) => {
     })
 }
 
-export const removeAddress = (id, addressId) => async(dispatch) => {
+export const removeAddress = (id, addressId, history, swal) => async(dispatch) => {
 	console.log("ACTION REMOVE ADDRESS")
     return await api.removeAddress(id, addressId)
     .then((edit) => {
@@ -202,6 +202,14 @@ export const removeAddress = (id, addressId) => async(dispatch) => {
         })
         localStorage.setItem('profile', JSON.stringify(edit?.data))
     })
+	.then(async()=> {
+        swal({
+            title: "Done!",
+            text: 'Address removed from your Account',
+            icon: `info`
+        })
+    })
+    .then(() => history.push('/myProfile'))
     .catch((error) => {
         dispatch({
             type: REMOVE_ADDRESS_ERROR,
