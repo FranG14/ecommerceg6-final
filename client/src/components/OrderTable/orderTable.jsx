@@ -98,7 +98,7 @@ const OrdersTable = () => {
                     {orderArray && orderArray.length > 0 ? orderArray.map((c, id) => {
                         return <tr key={id} class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                {"Fecha"}
+                                {c.fechaCierre && c.fechaCierre.split(".")[0].split("T")[0] + " / " + c.fechaCierre.split(".")[0].split("T")[1]}
                             </td>
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
                                 {c.userId && c.userId.username ? c.userId.username : "User Not Logged"}

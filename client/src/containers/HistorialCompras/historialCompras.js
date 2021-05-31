@@ -59,6 +59,9 @@ function HistorialCompras(props) {
                     if (res.carts[i].state == "Delivered") {
                         carts.push(res.carts[i])
                     }
+                    if (res.carts[i].state == "Cancelled") {
+                        carts.push(res.carts[i])
+                    }
                 }
                 carts.sort((a, b) => {
                     if (parseDate(a.fechaCierre).getTime() > parseDate(b.fechaCierre).getTime()) {

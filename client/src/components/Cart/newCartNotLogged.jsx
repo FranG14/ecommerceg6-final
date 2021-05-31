@@ -12,10 +12,6 @@ const NewCartNotLogged = () => {
     const [total, setTotal] = useState({ totalItems: 0, totalPrice: 0 })
     const[incrementCart,setIncrementCart] = useState(false);
     const[decrementCart,setDecrementCart] = useState(false);
-    const [itemDeleted,setItemDeleted] = useState(false);
-
-    const [incrementCart, setIncrementCart] = useState(false)
-    const [decrementCart, setDecrementCart] = useState(false)
     const [deleteItem, setDeleteItem] = useState(false)
 
     const totalItems = () => {
@@ -121,10 +117,11 @@ const NewCartNotLogged = () => {
                         {/* <!-- End classic add -->
                         {/* <!-- Total Item --> */}
                         <div class="flex justify-center items-center text-center">
-                            <div class="text-xl font-semibold">
+                        <Link to={"/auth"}><button id="ch" className="bg-green-500 text-white rounded-md px-6 py-2">Log in to continue</button></Link>
+                            {/* <div class="text-xl font-semibold">                           
                                 <p>Total Item</p>
                                 <p class="text-5xl">{total.totalItems}</p>
-                            </div>
+                            </div> */}
                         </div>
                         {/* <!-- End Total Item --> */}
 
@@ -134,7 +131,7 @@ const NewCartNotLogged = () => {
                         <div class="flex justify-center items-center text-center">
                             <div class="text-xl font-semibold">
                                 <p>Total Price</p>
-                                <p class="text-5xl">${total.totalPrice}</p>
+                                <p class="text-5xl">${userCart?userCart.totalAmount:""}</p>
                             </div>
                         </div>
                         {/* <!-- End Total PRice --> */}

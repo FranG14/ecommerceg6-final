@@ -38,7 +38,7 @@ export const addItemNotLogged = (productBody) => {
     // let sizeName = productBody.sizeName
 
     // console.log("Product Body -------- ", productBody)
-    let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === colorName && i.sizeName === sizeName);
+    let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === productBody.colorName && i.sizeName === productBody.sizeName);
     if(productIndex === -1){
         cart.items.push(productBody);
         cart.totalAmount += price*quantity;
@@ -65,7 +65,7 @@ export const deleteItemNotLogged = (productId) => {
 //=============================================//
 export const incrementProductUnitNotLogged = (productId,color,size) => {
     let cart = getCartNotLogged();
-    let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === color && i.sizeName === size);
+    let productIndex = cart.items.findIndex((i) => i.productId === productId);
     if( productIndex > -1){
         const price = cart.items[productIndex].price;
         cart.items[productIndex].quantity++;
