@@ -3,6 +3,7 @@ import { detailProduct } from "../../redux/actions/products_actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { addItem, addToCart, getCartFromUser } from "../../redux/actions/cart_actions";
+import {addProductToWhishlist} from '../../redux/actions/whishlist_action';
 import UniversalNavBar from "../UniversalNavBar/universalNavBar";
 import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
@@ -94,6 +95,18 @@ function DetailProduct() {
     reviewsFilter = reviewsRating.slice(-15);
   }
 
+  function addProductToWhishlist(){
+    if(user?.result?._id) {
+      dispatch(addProductToWhishlist(user?.result?._id, id))
+    } else {
+      swal({
+        title: "Log In or Register first!",
+        icon: 'warning'
+      });
+    }
+  }
+
+
   function addProductToCart() {
     console.log("anda el carrito sin loguear", user)
     /*
@@ -169,6 +182,7 @@ function DetailProduct() {
               <h1 class="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
                 {productsArray.name}
               </h1>
+                <div style={{cursor:"pointer"}} onClick={()=>addProductToWhishlist}><i class="far fa-heart"></i></div>
               <h2 class="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
                 {!productStock ? (
                   <h2 className="text-red-500">No Stock</h2>

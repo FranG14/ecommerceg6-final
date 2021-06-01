@@ -9,7 +9,6 @@ API.interceptors.request.use((req)=> {
     if(localStorage.getItem('profile')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
     }
-
     return req;
 })
 //AUTHENTICATION
@@ -90,4 +89,9 @@ export const addCategory = (payload) => API.post(`/categories`, payload);
 export const editCategory = (payload) => API.put(`/categories/${payload.id}`,payload)
 export const deleteCategory = (payload) => API.delete(`/categories/${payload}`)
 
-
+//WHISHLIST
+export const getOrCreateWhishlistFromUser = (userId) => API.get(`/whishlists/${userId}`);
+export const addProductToWhishlist = (userId, productId) => API.post(`/whishlists/${userId}/${productId}`);
+export const removeProducFromWhishlist = (userId, productId) => API.put(`/whishlists/${userId}/${productId}`); 
+export const toggleProductFromWhishlist = (userId, productId) => API.put(`/whishlists/toggle/${userId}/${productId}`);
+export const isProductInWhishlist = (userId, productId) => API.get(`/whishlists/includes/${userId}/${productId}`);

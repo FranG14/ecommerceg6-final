@@ -8,6 +8,7 @@ import cartReducer from "./reducer/cart_reducer"
 import userReducer from "./reducer/user_reducer"
 import reviewReducer from "./reducer/review_reducer"
 import addressReducer from './reducer/address_reducer'
+import whishlistReducer from './reducer/whishlist_reducer'
 import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 
@@ -18,7 +19,8 @@ const reducers = combineReducers({
     cartReducer,
     userReducer,
     reviewReducer,
-    addressReducer
+    addressReducer,
+    whishlistReducer
 })
 
 const persistConfig = {

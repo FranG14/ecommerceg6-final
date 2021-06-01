@@ -1,5 +1,4 @@
 const server = require('express').Router();
-const Cart = require('./../models/Cart');
 
 const {
     getActiveCartFromUser,
