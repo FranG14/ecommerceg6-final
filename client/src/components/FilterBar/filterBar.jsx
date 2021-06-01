@@ -27,7 +27,7 @@ function FilterBar() {
     setFilterName({ ...filterName, [e.target.id]: e.target.innerText });
     setFilter(e.target.id);
 
-    console.log(filterName)
+    console.log("zxczxczxc",filterName)
   }
   //me filtra el array y me deja los brand sin repetir
   function brandArray() {
