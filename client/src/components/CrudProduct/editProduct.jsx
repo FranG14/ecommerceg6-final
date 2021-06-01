@@ -133,7 +133,6 @@ const EditProduct = () => {
   }
 
   const deleteCateg = (e) => {
-    console.log("ENTRA",selectedName.categoryName)
     let filterCategory = []
     selectedName.categoryName.map(cate => {
       if (cate.trim() !== e.target.innerText) {
