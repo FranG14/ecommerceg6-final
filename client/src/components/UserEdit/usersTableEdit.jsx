@@ -49,27 +49,27 @@ export default function UserTableEdit() {
 
         e.preventDefault();
         let userSend;
-        if(user.password==""){
+        if (user.password == "") {
             userSend = {
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
-    
+
                 street: user.street,
                 streetNumber: user.streetNumber,
                 state: user.state,
                 country: user.country,
                 zipcode: user.zipcode,
-    
+
             };
-        }else{
+        } else {
             userSend = {
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
-    
+
                 street: user.street,
                 streetNumber: user.streetNumber,
                 state: user.state,
@@ -79,7 +79,7 @@ export default function UserTableEdit() {
             };
         }
         //alert(JSON.stringify(localStorage.getItem('profile')))
-        dispatch(editUserAdmin(userSend,localStorage.getItem('profile')));
+        dispatch(editUserAdmin(userSend, localStorage.getItem('profile')));
         setUser(newUser)
         swal({
             title: "User Edited",
@@ -91,7 +91,7 @@ export default function UserTableEdit() {
     };
 
     return (
-        <div>
+        <div className="tracking-wide font-bold">
 
 
             <UniversalBar />

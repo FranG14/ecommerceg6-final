@@ -14,7 +14,7 @@ const NewCart = () => {
     // const user = useSelector(state =>
     //      state.userReducer)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    console.log("USERRRR",user)
+    console.log("USERRRR", user)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCartFromUser(user?.result?._id))
@@ -122,7 +122,7 @@ const NewCart = () => {
 
     console.log("CONSOLE DE USERcART", userCart)
     return (
-        <div class="bg-gray-200 h-full md:h-screen">
+        <div class="bg-gray-200 h-full md:h-screen tracking-wide font-bold">
             <UniversalNavBar />
             <Link to={`/payment/${payment}`} id="payment" style={{ display: "none" }}></Link>
             <Link to="/auth" id="redirect" style={{ display: "none" }}></Link>
@@ -190,20 +190,20 @@ const NewCart = () => {
 
                     </div>
                     <div className="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
-                        {(userData?.addresses && userData?.addresses.length > 0) 
-                        ? <div class="flex flex-col justify-center items-center text-center"> 
-                        <p className="text-xl font-semibold">Delivered To</p>
-                        <select name ="addresses"
-                        >
-                        {
-                            userData?.addresses.map((a)=> <option value={a.address}>{a.address}</option>)
-                        }    
-                        </select>
-                        </div>
-                        : 
-                        <Link to={`/MyProfile/addAddress/${id}`}><button id="ch" className="bg-green-500 text-white rounded-md px-6 py-2">Add an Address</button></Link>
+                        {(userData?.addresses && userData?.addresses.length > 0)
+                            ? <div class="flex flex-col justify-center items-center text-center">
+                                <p className="text-xl font-semibold">Delivered To</p>
+                                <select name="addresses"
+                                >
+                                    {
+                                        userData?.addresses.map((a) => <option value={a.address}>{a.address}</option>)
+                                    }
+                                </select>
+                            </div>
+                            :
+                            <Link to={`/MyProfile/addAddress/${id}`}><button id="ch" className="bg-green-500 text-white rounded-md px-6 py-2">Add an Address</button></Link>
                         }
-                    </div> 
+                    </div>
                     <div className="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
                         {/* <!-- Total Price --> */}
                         <div class="flex justify-center items-center text-center">

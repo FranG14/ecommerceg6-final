@@ -149,7 +149,7 @@ function DetailProduct() {
   });
 
   return (
-    <div>
+    <div className="tracking-wide font-bold">
       <UniversalNavBar />
       <section class="text-gray-700 body-font overflow-hidden mt-10 bg-gray-200">
         <div class="container px-5  py-28 mx-auto">
@@ -163,13 +163,13 @@ function DetailProduct() {
               />
             )}
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 class="text-2xl pl-4 title-font text-gray-500 tracking-widest">
+              <h2 class="text-2xl pl-3 title-font tracking-wide font-bold text-gray-500 tracking-widest">
                 {productsArray.brand}
               </h2>
-              <h1 class="text-gray-900 pl-4 text-3xl title-font font-medium mb-1">
+              <h1 class="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
                 {productsArray.name}
               </h1>
-              <h2 class="text-l title-font pl-4 text-gray-500 tracking-widest">
+              <h2 class="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
                 {!productStock ? (
                   <h2 className="text-red-500">No Stock</h2>
                 ) : productStock && productStock.stock < 10 ? (
@@ -179,7 +179,7 @@ function DetailProduct() {
                 )}
               </h2>
               <div class="flex mb-4 pl-3">
-                <span class="flex items-center">
+                <span class="flex tracking-wide font-bold items-center">
                   {productsArray.productReview &&
                     productsArray.productReview.length === 0 ? (
                     <h2>No reviews</h2>
@@ -206,10 +206,10 @@ function DetailProduct() {
                   <span class="text-gray-600 ml-3 text-lg">Add Review</span>
                 </Link>
               </div>
-              <p class="leading-relaxed pl-4">{productsArray.description}</p>
+              <p class="leading-relaxed pl-3">{productsArray.description}</p>
               <div class="flex mt-6 pl-4 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 <div class="flex items-center">
-                  <span class="mr-3">Color</span>
+                  <span class="-ml-1 mr-3">Color</span>
                   <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                     <option>Select</option>
                     {stockArray && stockArray.colors.length > 0
@@ -254,7 +254,7 @@ function DetailProduct() {
                   </div>
                 </div>
               </div>
-              <div class="flex mb-4 pl-4">
+              <div class="flex mb-4 pl-3">
                 <span class="title-font font-medium text-2xl mt-1 text-gray-900">
                   ${productsArray.price}
                 </span>

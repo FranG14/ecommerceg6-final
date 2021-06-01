@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const Header = ({ headers, onSorting }) => {
-    
+
     const [sortingField, setSortingField] = useState("")
     const [sortingOrder, setSortingOrder] = useState("asc")
 
@@ -11,7 +11,7 @@ const Header = ({ headers, onSorting }) => {
         setSortingOrder(order);
         onSorting(field, order)
     }
-    
+
 
     return (
         <div className="sorts">
@@ -20,7 +20,7 @@ const Header = ({ headers, onSorting }) => {
                     <div className="sorting" key={name} onClick={() => sortable ? onSortingChange(field) : null}>
                         {name}
                         {sortingField && sortingField === field && (
-                            <div className="arrow">{ sortingOrder === "asc" ? '⬇' : "⬆" }</div>
+                            <div className="arrow">{sortingOrder === "asc" ? '⬇' : "⬆"}</div>
                         )}
                     </div>))}
             </div>

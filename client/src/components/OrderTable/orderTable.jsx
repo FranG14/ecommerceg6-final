@@ -11,14 +11,14 @@ const OrdersTable = () => {
     const dispatch = useDispatch();
     const [page, setPage] = useState(1)
     useEffect(() => {
-        dispatch(getAllCarts("",page));
+        dispatch(getAllCarts("", page));
     }, [page]);
 
     const orderArray = useSelector(
         (state) => state.cartReducer.cart.carts
     );
 
-    const[filter,setFilter] = useState("Paid")
+    const [filter, setFilter] = useState("Paid")
 
     const next = () => {
         setPage(page + 1)
@@ -64,21 +64,21 @@ const OrdersTable = () => {
         dispatch(getAllCarts(filter))
     }
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <div className="mt-16 pt-4 mb-4 flex justify-center">
 
                 <div class="relative mr-6 my-2 ml-2">
                     {/* Filtros */}
-                    <select className ="h-11 rounded" id ="selectOptions" onChange = {(e) => setFilter(e.target.value)}>
+                    <select className="h-11 rounded" id="selectOptions" onChange={(e) => setFilter(e.target.value)}>
                         <option>Paid</option>
                         <option>Cancelled</option>
                         <option>On it´s way</option>
                         <option>Delivered</option>
                         <option>Active</option>
                     </select>
-                    <button className ="inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none" onClick = {() => selectedFilter(filter)}>Filter</button>
-                    {filter && <p onClick={reset} className = "px-2 py-1 inline-block mr-2 mt-4 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 w-auto text-center">{filter} X</p>}
+                    <button className="inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none" onClick={() => selectedFilter(filter)}>Filter</button>
+                    {filter && <p onClick={reset} className="px-2 py-1 inline-block mr-2 mt-4 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 w-auto text-center">{filter} X</p>}
                 </div>
 
             </div >

@@ -5,7 +5,7 @@ import ProductPostForm from '../../components/CrudProduct/productPost'
 
 const AdminPost = () => {
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <ProductPostForm />
             <Footer />

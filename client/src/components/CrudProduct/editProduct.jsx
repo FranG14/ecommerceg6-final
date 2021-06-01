@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from 'react-router-dom';
 import { getCategories, getCategoryById } from "./../../redux/actions/category_actions";
-import { deleteProductStock, detailProduct, editProduct,editStock, stockUpdated } from "./../../redux/actions/products_actions";
+import { deleteProductStock, detailProduct, editProduct, editStock, stockUpdated } from "./../../redux/actions/products_actions";
 import "../Catalog/catalog.css";
 import swal from 'sweetalert';
 import UniversalNavBar from "../UniversalNavBar/universalNavBar";
@@ -52,7 +52,7 @@ const EditProduct = () => {
   const [selectedName, setSelectedName] = useState({ categoryName: [] });
   const [newStock, setNewStock] = useState(false);
   const [editStock, setEditStock] = useState(false);
-  const [stockUpdate, setStockUpdate] = useState({color:"",size:"",quantity:""});
+  const [stockUpdate, setStockUpdate] = useState({ color: "", size: "", quantity: "" });
   const handleInputChange = (e) => {
     setProduct({
       ...product,
@@ -79,8 +79,8 @@ const EditProduct = () => {
     let sizeName = document.getElementById("selectSizeName").value;
     let stock = document.getElementById("selectStock").value;
 
-    if(colorName || sizeName || stock){
-      setStockUpdate({...stockUpdate,color:colorName,size:sizeName,quantity:stock})
+    if (colorName || sizeName || stock) {
+      setStockUpdate({ ...stockUpdate, color: colorName, size: sizeName, quantity: stock })
     }
   }
 
@@ -88,7 +88,7 @@ const EditProduct = () => {
     let color = document.getElementById("color").value;
     let stock = document.getElementById("stock").value;
     let size = document.getElementById("size").value;
-    console.log("FUNCTION",color,stock,size)
+    console.log("FUNCTION", color, stock, size)
     if (color !== "" && stock !== "" && size !== "") {
       setProduct({
         ...product,
@@ -99,22 +99,22 @@ const EditProduct = () => {
     }
   }
 
-  const updateStock  = (stock) => {
+  const updateStock = (stock) => {
     let getStock = document.getElementById("stockUpdated").value;
     //hago un find para traerme el id
     //hago el dispatch para actualizar el stock
     //le paso al dispatch el id del stock y la cantidad a editar
-   let stockFinded = productPreview.stock.find(prop => prop.colorName === stock.color && prop.sizeName === stock.size);
-   dispatch(stockUpdated(stockFinded._id,{quantity:getStock}))
+    let stockFinded = productPreview.stock.find(prop => prop.colorName === stock.color && prop.sizeName === stock.size);
+    dispatch(stockUpdated(stockFinded._id, { quantity: getStock }))
   }
 
   const deleteStock = (stock) => {
     //hago el dispatch para eliminar el stock
     //hago un find para traerme el id
     let stockFinded = productPreview.stock.find(prop => prop.colorName === stock.color && prop.sizeName === stock.size);
-   dispatch(deleteProductStock(stockFinded._id))
+    dispatch(deleteProductStock(stockFinded._id))
   }
-console.log("PRUEBA",product)
+  console.log("PRUEBA", product)
   const deleteColor = (e) => {
     let filterColor = [];
     let filterSize = [];
@@ -135,11 +135,11 @@ console.log("PRUEBA",product)
   const deleteCateg = (e) => {
     let filterCategory = []
     selectedName.categoryName.map(cate => {
-      if(cate !== e.target.innerText){
+      if (cate !== e.target.innerText) {
         filterCategory.push(cate);
       }
     });
-    setSelectedName({categoryName: filterCategory})
+    setSelectedName({ categoryName: filterCategory })
   }
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -187,9 +187,9 @@ console.log("PRUEBA",product)
     dispatch(editProduct(payload, config));
     alert("Activity successfullty edited");
   };
-  console.log("CCCCC",productPreview)
+  console.log("CCCCC", productPreview)
   return (
-    <div>
+    <div className="tracking-wide font-bold">
       <UniversalNavBar />
 
       <div class="grid grid-cols-2 gap-2 bg-gray-200">
@@ -221,61 +221,61 @@ console.log("PRUEBA",product)
                     />
                   </div>
                   <div class="mb-6">
-                    <select id = "selectColorName" onChange = {(e) => handleStock(e)} className ="mr-4">
+                    <select id="selectColorName" onChange={(e) => handleStock(e)} className="mr-4">
                       <option>Select</option>
                       {
                         productPreview.stock && productPreview.stock.length > 0 &&
-                        productPreview.stock.map((prop,id) => {
+                        productPreview.stock.map((prop, id) => {
                           return <option key={id} >{prop.colorName}</option>
-                        }) 
+                        })
                       }
                     </select>
-                    <select onChange = {(e) => handleStock(e)} id = "selectSizeName"className = "mr-4">
-                    <option>Select</option>
+                    <select onChange={(e) => handleStock(e)} id="selectSizeName" className="mr-4">
+                      <option>Select</option>
                       {
                         productPreview.stock && productPreview.stock.length > 0 &&
-                        productPreview.stock.map((prop,id) => {
+                        productPreview.stock.map((prop, id) => {
                           return <option key={id}>{prop.sizeName}</option>
-                        }) 
+                        })
                       }
                     </select>
-                    <select onChange = {(e) => handleStock(e)} id="selectStock" className ="mr-2">
-                    <option>Select</option>{
+                    <select onChange={(e) => handleStock(e)} id="selectStock" className="mr-2">
+                      <option>Select</option>{
                         productPreview.stock && productPreview.stock.length > 0 &&
-                        productPreview.stock.map((prop,id) => {
-                          return <option  key={id}>{prop.stock}</option>
-                        }) 
+                        productPreview.stock.map((prop, id) => {
+                          return <option key={id}>{prop.stock}</option>
+                        })
                       } </select>
-                      <button type = "button" onClick = {() => setEditStock(!editStock)} className = "ml-2">Edit</button>
-                      <button type = "button" onClick = {() => setNewStock(!newStock)} className = "ml-2"> New</button>
-                  {editStock  && <div className ="mt-6"><input id ="stockUpdated" className ="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" placeholder ="Quantity"/>
-                  <button type="button" onClick = {() => updateStock(stockUpdate)} className = "ml-4 w-20 px-3 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none">Update</button>
-                  <button type ="button" onClick = {() => deleteStock(stockUpdate)} className = "ml-4 w-20 px-3 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none">Delete</button>
-                  </div>}
-                  
-                  {newStock && <div className = "mt-4"><label
-                    for="color"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Stock
+                    <button type="button" onClick={() => setEditStock(!editStock)} className="ml-2">Edit</button>
+                    <button type="button" onClick={() => setNewStock(!newStock)} className="ml-2"> New</button>
+                    {editStock && <div className="mt-6"><input id="stockUpdated" className="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" placeholder="Quantity" />
+                      <button type="button" onClick={() => updateStock(stockUpdate)} className="ml-4 w-20 px-3 py-2 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none">Update</button>
+                      <button type="button" onClick={() => deleteStock(stockUpdate)} className="ml-4 w-20 px-3 py-2 text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none">Delete</button>
+                    </div>}
+
+                    {newStock && <div className="mt-4"><label
+                      for="color"
+                      class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    >
+                      Stock
                   </label>
-                  <input
-                    id="color"
-                    type="text"
-                    name="color"
-                    placeholder="Color"
-                    // value={product.color}
-                    // required
-                    class="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                  />
-                  <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
-                  <input id="stock" placeholder="Quantity" type="number" className="w-28 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" /> 
-                  
-                  <button type="button" onClick={handleMultipleInput} className="ml-4">+</button></div>}<br />
-                  {product.color && product.color.length > 0 &&
-                    product.color.map((color, i) => {
-                      return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color} {product.size[i]} {product.stock[i]}</p>
-                    })}
+                      <input
+                        id="color"
+                        type="text"
+                        name="color"
+                        placeholder="Color"
+                        // value={product.color}
+                        // required
+                        class="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                      />
+                      <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                      <input id="stock" placeholder="Quantity" type="number" className="w-28 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+
+                      <button type="button" onClick={handleMultipleInput} className="ml-4">+</button></div>}<br />
+                    {product.color && product.color.length > 0 &&
+                      product.color.map((color, i) => {
+                        return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color} {product.size[i]} {product.stock[i]}</p>
+                      })}
                   </div>
                   {/* genre */}
                   <div>
@@ -320,7 +320,7 @@ console.log("PRUEBA",product)
                     />
                   </div>
                   <div class="mb-6">
-                
+
                   </div>
                   <div class="mb-6">
                     <label
@@ -340,7 +340,7 @@ console.log("PRUEBA",product)
                                       focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                    dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                    dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                      // required
+                    // required
                     />
                   </div>
                   <div class="mb-6">
@@ -363,7 +363,7 @@ console.log("PRUEBA",product)
                                   dark:text-white dark:placeholder-gray-500 
                                   dark:border-gray-600 dark:focus:ring-gray-900 
                                   dark:focus:border-gray-500"
-                      // required
+                    // required
                     />
                   </div>
                   <div class="mb-6">
@@ -374,7 +374,7 @@ console.log("PRUEBA",product)
                       Category
                     </label>
                     <label className="label-select">
-                      <select id="categoryId" onChange={handleSelect} className ="mb-2">
+                      <select id="categoryId" onChange={handleSelect} className="mb-2">
                         <option value="">--- category ---</option>
                         {categoryArray && categoryArray.length > 0
                           ? categoryArray.map((c, id) => {
@@ -385,7 +385,7 @@ console.log("PRUEBA",product)
                             );
                           })
                           : ""}
-                      </select><br/>
+                      </select><br />
                       {selectedName.categoryName.length > 0 ? selectedName.categoryName.map((cate, key) => {
                         return <p onClick={deleteCateg} key={key} className="inline-block mr-2 rounded round bg-gray-200 mb-2 w-20 text-center">
                           {cate}

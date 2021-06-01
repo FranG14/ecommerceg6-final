@@ -98,7 +98,7 @@ export default function UniversalNavBar(props) {
 
   return (
     <div className="">
-      <header class="header text-center">
+      <header class="header tracking-wide font-bold text-center">
         <Link to="/" class="logo">
           {" "}
           <img alt="logo" src={home}></img>{" "}
