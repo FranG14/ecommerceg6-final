@@ -5,7 +5,6 @@ const { isAuthenticated, isAdmin } = require('./../middlewares/customMiddlewares
 const {
   addProducts,
   getProductsFilter,
-  getProductsFilterByCategory,
   getProducts,
   updateProducts,
   updateStock,
@@ -18,7 +17,6 @@ const {
 
 server.get("/", getProducts);
 server.get("/filters/", getProductsFilter)
-server.get("/category/:name", getProductsFilterByCategory)
 server.get("/:id", getProductsById)
 server.get("/detail/:id", getProductsById)
 server.post("/",upload.array("img"), addProducts);
