@@ -63,11 +63,11 @@ const TableProduct = () => {
 
   }
   return (
-    <div>
-      <div className="mt-4 pt-20 mb-4 flex justify-center">
+    <div className="tracking-wide font-bold">
+      <div className="mt-4 pt-20 mb-4 flex  justify-center">
 
         <div class="relative mr-6 my-2 ml-2 -mt-0.5">
-         
+
           {/*   <button className="bg-white" onClick={handleSubmit}>🔍</button> */}
           <div class="absolute pin-r pin-t mt-3 mr-4 text-purple-lighter">
             <svg version="1.1" class="h-4 text-dark" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -108,22 +108,22 @@ const TableProduct = () => {
                 {c.brand}
               </td>
               <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                {c.stock && c.stock.length > 0 && 
-                c.stock.map(prop => {
-                  return <p>{prop.colorName}</p>
-                })}
+                {c.stock && c.stock.length > 0 &&
+                  c.stock.map(prop => {
+                    return <p>{prop.colorName}</p>
+                  })}
               </td>
               <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-              {c.stock && c.stock.length > 0 && 
-                c.stock.map(prop => {
-                  return <p>{prop.sizeName}</p>
-                })}
+                {c.stock && c.stock.length > 0 &&
+                  c.stock.map(prop => {
+                    return <p>{prop.sizeName}</p>
+                  })}
               </td>
               <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-              {c.stock && c.stock.length > 0 && 
-                c.stock.map(prop => {
-                  return <p>{prop.stock}</p>
-                })}
+                {c.stock && c.stock.length > 0 &&
+                  c.stock.map(prop => {
+                    return <p>{prop.stock}</p>
+                  })}
               </td>
               <td class="p-2 border-r flex justify-center">
 

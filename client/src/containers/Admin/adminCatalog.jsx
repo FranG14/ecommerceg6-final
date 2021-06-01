@@ -5,7 +5,7 @@ import Footer from '../Footer/footer'
 
 const AdminCatalog = () => {
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <TableProduct />
             <Footer />

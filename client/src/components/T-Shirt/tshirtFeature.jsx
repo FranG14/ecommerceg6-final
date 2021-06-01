@@ -6,6 +6,7 @@ import batman from "./batman.png"
 import { SwatchesPicker } from 'react-color';
 import UniversalNavBar from '../UniversalNavBar/universalNavBar';
 import Footer from '../../containers/Footer/footer';
+import domtoimage from 'dom-to-image';
 
 
 const TshirtFeature = () => {
@@ -22,7 +23,7 @@ const TshirtFeature = () => {
     useEffect(() => {
         setCanvas(initCanvas());
     }, []);
-
+    console.log(canvas)
     const addImg = (e, url, canvi) => {
         e.preventDefault();
         new fabric.Image.fromURL(url, img => {
@@ -30,7 +31,9 @@ const TshirtFeature = () => {
             canvi.add(img);
             canvi.renderAll();
             setImgURL('');
-        });
+        }, {
+            crossOrigin: "Annoymous"
+        });;
     }
 
     const addRect = canvi => {
@@ -42,6 +45,29 @@ const TshirtFeature = () => {
         canvi.add(rect);
         canvi.renderAll();
     }
+
+    const download = () => {
+        var node = document.getElementById('tshirt-div');
+
+        domtoimage.toPng(node).then(function (dataUrl) {
+            // Print the data URL of the picture in the Console
+            console.log(dataUrl);
+            // You can for example to test, add the image at the end of the document
+            var img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.src = dataUrl;
+
+            //document.body.appendChild(img);
+            var link = document.createElement('a');
+            link.download = 'my-image-name.jpeg';
+            link.crossOrigin = 'Anonymous'
+            link.href = dataUrl;
+            link.click()
+        }).catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        });
+    }
+
 
     /**
  * Método que define una imagen como imagen de fondo del lienzo.
@@ -98,7 +124,7 @@ const TshirtFeature = () => {
 
 
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
 
             <section class="mt-10 -mb-10 text-gray-700 body-font overflow-hidden bg-white">
@@ -106,7 +132,7 @@ const TshirtFeature = () => {
                     <div class=" mx-auto flex flex-wrap">
                         <div id='tshirt-div'>
                             {/* <img alt="ecommerce" class="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200" src="https://www.whitmorerarebooks.com/pictures/medium/2465.jpg" /> */}
-                            <img id="tshirt-backgroundpicture" src={remera} />
+                            <img id="tshirt-backgroundpicture" crossOrigin="anonymous" src={remera} />
 
                             <div id="drawingArea" class="drawing-area">
                                 <div class="canvas-container">
@@ -147,6 +173,8 @@ const TshirtFeature = () => {
                                         </div>
                                     </div>
                                 </form>
+                                <button type="button" onClick={() => download()} class="flex text-white bg-red-500 border-0 ml-10 mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add Image</button>
+
                             </div>
                         </div>
                     </div>

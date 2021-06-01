@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function AdminAction() {
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <div class="pt-28  h-100 w-full flex items-center justify-center bg-teal-lightest font-sans pb-16 mt-2">
                 <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">

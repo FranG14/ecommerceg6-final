@@ -15,10 +15,10 @@ import image4 from '../../assets/image4.jpg'
 export default function Home() {
 
   return (
-    <div>
+    <div className="tracking-wide font-bold bg-gradient-to-t from-blue-200 to-indigo-900">
       // {/*  <UniversalNavBar /> */}
       // {/*   <Carousel productos={[{ id: 1, url: "https://www.hola.com/imagenes/estar-bien/20180312121453/ropa-contamina-medio-ambiente/0-548-821/ropa-medioambiente-t.jpg?filter=w600&filter=ds75" }, { id: 2, url: "https://percentil.com/blog/wp-content/uploads/2019/10/Segunda-mano-1080x720.jpg" }, { id: 3, url: "https://economiasustentable.com/wp-content/uploads/2020/01/ropa.png" }, { id: 4, url: "https://www.manosunidas.org/sites/default/files/styles/full-news-hightlighted/public/exj_ropa_1.jpg?itok=qYz_7Cg-&timestamp=1590663388" }]} /> */}
-      <body class="bg-white font-serif">
+      <body class="bg-white f">
 
         {/* <header class="flex flex-wrap items-center justify-between px-12 h-32 -mb-32 relative"> */}
         <UniversalNavBar />
@@ -39,7 +39,7 @@ export default function Home() {
 
         {/*   </header> */}
 
-        <div class="w-full flex flex-wrap md:h-screen pt-32">
+        <div class="w-full flex flex-wrap md:h-screen pt-32 bg-gradient-to-t from-gray-100 to-gray-400">
           <div class="pt-6 md:pt-0 w-full md:flex-1 md:order-last">
             <img src={nike2} class="w-full h-64 md:h-full object-cover" />
           </div>
@@ -98,9 +98,9 @@ export default function Home() {
         </div>
 
 
-        <div class="py-24 px-12">
+        <div class="py-24 px-12 bg-gradient-to-t from-gray-400 to-gray-100">
 
-          <div class="container mx-auto flex flex-wrap">
+          <div class="container mx-auto flex flex-wrap ">
             <div class="w-full md:w-1/2 md:pr-4 flex flex-wrap mb-12 md:mb-0">
               <div class="p-2 w-1/2">
                 <img src={zapatillas} class="w-full h-64 object-cover" />

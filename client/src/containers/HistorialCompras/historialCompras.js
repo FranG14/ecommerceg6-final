@@ -77,7 +77,7 @@ function HistorialCompras(props) {
     }, [])
     console.log("CCC",carritos)
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <div className="flex h-screen w-100 pt-28 px-5">
                 <div className="flex-grow">

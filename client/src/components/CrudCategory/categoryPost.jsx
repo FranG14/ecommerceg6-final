@@ -35,15 +35,15 @@ const ProductPostForm = () => {
         };
         dispatch(addCategory(categorySend));
         setCategory(newCategory)
-      /*   alert("Activity successfullty created"); */
+        /*   alert("Activity successfullty created"); */
         //--------VALIDACION-------------------------------
-        if(category.name === '') return swal({
+        if (category.name === '') return swal({
             title: "Name Field Cannot Be Empty",
             icon: "warning",
             button: true,
             dangerMode: true,
         })
-          if(category.description === '') return  swal({
+        if (category.description === '') return swal({
             title: "Description Field Cannot Be Empty",
             icon: "warning",
             button: true,
@@ -51,10 +51,10 @@ const ProductPostForm = () => {
         })
     };
 
-    
+
     // console.log(product)
     return (
-        <div class="  bg-gray-200">
+        <div class=" tracking-wide font-bold bg-gray-200">
             <UniversalNavBar />
             <form onSubmit={handleSubmit}>
                 <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
