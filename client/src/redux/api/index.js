@@ -73,8 +73,8 @@ export const toggleAdmin = (payload) => API.put(`/users/toggle/${payload}`)
 export const editPassword = (id, payload) => API.put(`/users/password/${id}`, payload);
 
 //FILTERS
-export const filterByName = (filterName, filter) => API.get(`/products/${filterName}?${filterName}=${filter}`) //return await axios.get(`${REACT_APP_API}products/${filterName}?${filterName}=${filter}`)
-export const filterByBrand = (filter) => API.get(`/products/brand?=${filter.brand}&size=${filter.size}&genre=${filter.genre}&price=${filter.price}&category=${filter.category}`)
+export const filterByName = (filterName, filter) => API.get(`/products/aaaa/${filterName}?${filterName}=${filter}`) //return await axios.get(`${REACT_APP_API}products/${filterName}?${filterName}=${filter}`)
+export const filterByBrand = (filter) => API.get(`/products/filters/?brand=${filter.brand}&size=${filter.size}&genre=${filter.genre}&price=${filter.price}&category=${filter.category}`)
 export const filterByCategory = (name) => API.get(`/products/category/${name}`);
 
 //REVIEWS

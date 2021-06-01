@@ -17,7 +17,7 @@ const {
 
 
 server.get("/", getProducts);
-server.get("/:filterName", getProductsFilter)
+server.get("/filters/", getProductsFilter)
 server.get("/category/:name", getProductsFilterByCategory)
 server.get("/:id", getProductsById)
 server.get("/detail/:id", getProductsById)

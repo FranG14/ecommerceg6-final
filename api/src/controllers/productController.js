@@ -55,34 +55,36 @@ const getProductsById = (req, res) => {
 const getProductsFilter = (req, res, next) => {
   let filter = req.query.brand || req.query.size || req.query.genre || req.query.price;
   let keyword;
-  let filterPrice
-  if (filter == "price") {
+  console.log("AASDD")
+  let filterPrice;
+  if (filter === "price") {
     filterPrice = {
       field: req.query.price
     }
   }
+
   if (filter !== "") {
     keyword = {
       brand: {
         $regex: req.query.brand,
         $options: "i",
-      }, size: {
-        $regex: req.query.size,
-        $options: "i",
       },
+      // size: {
+      //   $regex: req.query.size,
+      //   $options: "i",
+      // },
       genre: {
         $regex: req.query.genre,
         $options: "i",
       },
     }
   } else {
-
     keyword = {}
-  }
+  } console.log("c",keyword)
   Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
     .then(answer => {
-      // console.log("ANSWER", answer)
+      console.log("ANSWER", answer)
       if (req.query.category) {
         let productsCategories = [];
         if (answer && answer.length > 0) {
@@ -92,11 +94,10 @@ const getProductsFilter = (req, res, next) => {
             }
           }
         }
-
-
+        
         return res.status(200).json({ products: productsCategories });
       }
-
+      console.log("c",answer)
       res.status(200).json({ products: answer });
     })
     .catch(err => {
@@ -223,7 +224,7 @@ const updateProducts = asyncHandler(async (req, res) => {
     size,
     color,
   } = req.body;
-  const categoryArray = categories?categories.split(","):""
+  const categoryArray = categories ? categories.split(",") : ""
   let images = [];
   if (req.files) {
     for (let i = 0; i < req.files.length; i++) {
@@ -234,7 +235,7 @@ const updateProducts = asyncHandler(async (req, res) => {
   let sizeArray = size.split(",");
   let stockArray = stock.split(",");
   let stockId = []
-  
+
   if (colorArray && colorArray.length > 0) {
     colorArray.map((c, i) => {
       const newStock = Stock({
@@ -250,19 +251,19 @@ const updateProducts = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
 
-    if(name) (product.name = name)
-      if(brand) (product.brand = brand)
-      if(categoryArray !== "")(product.categories = categoryArray)
-      if(description)(product.description = description)
-      if(price)(product.price = price)
-      if(stockId){
-        let newStock = product.stock
-        stockId.map(s => newStock.push(s))
-        product.stock = newStock;
-      }
-      if(rating)(product.rating = rating)
-      if(genre)(product.genre = genre)
-      if(images)(product.img = images)
+    if (name) (product.name = name)
+    if (brand) (product.brand = brand)
+    if (categoryArray !== "") (product.categories = categoryArray)
+    if (description) (product.description = description)
+    if (price) (product.price = price)
+    if (stockId) {
+      let newStock = product.stock
+      stockId.map(s => newStock.push(s))
+      product.stock = newStock;
+    }
+    if (rating) (product.rating = rating)
+    if (genre) (product.genre = genre)
+    if (images) (product.img = images)
 
     const updateProduct = await product.save();
     res.json(updateProduct);
