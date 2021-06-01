@@ -44,35 +44,35 @@ function Catalogo() {
           </div>
         </div>
         <div className="flex-auto">
-          <div className="grid sm:grid-cols-3  sm:grid-rows-5  grid-cols-1 justify-center justify-items-center content-center items-center">
+          <div className="grid sm:grid-cols-3  sm:grid-rows-5 px-4 py-3 grid-cols-1 justify-center justify-items-center content-center items-center">
+            
             {productsArray?.products ? (
               productsArray.products.map((producto, key) => {
                 return (
+                  <Link key={key}
+                    style={{ textDecoration: "none", outline: "none" }}
+                    to={`/product/${producto._id}`}
+                  >
+                    <div key={key} className="card bg-white mb-5 px-4 py-4">
+                      <img
+                        src={`http://localhost:3001/products/image/${producto.img}`}
+                        alt="https://i.stack.imgur.com/y9DpT.jpg"
+                        style={{ height: "400px", width: "420px" }}
+                      />
 
-                  <section class="container w-11/12 h-11/12 md:p-6 antialiased">
-                    <article class=" py-6 px-3 cursor-pointer transform duration-500 hover:-translate-y-1">
-                      <Link key={key}
-                        className="w-11/12"
-                        style={{ textDecoration: "none", outline: "none" }}
-                        to={`/product/${producto._id}`}>
-                        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-                          <div class="bg-cover bg-center  p-4">
-                            <img src={`http://localhost:3001/products/image/${producto.img}`} className="" />
-                          </div>
-                          <div class="p-4 py-5">
-                            <div className="mx-auto mb-2 lg:mx-0 w-5/5 pt-3 border-b-2 border-gray-900 opacity-25"></div>
-
-                            <p class="uppercase tracking-wide text-lg ml-3 font-bold text-gray-700">
-                              {producto.name}
-                            </p>
-                            <p class="text-3xl text-gray-900 mt-1.5 ml-3 mb-1.5"> ${producto.price}</p>
-                            <p class="text-gray-700 ml-3 text-xl">{producto.brand}</p>
-                          </div>
-                        </div>
-
-                      </Link>
-                    </article>
-                  </section>
+                  <div
+                        className="bg-gray-200"
+                        style={{ height: "1px" }}
+                      ></div>
+                      <div className="p-4">
+                        <p className="text-black">{producto.name}</p>
+                        {producto.stock === 0 && <h4 className="text-red-500">No Stock</h4>}
+                        <p className="text-blue-300">${producto.price}</p>
+                        <p className="text-blue-300">{producto.brand}</p>
+                        <p className="text-blue-300">{producto.description}</p>
+                      </div>
+                    </div>
+                  </Link>
                 );
               })
             ) : (
@@ -137,7 +137,7 @@ function Catalogo() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

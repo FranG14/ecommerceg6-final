@@ -11,7 +11,7 @@ const { where } = require("../models/Order");
 // @route   GET localhost:3001/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res, next) => {
-  const pageSize = req.query.pageSize || 15;
+  const pageSize = req.query.pageSize || 12;
   const page = req.query.page || 1;
 
   const keyword = req.query.keyword

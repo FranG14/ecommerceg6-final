@@ -80,10 +80,10 @@ const UsersTable = () => {
     return (
         <div className="tracking-wide font-bold">
             <UniversalNavBar />
-            <div className="mt-20 mb-4 flex justify-center">
+            <div className="mt-20 mb-4  flex justify-center ">
                 <div class="relative mr-6 my-2 ml-2 -mt-0.5">
-                    <input type="search" class="bg-purple-white shadow rounded border-0 p-3" value={input.email} onChange={(e) => handleChange(e)} placeholder="Search by email...   " />
-                    <button className="bg-white" onClick={handleSubmit}>🔍</button>
+                    <input type="search" class="mt-8 bg-purple-white shadow rounded border-0 p-3" value={input.email} onChange={(e) => handleChange(e)} placeholder="Search by email...   " />
+                    <button className="bg-gray" onClick={handleSubmit}>🔍</button>
                     <div class="absolute pin-r pin-t mt-3 mr-4 text-purple-lighter">
                         <svg version="1.1" class="h-4 text-dark" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                             viewBox="0 0 52.966 52.966" style={{ enableBackground: "new 0 0 52.966 52.966" }} xmlSpace="preserve">
@@ -119,9 +119,9 @@ const UsersTable = () => {
                                 {c.email}
                             </td>
                             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                                <button class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-yellow-500 rounded-lg focus:shadow-outline hover:bg-yellow-400" onClick={() => makeAdmin(c._id)}>👮🏽</button>
-                                <button class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700"> <Link to={'/users/edit/' + c._id}>✍</Link> </button>
-                                <button class="h-10 px-5 m-2 text-red-100 transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800" onClick={() => deleteU(c._id)}> 🗑 </button>
+                                <button title="Hacer ADMIN" class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-yellow-500 rounded-lg focus:shadow-outline  hover:bg-yellow-400  " onClick={() => makeAdmin(c._id)}>👮🏽</button>
+                                <button title="Editar Usuario" class="h-10 px-5 m-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-lg focus:shadow-outline hover:bg-blue-700"> <Link to={'/users/edit/' + c._id}>✍</Link> </button>
+                                <button title="Eliminar Usuario" class="h-10 px-5 m-2 text-red-100 transition-colors duration-150 bg-red-700 rounded-lg focus:shadow-outline hover:bg-red-800" onClick={() => deleteU(c._id)}> 🗑 </button>
                             </td>
                         </tr>
                     }) : ""}
