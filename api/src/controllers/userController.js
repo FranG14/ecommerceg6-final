@@ -241,15 +241,14 @@ const addAddress = async(req, res) => {
     const { 
         streetNumber, 
         street,
-        apartment,
-        state,
-        country,
+        city,
+        province,
         zipcode
     } = req.body;
 
-    if(!streetNumber || !street || !state || !country || !zipcode) return res.status(400).json({message: 'Fields Missing'});
+    if(!streetNumber || !street || !city || !province || !zipcode) return res.status(400).json({message: 'Fields Missing'});
 
-    const stringedAddress = `${streetNumber} ${street}Str.${apartment ? apartment : ''}, ${state} ${country} (${zipcode})`
+    const stringedAddress = `${streetNumber} ${street}Str.,${city}, ${province}, Argentina (${zipcode})`
     
     const userFound = await User.findOne({_id}, async(error, userUpdated) => {
         if(error){

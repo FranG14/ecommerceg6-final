@@ -1,5 +1,7 @@
 import axios from 'axios'
 const api = 'http://apis.datos.gob.ar/georef/api'
+
+//apis.datos.gob.ar/georef/api/calles?nombre=eva&provincia=$Buenos Aires&departamento=$Berazategui&orden=nombre
 //======================================================================//
 export const getProvincias = () => async(dispatch) => {
     return await axios.get(`${api}/provincias`)
@@ -29,12 +31,19 @@ export const getMunicipios = (provincia, input) => async(dispatch) => {
 } 
 //======================================================================//
 export const getCalles = (provincia, municipio, input) => async(dispatch) => {
-    return await axios.get(`apis.datos.gob.ar/georef/api/calles?nombre=${input}&provincia=${provincia}&departamento=${municipio}&orden=nombre`)
-    .then((result) => result.data?.calles ? result.data?.calles : [] )
+    return await axios.get(`${api}/calles?nombre=${input}&provincia=${provincia}&departamento=${municipio}&orden=nombre`)
+    .then((result) => {
+       return result.data?.calles ? result.data?.calles : [] })
     .then((calles) => {
         dispatch({
             type: 'GET_CALLES',
-            payload: calles.length ? calles.map((c)=> {return c.nombre}) : []
+            payload: calles.length ? calles.map((c)=> {
+                return {
+                    nombre: c.nombre, 
+                    inicioAltura:Math.min(c.altura?.inicio?.derecha, c.altura?.inicio?.izquierda),
+                    finalAltura: Math.max(c.altura?.fin?.derecha, c.altura?.fin?.izquierda)
+                    }
+                }) : []
         })
     }).catch((error) => {
         dispatch({
