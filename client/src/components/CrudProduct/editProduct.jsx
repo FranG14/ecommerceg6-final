@@ -88,7 +88,7 @@ const EditProduct = () => {
     let color = document.getElementById("color").value;
     let stock = document.getElementById("stock").value;
     let size = document.getElementById("size").value;
-    console.log("FUNCTION", color, stock, size)
+    // console.log("FUNCTION", color, stock, size)
     if (color !== "" && stock !== "" && size !== "") {
       setProduct({
         ...product,
@@ -114,7 +114,7 @@ const EditProduct = () => {
     let stockFinded = productPreview.stock.find(prop => prop.colorName === stock.color && prop.sizeName === stock.size);
     dispatch(deleteProductStock(stockFinded._id))
   }
-  console.log("PRUEBA", product)
+  // console.log("PRUEBA", product)
   const deleteColor = (e) => {
     let filterColor = [];
     let filterSize = [];
@@ -135,7 +135,7 @@ const EditProduct = () => {
   const deleteCateg = (e) => {
     let filterCategory = []
     selectedName.categoryName.map(cate => {
-      if (cate !== e.target.innerText) {
+      if (cate.trim() !== e.target.innerText) {
         filterCategory.push(cate);
       }
     });
@@ -187,12 +187,12 @@ const EditProduct = () => {
     dispatch(editProduct(payload, config));
     alert("Activity successfullty edited");
   };
-  console.log("CCCCC", productPreview)
+  // console.log("CCCCC", productPreview)
   return (
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
 
-      <div class="grid grid-cols-2 gap-2 bg-gray-200">
+      <div class="grid grid-cols-2 gap-2 bg-gray-200 mt-20">
         <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
           <div class="container mx-auto">
             <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">

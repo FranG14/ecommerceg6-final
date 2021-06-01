@@ -30,6 +30,7 @@ const TshirtFeature = () => {
     const addImg = (e, url, canvi) => {
         e.preventDefault();
         new fabric.Image.fromURL(url, img => {
+            console.log("AAAAA",img)
             img.scale(0.75);
             canvi.add(img);
             canvi.renderAll();

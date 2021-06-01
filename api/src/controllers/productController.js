@@ -91,7 +91,7 @@ const getProductsFilter = (req, res, next) => {
                   productsCategoriesAndSizes.push(answer[i]);
                 }
               }
-              else{
+              else {
                 productsCategoriesAndSizes.push(answer[i]);
               }
             }
@@ -100,17 +100,17 @@ const getProductsFilter = (req, res, next) => {
         }
       }
       else {
-        if(req.query.size && !req.query.category && answer.length > 0){
+        if (req.query.size && !req.query.category && answer.length > 0) {
           let sizeArray = []
           for (let i = 0; i < answer.length; i++) {
             if (answer[i].stock.find(prop => prop.sizeName.toLowerCase() === req.query.size.toLowerCase())) {
               sizeArray.push(answer[i]);
             }
           }
-          return res.status(200).json({products:sizeArray});
+          return res.status(200).json({ products: sizeArray });
         }
       }
-     return res.status(200).json({ products: answer });
+      return res.status(200).json({ products: answer });
     })
     .catch(err => {
       res.status(404).json({ messege: "Product doesn't exist", err: err });
@@ -124,7 +124,7 @@ const getProductsFilter = (req, res, next) => {
 const addProducts = async (req, res) => {
   console.log(req.body)
   try {
-    const { name, price, brand, description, stock, size, color, categories, genre, productReview } =
+    const {userId, custom, name, price, brand, description, stock, size, color, categories, genre, productReview } =
       req.body;
     let images = [];
     const categoriesArray = categories.split(",")
@@ -143,6 +143,7 @@ const addProducts = async (req, res) => {
         const newStock = Stock({
           _id: new mongoose.Types.ObjectId(),
           colorName: c,
+          userId: userId ? userId : undefined,
           sizeName: sizeArray[i],
           stock: stockArray[i]
         })
@@ -159,8 +160,7 @@ const addProducts = async (req, res) => {
       description: description,
       stock: stockId,
       genre: genre,
-      // size: size,
-      // color: colorId,
+      custom: custom ? custom : false,
       categories: categoriesArray,
       img: images,
       productReview: Product._id

@@ -35,6 +35,7 @@ const ProductPostForm = () => {
         };
         dispatch(addCategory(categorySend));
         setCategory(newCategory)
+        window.location.replace("http://localhost:3000/categories")
         /*   alert("Activity successfullty created"); */
         //--------VALIDACION-------------------------------
         if (category.name === '') return swal({
