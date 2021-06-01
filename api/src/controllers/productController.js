@@ -55,8 +55,8 @@ const getProductsById = (req, res) => {
 const getProductsFilter = (req, res, next) => {
   let filter = req.query.brand || req.query.size || req.query.genre || req.query.price;
   let keyword;
-  console.log("AASDD")
   let filterPrice;
+
   if (filter === "price") {
     filterPrice = {
       field: req.query.price
@@ -69,10 +69,6 @@ const getProductsFilter = (req, res, next) => {
         $regex: req.query.brand,
         $options: "i",
       },
-      // size: {
-      //   $regex: req.query.size,
-      //   $options: "i",
-      // },
       genre: {
         $regex: req.query.genre,
         $options: "i",
@@ -80,63 +76,51 @@ const getProductsFilter = (req, res, next) => {
     }
   } else {
     keyword = {}
-  } console.log("c",keyword)
+  } console.log("c", keyword)
   Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
+    .populate("stock")
     .then(answer => {
-      console.log("ANSWER", answer)
       if (req.query.category) {
-        let productsCategories = [];
+        let productsCategoriesAndSizes = [];
         if (answer && answer.length > 0) {
           for (let i = 0; i < answer.length; i++) {
-            if (answer[i].categories.find(cat => cat.name === req.query.category)) {
-              productsCategories.push(answer[i]);
+            if (answer[i].categories.find(cat => cat.name.toLowerCase() === req.query.category.toLowerCase())) {
+              if (req.query.size) {
+                if (answer[i].stock.find(prop => prop.sizeName.toLowerCase() === req.query.size.toLowerCase())) {
+                  productsCategoriesAndSizes.push(answer[i]);
+                }
+              }
+              else{
+                productsCategoriesAndSizes.push(answer[i]);
+              }
             }
           }
+          return res.status(200).json({ products: productsCategoriesAndSizes });
         }
-        
-        return res.status(200).json({ products: productsCategories });
       }
-      console.log("c",answer)
-      res.status(200).json({ products: answer });
-    })
-    .catch(err => {
-      res.status(404).json({ messege: "Product doesn't exist", err: err });
-    })
-
-}
-
-
-//filtrado por categoria
-const getProductsFilterByCategory = (req, res) => {
-  const name = req.params.name;
-
-  Product.find({})
-    .populate("categories")
-    .then(answer => {
-      let productsCategories = [];
-      if (answer && answer.length > 0) {
-        for (let i = 0; i < answer.length; i++) {
-          if (answer[i].categories.find(cat => cat.name === name)) {
-            productsCategories.push(answer[i]);
+      else {
+        if(req.query.size && !req.query.category && answer.length > 0){
+          let sizeArray = []
+          for (let i = 0; i < answer.length; i++) {
+            if (answer[i].stock.find(prop => prop.sizeName.toLowerCase() === req.query.size.toLowerCase())) {
+              sizeArray.push(answer[i]);
+            }
           }
+          return res.status(200).json({products:sizeArray});
         }
       }
-      res.status(200).json({ products: productsCategories });
+     return res.status(200).json({ products: answer });
     })
     .catch(err => {
       res.status(404).json({ messege: "Product doesn't exist", err: err });
     })
+
 }
-
-
-/*  */
-
 
 // @desc    Create a product
 // @route   POST localhost:3001/products
 // @access  Private/Admin
-
 const addProducts = async (req, res) => {
   try {
     const { name, price, brand, description, stock, size, color, categories, genre, productReview } =
@@ -313,7 +297,6 @@ const deleteProducts = asyncHandler(async (req, res) => {
 module.exports = {
   getProducts,
   getProductsFilter,
-  getProductsFilterByCategory,
   addProducts,
   updateProducts,
   updateStock,
