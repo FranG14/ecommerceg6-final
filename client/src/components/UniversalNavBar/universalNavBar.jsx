@@ -127,6 +127,37 @@ export default function UniversalNavBar(props) {
         <label class="menu-icon" for="menu-btn">
           <span class="navicon"></span>
         </label>
+        {window.location.pathname === "/Shop" && (
+          <div id="responsiveSearch" className=" flex flex-col  lg:ml-96 ml-20   absolute">
+            <input
+              onKeyPress={handleKeyPress}
+              class="mt-3 mb-3 w-44 lg:w-80 md:w-60 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
+              type="search"
+              name="search"
+              placeholder="Search"
+              autoComplete="off"
+              value={input.name}
+              onChange={(e) => handleChange(e)}
+            />
+            <div className="-mt-2 ml-2">
+              {productsArray &&
+                productsArray.length > 0 && !selectedProduct &&
+                input.name !== "" &&
+                productsArray.map((prop, key) => {
+                  return (
+                    <div className="flex justify-center " key={key}>
+                      <p
+                        onClick={(e) => completeInput(prop.name)}
+                        className="cursor-pointer bg-white w-40 mr-80 hover:bg-gray-200"
+                      >
+                        {prop.name}
+                      </p>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        )}
         <ul class="menu">
           <li className="-py-2">
             <Link to="/Shop">Shop</Link>
@@ -171,40 +202,8 @@ export default function UniversalNavBar(props) {
           )}
         </ul>
         <br />
+
       </header>
-      {/* <div clasName = " bg-black"> */}
-      {window.location.pathname === "/Shop" && (
-        <div id="responsiveSearch" className="ml-20 mt-2 absolute">
-          <input
-            onKeyPress={handleKeyPress}
-            class="mt-3 mb-3 w-48 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
-            type="search"
-            name="search"
-            placeholder="Search"
-            autoComplete="off"
-            value={input.name}
-            onChange={(e) => handleChange(e)}
-          />
-          <div className="-mt-2 ml-2">
-            {productsArray &&
-              productsArray.length > 0 && !selectedProduct &&
-              input.name !== "" &&
-              productsArray.map((prop, key) => {
-                return (
-                  <div className="flex justify-center" key={key}>
-                    <p
-                      onClick={(e) => completeInput(prop.name)}
-                      className="cursor-pointer bg-white w-40 mr-80 hover:bg-gray-200"
-                    >
-                      {prop.name}
-                    </p>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
-      )}
-      {/* </div> */}
     </div>
   );
 }

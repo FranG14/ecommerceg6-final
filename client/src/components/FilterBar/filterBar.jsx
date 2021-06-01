@@ -48,7 +48,10 @@ function FilterBar() {
   }
   console.log("ACAAAAAAAA", productsArray)
   return (
-    <div className="flex w-80 bg-gray-200 tracking-wide font-bold pt-4 pb-4 gap-4 justify-center">
+    <div> 
+
+   
+    <div className="grid grid-cols-2 grid-rows-1 w-80 bg-gray-200 tracking-wide font-bold pt-4 pb-4 gap-4 justify-center">
 
       < div className="group inline-block mt-4 cursor-pointer" >
         <button
@@ -263,7 +266,7 @@ function FilterBar() {
               </li>
               {(categoryArray && categoryArray.length > 0) ?
                 categoryArray.map(category => {
-                  return <li onClick={handleOnClick} id="category" className="cursor-pointer px-3 py-1 hover:bg-gray-100">{category.name}</li>
+                  return <li onClick={handleOnClick} id="category" className="flex flex-col cursor-pointer px-3 py-1 hover:bg-gray-100">{category.name}</li>
                 }) : ""}
 
             </ul>
@@ -273,15 +276,18 @@ function FilterBar() {
         </ul>
       </div >
       {/* arreglar */}
-      <div className="flex">
+      <div className="">
         <button onClick={handleSubmit} className="w-32 h-14 inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">Apply Filter</button>
-        {filterName.size && <p onClick={() => setFilterName({ ...filterName, size: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.size}</p>}
-        {filterName.brand && <p onClick={() => setFilterName({ ...filterName, brand: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.brand}</p>}
-        {filterName.genre && <p onClick={() => setFilterName({ ...filterName, genre: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.genre}</p>}
-        {filterName.price && <p onClick={() => setFilterName({ ...filterName, price: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.price}</p>}
-        {filterName.category && <p onClick={() => setFilterName({ ...filterName, category: "" })} className="px-2 py-1 inline-block mr-2 mt-2 ml-4 cursor-pointer rounded round border-4 border-red-400 mb-2 text-center">{filterName.category}</p>}
       </div>
     </div >
+        <div className="grid grid-cols-5 gap-1">
+        {filterName.size && <p onClick={() => setFilterName({ ...filterName, size: "" })} className=" inline-block  mt-2  cursor-pointer rounded round border-4 border-red-400 mb-2 ">{filterName.size}</p>}
+        {filterName.brand && <p onClick={() => setFilterName({ ...filterName, brand: "" })} className=" inline-block  mt-2  cursor-pointer rounded round border-4 border-red-400 mb-2 ">{filterName.brand}</p>}
+        {filterName.genre && <p onClick={() => setFilterName({ ...filterName, genre: "" })} className=" inline-block  mt-2  cursor-pointer rounded round border-4 border-red-400 mb-2 ">{filterName.genre}</p>}
+        {filterName.price && <p onClick={() => setFilterName({ ...filterName, price: "" })} className=" inline-block  mt-2  cursor-pointer rounded round border-4 border-red-400 mb-2 ">{filterName.price}</p>}
+        {filterName.category && <p onClick={() => setFilterName({ ...filterName, category: "" })} className=" inline-block  mt-2  cursor-pointer rounded round border-4 border-red-400 mb-2 ">{filterName.category}</p>}
+      </div>
+    </div>
   )
 }
 

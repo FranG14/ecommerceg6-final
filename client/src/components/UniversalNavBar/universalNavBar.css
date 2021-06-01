@@ -144,3 +144,9 @@ a {
     display: none;
   }
 }
+
+@media (max-width:1200px){
+  #responsiveSearch{
+    margin-left: 80px;
+  }
+}
