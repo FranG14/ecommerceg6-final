@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import decode from 'jwt-decode'
 import SearchBar from '../../components/SearchBar/searchBar'
 import { Link, useLocation, useHistory } from 'react-router-dom'
@@ -32,7 +32,7 @@ export default function NavBar(props) {
 
   return (
     /* TITULO ---- */
-    <div>
+    <div className="tracking-wide font-bold">
       <nav className="bg-yellow-300 shadow">
         <div className="container mx-auto -px-0 py-1 md:flex md:justify-between md:items-center">
           <div className="flex justify-between items-center">

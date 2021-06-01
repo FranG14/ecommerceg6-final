@@ -15,13 +15,13 @@ const Header = ({ headers, onSorting }) => {
 
 
     return (
-        <div className="sorts">
+        <div className="sorts tracking-wide font-bold">
             <div className="sortItem">
                 {headers.map(({ name, field, sortable }) => (
                     <div className="sorting" key={name} onClick={() => sortable ? onSortingChange(field) : null}>
                         {name}
                         {sortingField && sortingField === field && (
-                            <div className="arrow">{ sortingOrder === "asc" ? ':arrow_down:' : ":arrow_up:" }</div>
+                            <div className="arrow">{sortingOrder === "asc" ? ':arrow_down:' : ":arrow_up:"}</div>
                         )}
                     </div>))}
             </div>

@@ -33,7 +33,7 @@ const Reviews = () => {
 
 
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
 
             <table class="border-collapse w-full mt-24">

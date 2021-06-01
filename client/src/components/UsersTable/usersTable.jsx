@@ -78,7 +78,7 @@ const UsersTable = () => {
 
 
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <div className="mt-20 mb-4 flex justify-center">
                 <div class="relative mr-6 my-2 ml-2 -mt-0.5">

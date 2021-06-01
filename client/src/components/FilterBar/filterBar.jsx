@@ -11,7 +11,7 @@ function FilterBar() {
   const [filterName, setFilterName] = React.useState({ brand: "", size: "", genre: "", price: "", category: "" });
   const [filter, setFilter] = React.useState(null);
   const [applyFilter, setApplyFilter] = React.useState(false);
-  const [arrayBrand,setArrayBrand] = React.useState([]);
+  const [arrayBrand, setArrayBrand] = React.useState([]);
   const categoryArray = useSelector(
     (state) => state.categoriesReducer.categories.list.categories
   );
@@ -19,7 +19,7 @@ function FilterBar() {
 
   useEffect(() => {
     dispatch(getCategories())
-    brandArray() 
+    brandArray()
   }, [filterName])
 
 
@@ -29,26 +29,26 @@ function FilterBar() {
 
     console.log(filterName)
   }
-//me filtra el array y me deja los brand sin repetir
+  //me filtra el array y me deja los brand sin repetir
   function brandArray() {
     let array = [];
-    if(productsArray.products){
+    if (productsArray.products) {
       productsArray.products.map(prop => {
-        if(!array.includes(prop.brand)){
+        if (!array.includes(prop.brand)) {
           array.push(prop.brand);
         }
       })
     }
     setArrayBrand(array);
   }
-console.log(arrayBrand)
+  console.log(arrayBrand)
   function handleSubmit() {
     dispatch(filterByBrand(filterName))
 
   }
-console.log("ACAAAAAAAA",productsArray)
+  console.log("ACAAAAAAAA", productsArray)
   return (
-    <div className="flex w-80 bg-gray-200 pt-4 pb-4 gap-4 justify-center">
+    <div className="flex w-80 bg-gray-200 tracking-wide font-bold pt-4 pb-4 gap-4 justify-center">
 
       < div className="group inline-block mt-4 cursor-pointer" >
         <button
@@ -147,7 +147,7 @@ console.log("ACAAAAAAAA",productsArray)
               <li className="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                 <button
                   className="w-full text-left flex items-center outline-none focus:outline-none">
-                
+
                   <span onClick={handleOnClick} id="brand" name="brand" className="pr-1 flex-1">Adidas</span>
                   <span className="mr-auto">
                   </span>

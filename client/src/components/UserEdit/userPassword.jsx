@@ -88,7 +88,7 @@ const UserPassword = () => {
     }
     // console.log(product)
     return (
-        <div class="  bg-gray-200">
+        <div class=" tracking-wide font-bold bg-gray-200">
             <UniversalNavBar />
             <form>
                 <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">

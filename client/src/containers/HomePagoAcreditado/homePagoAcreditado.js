@@ -45,7 +45,7 @@ function HomePagoAcreditado(props) {
   );
   console.log("order id", orderData)
   return (
-    <div>
+    <div className="tracking-wide font-bold">
 
       <body class="bg-white font-serif">
         <Link to="/" id="red" style={{display:"none"}}></Link>
