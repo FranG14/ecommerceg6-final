@@ -26,11 +26,9 @@ const productSchema = new Schema(
     ],
     description: {
       type: String,
-      required: "Description is required",
     },
     genre: {
       type: String,
-      required: "Genre is required"
     },
     price: {
       type: Number,
@@ -43,35 +41,20 @@ const productSchema = new Schema(
       },
       required: [true, 'Insert a number required']
     },
-    // stock: {
-    //   type: Number,
-    //   required: "Stock is required",
-    //   validate: {
-    //     validator: function (v) {
-    //       return /^[+-]?\d+(\.\d+)?$/.test(v);
-    //     },
-    //     message: props => `${props.value} is not a valid number!`
-    //   },
-    //   required: [true, 'Insert a number required']
-    // },
+    custom:{
+      type: Boolean,
+      default: false
+    },
     productReview: [
       {
         type: Schema.Types.ObjectId,
         ref: "Review",
       }
     ],
-    // size: [
-    //   {
-    //     // type: Schema.Types.ObjectId,
-    //     type: String,
-    //     //required: "Size is required",
-    //   }
-    // ],
     stock: [
       {
         type: Schema.Types.ObjectId,
         ref:"Stock",
-        // required: "Color is required",
       }
     ],
   },
