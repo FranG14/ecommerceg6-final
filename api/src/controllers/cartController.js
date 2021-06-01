@@ -102,7 +102,7 @@ const addItem = async (req, res) => {
         totalAmount: quantity * price,
       });
 
-      return res.status(201).json({ newCart });
+      return res.status(201).json({ });
     }
   } catch (error) {
     console.log(error);
@@ -315,9 +315,23 @@ const stateChange = async (req, res) => {
 const getAllCarts = async (req, res) => {
   const pageSize = req.query.pageSize || 15;
   const page = req.query.page || 1;
+  const state = req.query.state;
+  let stateOrder;
+  console.log("ASD",state,page)
 
-  const count = await Cart.countDocuments({});
-  const carts = await Cart.find({})
+  if(state === "undefined"){
+    stateOrder = {}
+}else{
+  stateOrder = {
+    state: {
+      $regex: state,
+      $options: "i",
+    }
+}
+}
+ 
+  const count = await Cart.countDocuments({ ...stateOrder });
+  const carts = await Cart.find({ ...stateOrder })
     .populate("userId")
     .populate("items.productId")
     .populate("productId.stock")

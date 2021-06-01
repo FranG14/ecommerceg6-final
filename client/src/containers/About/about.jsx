@@ -10,7 +10,7 @@ export default function About() {
         return;
     }
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <div className="flex justify-center pt-20">
                 <div className="flex flex-col">

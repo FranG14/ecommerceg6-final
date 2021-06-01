@@ -31,12 +31,12 @@ function Catalogo() {
     })
   }
   return (
-    <div className=" mt-20 ">
+    <div className=" mt-20 tracking-wide font-bold ">
       <div className="flex justify-center bg-transparent">
         <FilterBar />
 
       </div>
-      <div className="flex bg-gray-200">
+      <div className="flex bg-gray-00">
         <div className="flex-initial">
           <div className="mt-32">
             {/*   <CategoryBar /> */}
@@ -44,7 +44,8 @@ function Catalogo() {
           </div>
         </div>
         <div className="flex-auto">
-          <div className="grid sm:grid-cols-3  sm:grid-rows-5  grid-cols-1 justify-center justify-items-center content-center items-center">
+          <div className="grid sm:grid-cols-3  sm:grid-rows-5 px-4 py-3 grid-cols-1 justify-center justify-items-center content-center items-center">
+            
             {productsArray?.products ? (
               productsArray.products.map((producto, key) => {
                 return (
@@ -52,16 +53,14 @@ function Catalogo() {
                     style={{ textDecoration: "none", outline: "none" }}
                     to={`/product/${producto._id}`}
                   >
-                    <div key={key} className="card bg-white mb-5">
-                      {/* {producto.img.length > 0 && */}
-                      {/* {/* src para localhost  {`http://localhost:3001/products/image/${producto.img}`} */}
+                    <div key={key} className="card bg-white mb-5 px-4 py-4">
                       <img
                         src={`http://localhost:3001/products/image/${producto.img}`}
                         alt="https://i.stack.imgur.com/y9DpT.jpg"
                         style={{ height: "400px", width: "420px" }}
                       />
-                      {/* } */}
-                      <div
+
+                  <div
                         className="bg-gray-200"
                         style={{ height: "1px" }}
                       ></div>
@@ -138,7 +137,7 @@ function Catalogo() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

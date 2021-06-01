@@ -7,6 +7,12 @@ const userSchema = new Schema({
             type:'String',
             required: "Username is required",
         },
+        usersAdded: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
         password:{
             type:'String',
             //required:"Password is required"

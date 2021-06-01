@@ -37,9 +37,9 @@ export default function UserDetail() {
     }, [location])
 
     const handleRemoveAddress = (userId, addressId) => {
-        const objAddress = {addressId:addressId}
+        const objAddress = { addressId: addressId }
         console.log("REMOVE", objAddress)
-        dispatch(removeAddress(userId, objAddress,history,swal))
+        dispatch(removeAddress(userId, objAddress, history, swal))
     }
 
     const logout = () => {
@@ -50,7 +50,7 @@ export default function UserDetail() {
 
     // <h4>{user.result.username}</h4>
     return (
-        <div className="bg-gray-200">
+        <div className="bg-gray-200 tracking-wide font-bold">
             <div className="pb-10 bg-gray-200">
                 <UniversalNavBar />
             </div>
@@ -74,7 +74,7 @@ export default function UserDetail() {
                                 {/* <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📌 Street: {(userData) ? userData?.street : ""} {(userData) ? userData?.streetNumber : ""}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📍 State: {(userData) ? userData?.state : ""}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg class="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📭 Zip Code: {(userData) ? userData?.zipcode : ""}</p> */}
-                                <hr/>
+                                <hr />
                                 {(userData && userData?.addresses?.length > 0) ? userData.addresses.map((a) => {
                                     return (
                                         <div class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
@@ -82,18 +82,18 @@ export default function UserDetail() {
                                                 <div class="text-lg font-semibold">
                                                     <p>{a.address}</p>
                                                 </div>
-                                            <div class="text-lg font-semibold transform rotate-45 ">
-                                                <button onClick={() => handleRemoveAddress(userData?._id, a._id)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                </button>
+                                                <div class="text-lg font-semibold transform rotate-45 ">
+                                                    <button onClick={() => handleRemoveAddress(userData?._id, a._id)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class=" h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            }): <p>No addresses added</p>
-                        }
+                                    )
+                                }) : <p>No addresses added</p>
+                                }
 
                                 <div className="grid grid-cols-2 grid-row-2 pt-12 pb-8   text-center content-between">
                                     <Link to={"/MyProfile/Edit/" + user.result._id}>
@@ -125,7 +125,7 @@ export default function UserDetail() {
                                         </Link>
                                     }
 
-{
+                                    {
                                         user.result?.username &&
                                         <Link to={"/carts/" + user.result._id}  >
                                             <button className="mr-5  bg-blue-500 hover:bg-blue-700 flex justify-center text-white font-bold py-2 px-4 mt-4 rounded-full">

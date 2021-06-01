@@ -67,7 +67,7 @@ const AuthForm = () => {
                 dispatch(register(formData, history, swal))
             }
         } else {
-            dispatch(login(formData, history,swal))
+            dispatch(login(formData, history, swal))
         }
     }
     // window.location.replace(`https://e-commerce-g6.netlify.app/`)
@@ -113,7 +113,7 @@ const AuthForm = () => {
     //=================================================//
 
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <div>
                 <UniversalNavBar />
             </div>

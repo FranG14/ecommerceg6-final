@@ -11,14 +11,14 @@ const { where } = require("../models/Order");
 // @route   GET localhost:3001/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res, next) => {
-  const pageSize = req.query.pageSize || 15;
+  const pageSize = req.query.pageSize || 12;
   const page = req.query.page || 1;
-  console.log(page);
+
   const keyword = req.query.keyword
     ? {
       name: {
         $regex: req.query.keyword,
-        $options: "i", 
+        $options: "i",
       },
     }
     : {};
@@ -30,56 +30,58 @@ const getProducts = asyncHandler(async (req, res, next) => {
     .populate("stock")
     .limit(pageSize)
     .skip(pageSize * (page - 1));
-    
+
   if (req.query.keyword) {
-      res.json({ products, current: page, pages: Math.ceil(count / pageSize),keyword:true });
-    }
-    else{
-      res.json({ products, current: page, pages: Math.ceil(count / pageSize),keyword:false });
-    }
+    res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: true });
+  }
+  else {
+    res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: false });
+  }
 });
 
 const getProductsById = (req, res) => {
   Product.findById(req.params.id)
-  .populate("productReview")
-  .populate("stock")
-  .then((product) => {
-    if (!product) {
-      return res.status(404).end();
-    }
-    return res.status(200).json(product);
-  });
+    .populate("productReview")
+    .populate("stock")
+    .then((product) => {
+      if (!product) {
+        return res.status(404).end();
+      }
+      return res.status(200).json(product);
+    });
 };
 
 //filtra por brand, size,color,genre
 const getProductsFilter = (req, res, next) => {
   let filter = req.query.brand || req.query.size || req.query.genre || req.query.price;
   let keyword;
-  let filterPrice
-  if (filter == "price") {
+  console.log("AASDD")
+  let filterPrice;
+  if (filter === "price") {
     filterPrice = {
       field: req.query.price
     }
   }
+
   if (filter !== "") {
     keyword = {
       brand: {
         $regex: req.query.brand,
         $options: "i",
-      }, size: {
-        $regex: req.query.size,
-        $options: "i",
       },
+      // size: {
+      //   $regex: req.query.size,
+      //   $options: "i",
+      // },
       genre: {
         $regex: req.query.genre,
         $options: "i",
       },
     }
   } else {
-
     keyword = {}
-  }
-  Product.find({...keyword}).sort({price:req.query.price})
+  } console.log("c",keyword)
+  Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
     .then(answer => {
       console.log("ANSWER", answer)
@@ -92,11 +94,10 @@ const getProductsFilter = (req, res, next) => {
             }
           }
         }
-
-
+        
         return res.status(200).json({ products: productsCategories });
       }
-
+      console.log("c",answer)
       res.status(200).json({ products: answer });
     })
     .catch(err => {
@@ -194,10 +195,10 @@ const imagaUpaload = (req, res) => {
   const images = name.split(",")
   let pathImage = path.join(__dirname, "../");
   try {
-    if(images.length>0){
+    if (images.length > 0) {
       getImage = fs.readFileSync(`${pathImage}uploads/${images[0]}`);
     }
-    else{
+    else {
       getImage = fs.readFileSync(`${pathImage}uploads/${images[0]}`);
     }
   } catch (error) {
@@ -223,26 +224,46 @@ const updateProducts = asyncHandler(async (req, res) => {
     size,
     color,
   } = req.body;
-  const categoryArray = categories.split(",")
+  const categoryArray = categories ? categories.split(",") : ""
   let images = [];
-  if(req.files){
-    for(let i = 0; i<req.files.length; i++ ){
+  if (req.files) {
+    for (let i = 0; i < req.files.length; i++) {
       images.push(req.files[i].filename);
     }
   }
+  let colorArray = color.split(",");
+  let sizeArray = size.split(",");
+  let stockArray = stock.split(",");
+  let stockId = []
+
+  if (colorArray && colorArray.length > 0) {
+    colorArray.map((c, i) => {
+      const newStock = Stock({
+        _id: new mongoose.Types.ObjectId(),
+        colorName: c,
+        sizeName: sizeArray[i],
+        stock: stockArray[i]
+      })
+      newStock.save();
+      stockId.push(newStock._id);
+    })
+  }
   const product = await Product.findById(req.params.id);
   if (product) {
-    (product.name = name),
-      (product.brand = brand),
-      (product.categories = categoryArray),
-      (product.description = description),
-      (product.price = price),
-      (product.stock = stock),
-      (product.rating = rating),
-      (product.size = size),
-      (product.genre = genre),
-      (product.img = images),
-      (product.color = color);
+
+    if (name) (product.name = name)
+    if (brand) (product.brand = brand)
+    if (categoryArray !== "") (product.categories = categoryArray)
+    if (description) (product.description = description)
+    if (price) (product.price = price)
+    if (stockId) {
+      let newStock = product.stock
+      stockId.map(s => newStock.push(s))
+      product.stock = newStock;
+    }
+    if (rating) (product.rating = rating)
+    if (genre) (product.genre = genre)
+    if (images) (product.img = images)
 
     const updateProduct = await product.save();
     res.json(updateProduct);
@@ -250,6 +271,29 @@ const updateProducts = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Porduct not found");
   }
+});
+
+const updateStock = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { quantity } = req.body;
+
+  const stock = await Stock.findById(id);
+  if (stock) {
+    stock.stock = quantity;
+    await stock.save();
+    return res.sendStatus(200);
+  }
+  res.sendStatus(400);
+})
+
+const removeProductStock = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const stock = await Stock.findById(id);
+  if (stock) {
+    await stock.remove();
+    return res.sendStatus(200);
+  }
+  res.sendStatus(400);
 });
 
 // @desc    Delete a product by id
@@ -272,6 +316,8 @@ module.exports = {
   getProductsFilterByCategory,
   addProducts,
   updateProducts,
+  updateStock,
+  removeProductStock,
   deleteProducts,
   getProductsById,
   imagaUpaload,

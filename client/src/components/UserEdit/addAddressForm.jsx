@@ -105,7 +105,7 @@ export default function AddAddressForm() {
     };
 //====================================== RETURN ============================================//
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalBar />
             <div class="grid min-h-screen place-items-center mt-20">
                 <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
@@ -227,16 +227,16 @@ export default function AddAddressForm() {
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
                             required
-                            />
-                            <button type="submit" className="w-full py-3 mt-5 bg-green-700 rounded-sm
+                        />
+                        <button type="submit" className="w-full py-3 mt-5 bg-green-700 rounded-sm
                             font-medium text-white uppercase
                             focus:outline-none hover:bg-green-600 hover:shadow-none">
-                                Add
+                            Add
                             </button>
 
-                        </form>
-                    </div>
+                    </form>
                 </div>
+            </div>
             <Footer />
         </div>
     )

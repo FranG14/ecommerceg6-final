@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import SearchBar from '../SearchBar/searchBar'
 import { Link } from 'react-router-dom'
 import './navBarUser.css'
@@ -7,12 +7,12 @@ export default function NavBar(props) {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
-    useEffect(()=>{
+    useEffect(() => {
         const token = user?.token;
 
-        if(token){
+        if (token) {
             const decodedToken = decode(token);
-            if(decodedToken.exp * 1000 <new Date().getTime()) console.log("Session expired!")
+            if (decodedToken.exp * 1000 < new Date().getTime()) console.log("Session expired!")
         }
 
         setUser(JSON.parse(localStorage.getItem('profile')));
@@ -21,7 +21,7 @@ export default function NavBar(props) {
     return (
 
         /* TITULO ---- */
-        <div>
+        <div className="tracking-wide font-bold">
             <nav className="bg-yellow-300 shadow">
                 <div className="container mx-auto -px-0 py-1 md:flex md:justify-between md:items-center">
                     <div className="flex justify-between items-center">
