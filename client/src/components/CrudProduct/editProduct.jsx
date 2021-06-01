@@ -192,7 +192,7 @@ const EditProduct = () => {
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
 
-      <div class="grid grid-cols-2 gap-2 bg-gray-200">
+      <div class="grid grid-cols-2 gap-2 bg-gray-200 mt-20">
         <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
           <div class="container mx-auto">
             <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
