@@ -151,7 +151,7 @@ function FilterBar() {
                 <button
                   className="w-full text-left flex items-center outline-none focus:outline-none">
 
-                  <span onClick={handleOnClick} id="brand" name="brand" className="pr-1 flex-1">Adidas</span>
+                  <span onClick={handleOnClick} id="brand" name="brand" className="pr-1 flex-1 ">Adidas</span>
                   <span className="mr-auto">
                   </span>
                 </button>
@@ -277,7 +277,7 @@ function FilterBar() {
       </div >
       {/* arreglar */}
       <div className="">
-        <button onClick={handleSubmit} className="w-32 h-14 inline-block px-6 ml-4 h-11 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">Apply Filter</button>
+        <button onClick={handleSubmit} className="w-42 h-10 mt-2 inline-block px-6 ml-4 h-11 py-0 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none">Apply Filter</button>
       </div>
     </div >
         <div className="grid grid-cols-5 gap-1">
