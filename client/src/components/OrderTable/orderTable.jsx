@@ -71,6 +71,7 @@ const OrdersTable = () => {
                 <div class="relative mr-6 my-2 ml-2">
                     {/* Filtros */}
                     <select className ="h-11 rounded" id ="selectOptions" onChange = {(e) => setFilter(e.target.value)}>
+                    <option>Filter by</option>
                         <option>Paid</option>
                         <option>Cancelled</option>
                         <option>On it´s way</option>

@@ -47,12 +47,6 @@ export default function UserEdit() {
             lastname: user.lastname,
             email: user.email,
 
-            street: user.street,
-            streetNumber: user.streetNumber,
-            state: user.state,
-            country: user.country,
-            zipcode: user.zipcode,
-
         };
         dispatch(editUser(userSend));
         setUser(newUser)
@@ -112,7 +106,7 @@ export default function UserEdit() {
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
+                            
                         />
 
 
@@ -129,5 +123,3 @@ export default function UserEdit() {
         </div>
     )
 }
-
-
