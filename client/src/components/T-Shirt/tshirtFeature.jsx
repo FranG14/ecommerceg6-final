@@ -7,11 +7,14 @@ import { SwatchesPicker } from 'react-color';
 import UniversalNavBar from '../UniversalNavBar/universalNavBar';
 import Footer from '../../containers/Footer/footer';
 import domtoimage from 'dom-to-image';
+import { useDispatch } from 'react-redux';
+import { addProducts } from '../../redux/actions/products_actions';
 
 
 const TshirtFeature = () => {
     const [canvas, setCanvas] = useState('');
     const [imgURL, setImgURL] = useState('')
+    const dispatch = useDispatch()
 
     const initCanvas = () => (
         new fabric.Canvas('canvas', {
@@ -56,13 +59,15 @@ const TshirtFeature = () => {
             var img = new Image();
             img.crossOrigin = 'anonymous';
             img.src = dataUrl;
-
             //document.body.appendChild(img);
             var link = document.createElement('a');
             link.download = 'my-image-name.jpeg';
             link.crossOrigin = 'Anonymous'
             link.href = dataUrl;
-            link.click()
+
+            //link.click()
+            var json = JSON.stringify(dataUrl);
+            setProduct({ ...product, image: img.src })
         }).catch(function (error) {
             console.error('oops, something went wrong!', error);
         });
@@ -105,7 +110,7 @@ const TshirtFeature = () => {
         // Actualiza el color de la camiseta según el color seleccionado por el usuario
 
         document.getElementById("tshirt-div").style.backgroundColor = e;
-
+        setProduct({ ...product, color: product.color.concat(e) })
 
         // // 2. Cuando el usuario elige un diseño:
         // // Actualiza la imagen de fondo de la camiseta según la imagen seleccionada por el usuario
@@ -119,6 +124,38 @@ const TshirtFeature = () => {
 
     const clear = () => {
         canvas.clear()
+    }
+
+    const [product, setProduct] = useState({
+        name: "",
+        size: [],
+        stock: [],
+        color: [],
+        image: "",
+        price: 1000,
+        categories: ["Custom"],
+        brand: "Custom",
+        custom: true
+    })
+    console.log("productooooooo", product)
+    const postTshirt = () => {
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        };
+        let extension = product.name.split(".");
+        const newProduct = new FormData()
+        newProduct.append("name", product.name)
+        newProduct.append("color", product.color)
+        newProduct.append("stock", product.stock)
+        newProduct.append("size", product.size)
+        newProduct.append("price", product.price)
+        newProduct.append("brand", product.brand)
+        newProduct.append("image", product.image)
+        newProduct.append("categories", product.categories)
+        newProduct.append("custom", product.custom)
+        dispatch(addProducts(newProduct, config))
     }
 
 
@@ -142,7 +179,7 @@ const TshirtFeature = () => {
                         </div>
                         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-16 lg:mt-0">
                             <label className="text-xl title-font text-gray-500 tracking-widest" for="name">T-Shirt Name</label>
-                            <input id="name" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
+                            <input id="name" onChange={(e) => setProduct({ ...product, name: e.target.value })} className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
                             {/* <h2 class="text-lg title-font text-gray-500 tracking-widest">Design Your Own T-Shirt</h2> */}
                             <h1 class="text-gray-500 text-2xl title-font font-bold mb-1">Choose Shirt Color:</h1>
                             <div id="tshirt-color" class="flex mb-4" className="colors">
@@ -155,7 +192,7 @@ const TshirtFeature = () => {
                             </div>
                             <label className="text-xl title-font text-gray-500 tracking-widest" for="name">T-Shirt Size:</label>
 
-                            <select className="flex border-2 py-1 px-2 rounded mb-2 border-blue-600">
+                            <select onChange={(e) => setProduct({ ...product, size: product.size.concat(e.target.value) })} className="flex border-2 py-1 px-2 rounded mb-2 border-blue-600">
                                 <option>XS</option>
                                 <option>S</option>
                                 <option>M</option>
@@ -165,7 +202,7 @@ const TshirtFeature = () => {
                             </select>
 
                             <label className="text-xl title-font text-gray-500 tracking-widest" for="name">Quantity:</label>
-                            <input id="name" type="number" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
+                            <input onChange={(e) => setProduct({ ...product, stock: e.target.value })} id="name" type="number" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
                             <div class="flex mt-2 items-center pb-5 border-b-2 border-gray-200 mb-5">
 
                                 <div class="flex ml-6 items-center">
@@ -187,6 +224,8 @@ const TshirtFeature = () => {
                                             </button>
                                         </div>
                                         <button type="button" onClick={() => download()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>
+
+                                        <button type="button" onClick={() => postTshirt(product)} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>
                                     </div>
                                 </form>
 

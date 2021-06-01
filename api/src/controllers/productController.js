@@ -122,6 +122,7 @@ const getProductsFilter = (req, res, next) => {
 // @route   POST localhost:3001/products
 // @access  Private/Admin
 const addProducts = async (req, res) => {
+  console.log(req.body)
   try {
     const { name, price, brand, description, stock, size, color, categories, genre, productReview } =
       req.body;
