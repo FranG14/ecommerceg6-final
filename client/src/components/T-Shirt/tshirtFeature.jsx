@@ -141,8 +141,10 @@ const TshirtFeature = () => {
                             </div>
                         </div>
                         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-16 lg:mt-0">
-                            <h2 class="text-lg title-font text-gray-500 tracking-widest">Design Your Own T-Shirt</h2>
-                            <h1 class="text-gray-900 text-3xl title-font font-medium mb-1">Choose Shirt Color</h1>
+                            <label className="text-xl title-font text-gray-500 tracking-widest" for="name">T-Shirt Name</label>
+                            <input id="name" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
+                            {/* <h2 class="text-lg title-font text-gray-500 tracking-widest">Design Your Own T-Shirt</h2> */}
+                            <h1 class="text-gray-500 text-2xl title-font font-bold mb-1">Choose Shirt Color:</h1>
                             <div id="tshirt-color" class="flex mb-4" className="colors">
                                 <span class="flex items-center">
                                     <SwatchesPicker
@@ -151,7 +153,20 @@ const TshirtFeature = () => {
                                     />
                                 </span>
                             </div>
-                            <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+                            <label className="text-xl title-font text-gray-500 tracking-widest" for="name">T-Shirt Size:</label>
+
+                            <select className="flex border-2 py-1 px-2 rounded mb-2 border-blue-600">
+                                <option>XS</option>
+                                <option>S</option>
+                                <option>M</option>
+                                <option>L</option>
+                                <option>XL</option>
+                                <option>XXL</option>
+                            </select>
+
+                            <label className="text-xl title-font text-gray-500 tracking-widest" for="name">Quantity:</label>
+                            <input id="name" type="number" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
+                            <div class="flex mt-2 items-center pb-5 border-b-2 border-gray-200 mb-5">
 
                                 <div class="flex ml-6 items-center">
                                 </div>
@@ -159,21 +174,21 @@ const TshirtFeature = () => {
                             <div class="flex">
                                 <form onSubmit={e => addImg(e, imgURL, canvas)}>
                                     <div className="">
-                                        <h2 class="text-m title-font text-gray-500 tracking-widest">Image URL:</h2>
-                                        <input className="border-2 rounded border-blue-600 w-80"
+                                        <h2 class="text-xl title-font text-gray-500 text-bold tracking-widest">Image URL:</h2>
+                                        <input className="border-2 rounded border-blue-600 w-full"
                                             type="text"
                                             value={imgURL}
                                             onChange={e => setImgURL(e.target.value)}
                                         />
-                                        <div className="flex">
-                                            <button type="submit" class="flex text-white bg-red-500 border-0 ml-10 mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add Image</button>
-                                            <button onClick={clear} class="flex text-white bg-red-500 border-0 ml-10 mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                                        <div className="flex gap-5">
+                                            <button type="submit" class="flex text-white bg-indigo-500 border-0  mt-4 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" type="submit">Add Image</button>
+                                            <button onClick={clear} class="flex text-white bg-red-500 border-0  mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" /></svg>
                                             </button>
                                         </div>
+                                        <button type="button" onClick={() => download()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>
                                     </div>
                                 </form>
-                                <button type="button" onClick={() => download()} class="flex text-white bg-red-500 border-0 ml-10 mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add Image</button>
 
                             </div>
                         </div>
