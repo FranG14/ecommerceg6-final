@@ -224,7 +224,7 @@ function DetailProduct() {
                   </select>
                 </div>
                 <div class="flex ml-6 items-center">
-                  <span class="mr-3">Size</span>
+                  <span class="mr-1 -ml-4">Size</span>
                   <div class="relative">
                     <select onChange={hasStock} id="sizeSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                       <option>Select</option>
