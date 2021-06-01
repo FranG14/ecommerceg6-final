@@ -65,11 +65,11 @@ function Catalogo() {
                         style={{ height: "1px" }}
                       ></div>
                       <div className="p-4">
-                        <p className="text-black">{producto.name}</p>
+                        <p className="text-black text-xl">{producto.name}</p>
                         {producto.stock === 0 && <h4 className="text-red-500">No Stock</h4>}
-                        <p className="text-blue-300">${producto.price}</p>
-                        <p className="text-blue-300">{producto.brand}</p>
-                        <p className="text-blue-300">{producto.description}</p>
+                        <p className="text-blue-300 text-l">${producto.price}</p>
+                        <p className="text-blue-300 text-l">{producto.brand}</p>
+                       
                       </div>
                     </div>
                   </Link>
@@ -80,7 +80,7 @@ function Catalogo() {
             )}
           </div>
           <div>
-            <div className="flex justify-center">
+            <div className="flex justify-center pb-10">
               <button
                 onClick={prev}
                 disabled={page === 1}
@@ -112,7 +112,7 @@ function Catalogo() {
                 }
                 className="border border-teal-500 bg-teal-500 text-black block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
               >
-                Next page
+                   Next page
               <svg
                   className="h-5 w-5 ml-2 fill-current"
                   clasversion="1.1"
