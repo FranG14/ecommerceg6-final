@@ -16,7 +16,8 @@ function FilterBar() {
     (state) => state.categoriesReducer.categories.list.categories
   );
   let productsArray = useSelector((state) => state.productsReducer.allProducts);
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  console.log("ASDSADSAD",user)
   useEffect(() => {
     dispatch(getCategories())
     brandArray()
@@ -282,9 +283,9 @@ function FilterBar() {
         {window.location.pathname === "/custom" ? (
           <div className="">
             <button onClick={() => window.location.replace("/shop")} className="w-42 h-10 mt-2 inline-block px-6 ml-2 h-11 py-0 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none">Store</button>
-          </div>) : (<div className="">
+          </div>) :(user !== null)? (<div className="">
             <button onClick={() => window.location.replace("/custom")} className="w-42 h-10 mt-2 inline-block px-6 ml-2 h-11 py-0 text-xs font-medium leading-6 text-center text-white uppercase transition bg-indigo-500 rounded shadow ripple hover:shadow-lg hover:bg-indigo-600 focus:outline-none">Custom Made</button>
-          </div>)}
+          </div>):""}
       </div >
       <div className="grid grid-cols-5 gap-1">
         {filterName.size && <p onClick={() => setFilterName({ ...filterName, size: "" })} className=" inline-block  mt-2  cursor-pointer rounded round border-4 border-red-400 mb-2 ">{filterName.size}</p>}
