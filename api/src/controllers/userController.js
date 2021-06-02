@@ -6,7 +6,7 @@ const secret = 'test';
 
 //==========================================================================//
 const login = async (req, res) => {
-    console.log(req.body);
+    
     const { email, password } = req.body;
 
     try {
@@ -19,6 +19,7 @@ const login = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: { message: 'Something went wrong', style: "red" } });
         console.log(error);
+        res.status(500).json({message:{message:'Something went wrong', style:"red"}});
     }
 }
 //==========================================================================//
@@ -33,16 +34,16 @@ const register = async (req, res) => {
         phone,
         streetNumber,
         street,
-        state,
-        country,
+        city,
+        province,
         zipcode
     } = req.body;
-
+    
     if (!req.body) return res.status(403).end()
 
     const addresses = []
-    if (streetNumber && street && state && country && zipcode) { //${apartment ? apartment : ''}
-        const stringedAddress = `${streetNumber} ${street} Str., ${state} ${country} (${zipcode})`
+    if (streetNumber && street && province && city && zipcode) { //${apartment ? apartment : ''}
+        const stringedAddress = `${streetNumber} ${street}Str.,${city}, ${province}, Argentina (${zipcode})`
         addresses.push({ address: stringedAddress })
     }
     if (password !== confirmPassword) return res.status(400).json({ message: { message: 'Passwords don`t match', style: "red" } })
@@ -63,8 +64,7 @@ const register = async (req, res) => {
         )
 
         const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1hr' });
-        //result.addresses.push({address: stringedAddress})
-        //result.save()
+
         return res.status(201).json({ result, token, message: { message: "Registered Successfully", style: "green" } })
     } catch (error) {
         console.log(error)
@@ -229,7 +229,6 @@ const changePassword = async (req, res) => {
                         { message: "There was an Error while saving the changes" }
                     )
                 }
-                //console.log(userUpdated)
                 res.status(200).json(userUpdated)
             })
         }
@@ -270,7 +269,7 @@ const addAddress = async (req, res) => {
 const removeAddress = async (req, res) => {
     const { _id } = req.params;
     const { addressId } = req.body;
-    console.log(addressId)
+   
 
     const userFound = await User.findOne({ _id }, async (error, userUpdated) => {
         if (error) {
@@ -294,7 +293,7 @@ const removeAddress = async (req, res) => {
 
 const addUser = async (req, res) => {
     const { _id, userId } = req.params;
-    console.log(_id, userId);
+   
     try {
         const userFound = await User.findOne({ _id }, async (error, user) => {
             if (!user) {

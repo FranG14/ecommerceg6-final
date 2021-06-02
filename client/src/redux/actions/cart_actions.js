@@ -1,7 +1,7 @@
 import * as api from '../api/index.js';
 import { 
     GET_ACTIVE_CART_FROM_USER, GET_ACTIVE_CART_FROM_USER_SUCCESS, GET_ACTIVE_CART_FROM_USER_ERROR,
-    GET_ALL_CARTS, GET_CARTS_BY_USER, GET_ALL_CARTS_SUCCESS, GET_ALL_CARTS_ERROR,
+    GET_ALL_CARTS, GET_ALL_CARTS_SUCCESS, GET_ALL_CARTS_ERROR,
     DELETE_ITEM, DELETE_ITEM_SUCCESS, DELETE_ITEM_ERROR,
     CHANGE_CART_STATE, CHANGE_CART_STATE_SUCCESS, CHANGE_CART_STATE_ERROR,
     DECREMENT_PRODUCT_UNIT, DECREMENT_PRODUCT_UNIT_SUCCESS, DECREMENT_PRODUCT_UNIT_ERROR,
@@ -34,10 +34,7 @@ export const addItemNotLogged = (productBody) => {
     let price = productBody.price;
     let quantity = productBody.quantity;
     let productId = productBody.productId;
-    // let colorName = productBody.colorName
-    // let sizeName = productBody.sizeName
 
-    // console.log("Product Body -------- ", productBody)
     let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === productBody.colorName && i.sizeName === productBody.sizeName);
     if(productIndex === -1){
         cart.items.push(productBody);
@@ -88,7 +85,6 @@ export const decrementProductUnitNotLogged = (productId) => {
 /////////////////////LOGGED//////////////////////
 //=============================================//
 export const getCartFromUser = (userId) => async(dispatch) => {
-    console.log("LLEGA")
     dispatch({
         type: GET_ACTIVE_CART_FROM_USER
     });
@@ -120,7 +116,6 @@ export const addItem = (productBody, userId) => async (dispatch) => {
         })
         return await api.addItem(productBody, userId)
         .then((cart)=>{
-            console.log("ACTION",cart.data)
             dispatch({
                 type:ADD_ITEM_SUCCESS,
                 payload: cart.data
@@ -202,7 +197,6 @@ export const incrementProductUnit = (product, userId,colorName,colorSize) => asy
     })
     return await api.incrementProductUnit(product,userId,colorName,colorSize)
     .then((cart)=>{
-        console.log("ACCCIONNN",cart.data)
         dispatch({
             type: INCREMENT_PRODUCT_UNIT_SUCCESS,
             payload: cart.data
@@ -223,7 +217,6 @@ export const getAllCarts = (state,page) => async(dispatch) => {
     });
     return await api.getAllCarts(state,page)
     .then((active)=>{
-        console.log("ACTION",active.data)
         dispatch({
             type: GET_ALL_CARTS_SUCCESS,
             payload: active.data
@@ -244,7 +237,6 @@ export const getCartsById = (cartId) => async(dispatch) => {
     });
     return await api.getCartsById(cartId)
     .then((cart)=>{
-        console.log("ACTION",cart.data)
         dispatch({
             type: GET_CART_BY_ID_SUCCESS,
             payload: cart.data

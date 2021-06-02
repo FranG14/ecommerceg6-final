@@ -91,7 +91,7 @@ const getProductsFilter = (req, res, next) => {
                   productsCategoriesAndSizes.push(answer[i]);
                 }
               }
-              else {
+              else{
                 productsCategoriesAndSizes.push(answer[i]);
               }
             }
@@ -100,17 +100,17 @@ const getProductsFilter = (req, res, next) => {
         }
       }
       else {
-        if (req.query.size && !req.query.category && answer.length > 0) {
+        if(req.query.size && !req.query.category && answer.length > 0){
           let sizeArray = []
           for (let i = 0; i < answer.length; i++) {
             if (answer[i].stock.find(prop => prop.sizeName.toLowerCase() === req.query.size.toLowerCase())) {
               sizeArray.push(answer[i]);
             }
           }
-          return res.status(200).json({ products: sizeArray });
+          return res.status(200).json({products:sizeArray});
         }
       }
-      return res.status(200).json({ products: answer });
+     return res.status(200).json({ products: answer });
     })
     .catch(err => {
       res.status(404).json({ messege: "Product doesn't exist", err: err });
@@ -122,8 +122,9 @@ const getProductsFilter = (req, res, next) => {
 // @route   POST localhost:3001/products
 // @access  Private/Admin
 const addProducts = async (req, res) => {
+  console.log(req.body)
   try {
-    const {userId, custom, name, price, brand, description, stock, size, color, categories, genre, productReview } =
+    const { name, custom, price, brand, description, stock, size, color, categories, genre, productReview } =
       req.body;
     let images = [];
     const categoriesArray = categories.split(",")
@@ -132,6 +133,7 @@ const addProducts = async (req, res) => {
         images.push(req.files[i].filename);
       }
     }
+    console.log(images)
     let colorArray = color.split(",");
     let sizeArray = size.split(",");
     let stockArray = stock.split(",");
@@ -142,7 +144,6 @@ const addProducts = async (req, res) => {
         const newStock = Stock({
           _id: new mongoose.Types.ObjectId(),
           colorName: c,
-          userId: userId ? userId : undefined,
           sizeName: sizeArray[i],
           stock: stockArray[i]
         })
@@ -159,10 +160,12 @@ const addProducts = async (req, res) => {
       description: description,
       stock: stockId,
       genre: genre,
-      custom: custom ? custom : false,
+      // size: size,
+      // color: colorId,
       categories: categoriesArray,
       img: images,
-      productReview: Product._id
+      productReview: Product._id,
+      custom: custom === "true" ? true : false
     });
 
     const productStored = await product.save();

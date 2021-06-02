@@ -23,30 +23,15 @@ const reviewsReducer = (state = initialState, action) => {
     case GET_REVIEWS_ID:
       return { ...state, allReviews: [], isLoading: true, error: null };
     case GET_REVIEW_SUCCESS:
-      return {
-        ...state,
-        allReviews: action.payload,
-        isLoading: false,
-        error: null,
-      };
-
+      return {...state, allReviews: action.payload, isLoading: false, error: null };
     case GET_REVIEW_ERROR:
       return { ...state, allReviews: [], isLoading: false, error: true };
-
     case ADD_REVIEW:
       return { ...state, addReview: null, isLoading: true, error: null };
-
     case ADD_REVIEW_SUCCESS:
-      return {
-        ...state,
-        addReview: action.payload,
-        isLoading: false,
-        error: false,
-      };
-
+      return {...state, addReview: action.payload, isLoading: false, error: false };
     case ADD_REVIEW_ERROR:
       return { ...state, addReview: null, isLoading: false, error: true };
-      
     case FILTER_BY_ID:
       return { ...state, allReviews: [], isLoading: true, error: null };
     default:

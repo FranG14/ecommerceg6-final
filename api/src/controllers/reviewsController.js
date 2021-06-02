@@ -23,12 +23,7 @@ const getReviewsById = async (req, res) => {
     const reviews = await Review.find({ productReview: req.params.id }).populate('username')
     .limit(pageSize).skip(pageSize * (page - 1));
     res.json({ reviews, current: page, pages: Math.ceil(count / pageSize) });
-// .then((review) => {
-//     if (!review) {
-//       return res.status(404).end();
-//     }
-//     return res.status(200).json(review);
-//   });
+
 };
 
 const filterById = async (req, res) => {

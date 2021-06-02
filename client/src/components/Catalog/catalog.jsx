@@ -30,6 +30,7 @@ function Catalogo() {
       dangerMode: true,
     })
   }
+  console.log(productsArray)
   return (
     <div className=" mt-20 tracking-wide font-bold ">
       <div className="flex justify-center bg-transparent">
@@ -45,36 +46,39 @@ function Catalogo() {
         </div>
         <div className="flex-auto">
           <div className="grid sm:grid-cols-3  sm:grid-rows-5 px-4 py-3 grid-cols-1 justify-center justify-items-center content-center items-center">
-            
+
             {productsArray?.products ? (
               productsArray.products.map((producto, key) => {
-                return (
-                  <Link key={key}
-                    style={{ textDecoration: "none", outline: "none" }}
-                    to={`/product/${producto._id}`}
-                  >
-                    <div key={key} className="card bg-white mb-5 px-4 py-4">
-                      <img
-                        src={`http://localhost:3001/products/image/${producto.img}`}
-                        alt="https://i.stack.imgur.com/y9DpT.jpg"
-                        style={{ height: "400px", width: "420px" }}
-                      />
+                if (!producto.custom) {
+                  return (
+                    <Link key={key}
+                      style={{ textDecoration: "none", outline: "none" }}
+                      to={`/product/${producto._id}`}
+                    >
+                      <div key={key} className="card bg-white mb-5 px-4 py-4">
+                        <img
+                          src={`http://localhost:3001/products/image/${producto.img}`}
+                          alt="https://i.stack.imgur.com/y9DpT.jpg"
+                          style={{ height: "400px", width: "420px" }}
+                        />
 
-                  <div
-                        className="bg-gray-200"
-                        style={{ height: "1px" }}
-                      ></div>
-                      <div className="p-4">
-                        <p className="text-black text-xl">{producto.name}</p>
-                        {producto.stock === 0 && <h4 className="text-red-500">No Stock</h4>}
-                        <p className="text-blue-300 text-l">${producto.price}</p>
-                        <p className="text-blue-300 text-l">{producto.brand}</p>
-                       
+                        <div
+                          className="bg-gray-200"
+                          style={{ height: "1px" }}
+                        ></div>
+                        <div className="p-4">
+                          <p className="text-black text-xl">{producto.name}</p>
+                          {producto.stock === 0 && <h4 className="text-red-500">No Stock</h4>}
+                          <p className="text-blue-300 text-l">${producto.price}</p>
+                          <p className="text-blue-300 text-l">{producto.brand}</p>
+
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                );
+                    </Link>
+                  );
+                }
               })
+
             ) : (
               <div>No products</div>
             )}
@@ -112,7 +116,7 @@ function Catalogo() {
                 }
                 className="border border-teal-500 bg-teal-500 text-black block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
               >
-                   Next page
+                Next page
               <svg
                   className="h-5 w-5 ml-2 fill-current"
                   clasversion="1.1"
