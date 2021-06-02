@@ -35,20 +35,26 @@
   cursor: default;
 }
 
+@media (max-width: 1141px) {
+  #section {
+    padding-left: 10px;
+  }
+}
+
 @media (max-width: 375px) {
   #tshirt-div {
-    height: 405px;
+    height: 390px;
   }
 }
 
 @media (max-width: 360px) {
   #tshirt-div {
-    height: 388px;
+    height: 375px;
   }
 }
 
 @media (max-width: 320px) {
   #tshirt-div {
-    height: 338px;
+    height: 325px;
   }
 }
