@@ -8,7 +8,7 @@ import "./carousel.css"
 
 export default function Carousel(props) {
   return (
-    <div class="slider pt-20">
+    <div className="slider pt-20">
       <ul>
         <Link style={{ width: "100%" }} to={props.productos[0].id}>
           <li>

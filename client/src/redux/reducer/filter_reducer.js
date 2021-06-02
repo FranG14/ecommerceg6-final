@@ -12,7 +12,6 @@ const filtersReducer = (state = initialState, action) => {
     switch (action.payload) {
         case FILTER_BY_NAME:
             return{...state, filterResults: action.payload}
-        
         case FILTER_BY_PRICE:
             return{...state, filterResults: action.payload}
         case FILTER_BY_CATEGORY:

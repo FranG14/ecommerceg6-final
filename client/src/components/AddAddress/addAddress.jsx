@@ -26,14 +26,14 @@ const AddAddress = () => {
 
     return (
         <form>
-            <h1 class="text-xl font-semibold">
+            <h1 className="text-xl font-semibold">
                 Address Information
             </h1>
             <br />
             <label>Street Number</label>
             <br />
             <input
-            class="block w-full py-3 px-1 mt-2
+            className="block w-full py-3 px-1 mt-2
             text-gray-800 appearance-none 
             border-b-2 border-gray-200
             focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -45,12 +45,12 @@ const AddAddress = () => {
             />
             <br />
             <label
-            class="block text-xs font-semibold text-gray-600 uppercase">
+            className="block text-xs font-semibold text-gray-600 uppercase">
                 Street Name
             </label>
             <br />
             <input
-            class="block w-full py-3 px-1 mt-2
+            className="block w-full py-3 px-1 mt-2
             text-gray-800 appearance-none 
             border-b-2 border-gray-200
             focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -61,12 +61,12 @@ const AddAddress = () => {
             type='text'
             />
             <br />
-            <label class="block text-xs font-semibold text-gray-600 uppercase">
+            <label className="block text-xs font-semibold text-gray-600 uppercase">
                 State
             </label>
             <br />
             <input
-            class="block w-full py-3 px-1 mt-2
+            className="block w-full py-3 px-1 mt-2
             text-gray-800 appearance-none 
             border-b-2 border-gray-200
             focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -77,12 +77,12 @@ const AddAddress = () => {
             type='text'
             />
             <br />
-            <label class="block text-xs font-semibold text-gray-600 uppercase">
+            <label className="block text-xs font-semibold text-gray-600 uppercase">
                 Country
             </label>
             <br />
             <input
-            class="block w-full py-3 px-1 mt-2
+            className="block w-full py-3 px-1 mt-2
             text-gray-800 appearance-none 
             border-b-2 border-gray-200
             focus:text-gray-500 focus:outline-none focus:border-gray-200"
@@ -93,12 +93,12 @@ const AddAddress = () => {
             type='text'
             />
             <br />
-            <label class="block text-xs font-semibold text-gray-600 uppercase">
+            <label className="block text-xs font-semibold text-gray-600 uppercase">
                 Zip Code
             </label>
             <br />
             <input
-            class="block w-full py-3 px-1 mt-2
+            className="block w-full py-3 px-1 mt-2
             text-gray-800 appearance-none 
             border-b-2 border-gray-200
             focus:text-gray-500 focus:outline-none focus:border-gray-200"

@@ -21,7 +21,6 @@ export const getAllReviews = (page) => async (dispatch) => {
   return await api
     .getAllReviews(page)
     .then((res) => {
-      console.log("REVIEW ACTION", res.data);
       dispatch({
         type: GET_REVIEW_SUCCESS,
         payload: res.data,
@@ -42,7 +41,6 @@ export const getReviewsById = (id, page) => async (dispatch) => {
   return await api
     .getReviewsById(id, page)
     .then((res) => {
-      console.log("REVIEW ACTION", res.data);
       dispatch({
         type: GET_REVIEW_SUCCESS,
         payload: res.data,
@@ -60,10 +58,8 @@ export const filterById = (id) => async (dispatch) => {
   dispatch({
     type: FILTER_BY_ID,
   });
-  return await axios
-    .get(`${REACT_APP_API}reviews/${id}`)
+  return await api.filterReviewsById(id)
     .then((res) => {
-      console.log("REVIEW ACTION", res.data);
       dispatch({
         type: FILTER_BY_ID,
         payload: res.data,
