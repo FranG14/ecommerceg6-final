@@ -15,7 +15,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
   const page = req.query.page || 1;
   const custom = req.query.custom;
   let keyword;
-
+console.log("AAA",custom,keyword)
   if(custom && keyword){ 
     keyword = {
       name: {
@@ -38,8 +38,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
       }
     }
   }
-  if(!custom && !keyword){
-    
+  else{
     keyword = {}
   }
 
@@ -55,6 +54,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
     res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: true });
   }
   else {
+    // console.log("ASDSAD",products)
     res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: false });
   }
 });
@@ -96,7 +96,7 @@ const getProductsFilter = (req, res, next) => {
     }
   } else {
     keyword = {}
-  } console.log("c", keyword)
+  } 
   Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
     .populate("stock")
@@ -158,7 +158,7 @@ const addProducts = async (req, res) => {
     let sizeArray = size.split(",");
     let stockArray = stock.split(",");
     let stockId = []
-    if(custom === "false"){
+    if(!custom || custom === "false"){
     if (colorArray && colorArray.length > 0) {
       colorArray.map((c, i) => {
         const newStock = Stock({
