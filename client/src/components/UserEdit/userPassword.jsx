@@ -23,12 +23,12 @@ const UserPassword = () => {
     };
     const [password, setPassword] = useState(newPassword);
 
-    console.log("aaaaaaaaaaaaaa", password._id)
+   
     const passwordArray = useSelector(
         (state) => state.authenticationReducer
     );
 
-    console.log(passwordArray)
+    
 
     function verifyPassword(e) {
         //e.preventDefault()
@@ -88,21 +88,21 @@ const UserPassword = () => {
     }
     // console.log(product)
     return (
-        <div class=" tracking-wide font-bold bg-gray-200">
+        <div className=" tracking-wide font-bold bg-gray-200">
             <UniversalNavBar />
             <form>
-                <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
-                    <div class="container mx-auto">
-                        <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
-                            <div class="text-center">
-                                <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Edit Password</h1>
+                <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
+                    <div className="container mx-auto">
+                        <div className="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+                            <div className="text-center">
+                                <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Edit Password</h1>
 
                             </div>
-                            <div class="m-7">
+                            <div className="m-7">
                                 <form >
-                                    <div class="mb-6">
+                                    <div className="mb-6">
 
-                                        <label for="oldPassword" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Current Password</label>
+                                        <label for="oldPassword" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">Current Password</label>
                                         <input id="oldPassword"
                                             type="password"
                                             name="oldPassword"
@@ -110,11 +110,11 @@ const UserPassword = () => {
                                             onChange={handleInputChange}
                                             placeholder="Current"
 
-                                            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                                            className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                                     </div>
 
-                                    <div class="mb-6">
-                                        <label for="newPassword" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">New Password</label>
+                                    <div className="mb-6">
+                                        <label for="newPassword" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">New Password</label>
                                         <input
                                             id="newPassword"
                                             type="password"
@@ -122,7 +122,7 @@ const UserPassword = () => {
                                             value={password.newPassword}
                                             onChange={verifyPassword}
                                             placeholder="New "
-                                            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
+                                            className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
                                 focus:ring focus:ring-indigo-100 
                                 focus:border-indigo-300 dark:bg-gray-700 
                                 dark:text-white dark:placeholder-gray-500 
@@ -132,8 +132,8 @@ const UserPassword = () => {
                                         />
 
                                     </div>
-                                    <div class="mb-6">
-                                        <label for="newPassword" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">New Password</label>
+                                    <div className="mb-6">
+                                        <label for="newPassword" className="block mb-2 text-sm text-gray-600 dark:text-gray-400">New Password</label>
                                         <input
                                             id="newPassword"
                                             type="password"
@@ -141,7 +141,7 @@ const UserPassword = () => {
                                             value={password.repeatPassword}
                                             onChange={verifyPassword}
                                             placeholder="New "
-                                            class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
+                                            className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
                                 focus:ring focus:ring-indigo-100 
                                 focus:border-indigo-300 dark:bg-gray-700 
                                 dark:text-white dark:placeholder-gray-500 
@@ -152,8 +152,8 @@ const UserPassword = () => {
 
 
                                     </div>
-                                    <div class="mb-6">
-                                        <button type="button" onClick={handleSubmit} class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Edit</button>
+                                    <div className="mb-6">
+                                        <button type="button" onClick={handleSubmit} className="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Edit</button>
                                     </div>
                                 </form>
                             </div>

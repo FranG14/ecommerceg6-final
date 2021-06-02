@@ -46,7 +46,7 @@ function FilterBar() {
     dispatch(filterByBrand(filterName))
 
   }
-  console.log("ACAAAAAAAA", productsArray)
+  
   return (
     <div>
 

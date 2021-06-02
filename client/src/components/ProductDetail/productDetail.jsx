@@ -8,7 +8,6 @@ import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
-const { REACT_APP_API } = process.env;
 
 
 function DetailProduct() {
@@ -95,7 +94,7 @@ function DetailProduct() {
   }
 
   function addProductToCart() {
-    console.log("anda el carrito sin loguear", user)
+    
     /*
         fetch(
           `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
@@ -162,14 +161,14 @@ function DetailProduct() {
                 src={`http://localhost:3001/products/image/${productsArray.img[imagePos]}`}
               />
             )}
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 class="text-2xl pl-3 title-font tracking-wide font-bold text-gray-500 tracking-widest">
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-2xl pl-3 title-font tracking-wide font-bold text-gray-500 tracking-widest">
                 {productsArray.brand}
               </h2>
-              <h1 class="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
+              <h1 className="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
                 {productsArray.name}
               </h1>
-              <h2 class="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
+              <h2 className="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
                 {!productStock ? (
                   <h2 className="text-red-500">No Stock</h2>
                 ) : productStock && productStock.stock < 10 ? (
@@ -178,8 +177,8 @@ function DetailProduct() {
                   <h2>In Stock.</h2>
                 )}
               </h2>
-              <div class="flex mb-4 pl-3">
-                <span class="flex tracking-wide font-bold items-center">
+              <div className="flex mb-4 pl-3">
+                <span className="flex tracking-wide font-bold items-center">
                   {productsArray.productReview &&
                     productsArray.productReview.length === 0 ? (
                     <h2>No reviews</h2>
@@ -206,11 +205,11 @@ function DetailProduct() {
                   <span className="text-gray-600 ml-3 text-lg">Add Review</span>
                 </Link>
               </div>
-              <p class="leading-relaxed pl-3">{productsArray.description}</p>
-              <div class="flex mt-6 pl-4 items-center pb-5 border-b-2 border-gray-200 mb-5">
-                <div class="flex items-center">
-                  <span class="-ml-1 mr-3">Color</span>
-                  <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+              <p className="leading-relaxed pl-3">{productsArray.description}</p>
+              <div className="flex mt-6 pl-4 items-center pb-5 border-b-2 border-gray-200 mb-5">
+                <div className="flex items-center">
+                  <span className="-ml-1 mr-3">Color</span>
+                  <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                     <option>Select</option>
                     {stockArray && stockArray.colors.length > 0
                       ? stockArray.colors.map((c, id) => {
@@ -223,10 +222,10 @@ function DetailProduct() {
                       : ""}
                   </select>
                 </div>
-                <div class="flex ml-6 items-center">
-                  <span class="mr-1 -ml-4">Size</span>
-                  <div class="relative">
-                    <select onChange={hasStock} id="sizeSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
+                <div className="flex ml-6 items-center">
+                  <span className="mr-1 -ml-4">Size</span>
+                  <div className="relative">
+                    <select onChange={hasStock} id="sizeSelect" className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
                       <option>Select</option>
                       {stockArray && stockArray.colors.length > 0
                         ? stockArray.sizes.map((c, id) => {
@@ -254,8 +253,8 @@ function DetailProduct() {
                   </div>
                 </div>
               </div>
-              <div class="flex mb-4 pl-3">
-                <span class="title-font font-medium text-2xl mt-1 text-gray-900">
+              <div className="flex mb-4 pl-3">
+                <span className="title-font font-medium text-2xl mt-1 text-gray-900">
                   ${productsArray.price}
                 </span>
                 {productStock && productStock.stock >= 1 ? (

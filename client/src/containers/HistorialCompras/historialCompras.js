@@ -61,11 +61,11 @@ function HistorialCompras(props) {
             <UniversalNavBar />
             <div className="flex h-screen w-100 pt-28 px-5">
                 <div className="flex-grow">
-                    <table class=" border-collapse w-full">
+                    <table className=" border-collapse w-full">
                         <thead>
                             <tr>
                                 <th className="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Date of Order</th>
-                            <th class="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Product</th>
+                            <th className="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Product</th>
                                 <th className="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Total</th>
                                 <th className="mt-16  p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">State</th>
                             </tr>
