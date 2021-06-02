@@ -8,11 +8,8 @@ import './authform.css';
 import { login, register, googleLogIn } from '../../redux/actions/authentication_actions';
 import {getProvincias, getMunicipios, getCalles} from '../../redux/actions/addresses_actions'
 import {googleId} from '../../redux/api'
-
 import Footer from '../../containers/Footer/footer';
 import swal from 'sweetalert';
-
- // VOY A PASAR MI CREDENCIAL DE GOOGLE PORQUE NO DÁ QUE LA TENGA EN EL CÓDIGO
 
 const initialState = {
     username: '',
@@ -439,7 +436,7 @@ const AuthForm = () => {
                 className="w-full bg-red-700 py-3 px-4 mt-5 rounded-sm justify-center hover:bg-red-600 hover:shadow-none text-white font-bold focus:outline-none focus:shadow-outline inline-flex items-center"
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}> 
-                    <Icon /><div>  </div><div>Log In with Google</div></button>
+                    <Icon /><div>  </div><div>{isSignup ? 'Register' : 'Log' }In with Google</div></button>
                 )}
                 onSuccess={googleSuccess}
                 onFailure={googleFailure}
