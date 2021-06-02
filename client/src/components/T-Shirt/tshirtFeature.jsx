@@ -87,7 +87,7 @@ const TshirtFeature = () => {
             //link.click()
             var blob = b64toBlob(dataUrl)
             setProduct({ ...product, image: blob })
-            setPost(!post);
+            setPost(true);
         }).catch(function (error) {
             console.error('oops, something went wrong!', error);
         });
