@@ -33,16 +33,16 @@ const register = async (req, res) => {
         phone,
         streetNumber,
         street,
-        state,
-        country,
+        city,
+        province,
         zipcode
     } = req.body;
-
+    console.log("LOS DATOS DE LA DIRECCION", street, city, province, zipcode)
     if (!req.body) return res.status(403).end()
 
     const addresses = []
-    if (streetNumber && street && state && country && zipcode) { //${apartment ? apartment : ''}
-        const stringedAddress = `${streetNumber} ${street} Str., ${state} ${country} (${zipcode})`
+    if (streetNumber && street && province && city && zipcode) { //${apartment ? apartment : ''}
+        const stringedAddress = `${streetNumber} ${street}Str.,${city}, ${province}, Argentina (${zipcode})`
         addresses.push({ address: stringedAddress })
     }
     if (password !== confirmPassword) return res.status(400).json({ message: { message: 'Passwords don`t match', style: "red" } })
@@ -63,8 +63,7 @@ const register = async (req, res) => {
         )
 
         const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1hr' });
-        //result.addresses.push({address: stringedAddress})
-        //result.save()
+
         return res.status(201).json({ result, token, message: { message: "Registered Successfully", style: "green" } })
     } catch (error) {
         console.log(error)
