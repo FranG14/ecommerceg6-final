@@ -25,7 +25,7 @@ export default function EditUserDetail() {
     }, [location])
 
     return (
-        <div className="bg-gray-200">
+        <div className="bg-gray-200 tracking-wide font-bold">
             <div className="pb-10 bg-gray-200">
                 <UniversalNavBar />
             </div>

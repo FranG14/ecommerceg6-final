@@ -58,6 +58,7 @@ a {
   clear: both;
   max-height: 0;
   transition: max-height 0.2s ease-out;
+  z-index: 289;
 }
 
 /* menu icon */
@@ -69,6 +70,7 @@ a {
   padding: 28px 20px;
   position: relative;
   user-select: none;
+  z-index: 289;
 }
 
 .header .menu-icon .navicon {
@@ -139,8 +141,15 @@ a {
     clear: none;
     float: right;
     max-height: none;
+    z-index: 289;
   }
   .header .menu-icon {
     display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  #responsiveSearch {
+    margin-left: 80px;
   }
 }

@@ -18,11 +18,6 @@ export default function UserEdit() {
         lastname: "",
         email: "",
 
-        street: "",
-        streetNumber: "",
-        state: "",
-        country: "",
-        zipCode: "",
     };
     const [user, setUser] = useState(newUser)
 
@@ -33,7 +28,6 @@ export default function UserEdit() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log("USE EFFECT")
         dispatch(getUserById(id))
     }, [id, dispatch])
 
@@ -53,12 +47,6 @@ export default function UserEdit() {
             lastname: user.lastname,
             email: user.email,
 
-            street: user.street,
-            streetNumber: user.streetNumber,
-            state: user.state,
-            country: user.country,
-            zipcode: user.zipcode,
-
         };
         dispatch(editUser(userSend));
         setUser(newUser)
@@ -73,7 +61,7 @@ export default function UserEdit() {
     };
 
     return (
-        <div>
+        <div className="tracking-wide font-bold">
 
 
             <UniversalBar />
@@ -82,18 +70,18 @@ export default function UserEdit() {
                 <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
             px-6 py-10 sm:px-10 sm:py-6 mt-4
             bg-white rounded-lg shadow-md lg:shadow-lg">
-                    <h1 class="text-xl font-semibold">Edit Your Profile</h1>
+                    <h1 class="text-xl">Edit Your Profile</h1>
                     <form class="mt-6" onSubmit={handleSubmit}>
                         <div class="flex justify-between gap-3">
                             <span class="w-1/2">
-                                <label for="firstname" class="block text-xs font-semibold text-gray-600 uppercase">Firstname</label>
+                                <label for="firstname" class="block text-xs text-gray-600 uppercase">Firstname</label>
                                 <input value={user.firstname} onChange={handleInputChange} id="firstname" type="text" name="firstname" placeholder="FirstName" autocomplete="given-name" class="block w-full py-3 px-1 mt-2 
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200" required />
                             </span>
                             <span class="w-1/2">
-                                <label for="lastname" class="block text-xs font-semibold text-gray-600 uppercase">Lastname</label>
+                                <label for="lastname" class="block text-xs text-gray-600 uppercase">Lastname</label>
                                 <input id="lastname" value={user.lastname} onChange={handleInputChange} type="text" name="lastname" placeholder="LastName" autocomplete="family-name" class="block w-full py-3 px-1 mt-2 
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
@@ -102,7 +90,7 @@ export default function UserEdit() {
                         </div>
                         <label
                             for="email"
-                            class="block text-xs font-semibold text-gray-600 uppercase"
+                            class="block text-xs text-gray-600 uppercase"
                         >
                             E-mail
             </label>
@@ -118,82 +106,12 @@ export default function UserEdit() {
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
+                            
                         />
 
 
-                        <h1 class="text-xl font-semibold mt-2">Address</h1>
-                        <input
-
-                            id="streetNumber"
-                            type="number"
-                            name="streetNumber"
-                            placeholder="Street Number"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.street}
-                            onChange={handleInputChange}
-                            id="street"
-                            type="text"
-                            name="street"
-                            placeholder="Street Name"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.state}
-                            onChange={handleInputChange}
-                            id="state"
-                            type="text"
-                            name="state"
-                            placeholder="State"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.country}
-                            onChange={handleInputChange}
-                            id="country"
-                            type="text"
-                            name="country"
-                            placeholder="Country"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
-                        <input
-                            value={user.zipcode}
-                            onChange={handleInputChange}
-                            id="zipcode"
-                            type="number"
-                            name="zipcode"
-                            placeholder="zipcode"
-                            autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
-                    text-gray-800 appearance-none 
-                    border-b-2 border-gray-100
-                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
-                            required
-                        />
                         <button type="submit" class="w-full py-3 mt-5 bg-green-700 rounded-sm
-                    font-medium text-white uppercase
+                    text-white uppercase
                     focus:outline-none hover:bg-green-600 hover:shadow-none">
                             Edit!
       </button>
@@ -205,5 +123,3 @@ export default function UserEdit() {
         </div>
     )
 }
-
-

@@ -70,16 +70,6 @@ const ProductPostForm = () => {
         stock: product.stock.concat(stock)
       })
     }
-    // if (size !== "") {
-    //   setProduct({
-    //     ...product,
-    //     size: product.size.concat(size)})
-    // }
-    // if (stock !== "") {
-    //   setProduct({
-    //     ...product,
-    //     stock: product.stock.concat(stock)})
-    // }
   }
 
   const deleteColor = (e) => {
@@ -95,7 +85,7 @@ const ProductPostForm = () => {
         filterStock.push(product.stock[i]);
       }
     })
-    console.log("entra", product)
+    // console.log("entra", product)
     setProduct({ ...product, color: filterColor, size: filterSize, stock: filterStock });
   }
 
@@ -220,12 +210,12 @@ const ProductPostForm = () => {
   };
 
   return (
-    <div className="grid grid-cols-2  gap-2 pt-20 bg-gray-200">
-      <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
-        <div className="container mx-auto">
-          <div className="max-w-md -mx-2 my-10 bg-white p-5 rounded-md shadow-sm">
-            <div className="text-center">
-              <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
+    <div class="grid grid-cols-2 tracking-wide font-bold gap-2 pt-20 bg-gray-200">
+      <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
+        <div class="container mx-auto">
+          <div class="max-w-md -mx-2 my-10 bg-white p-5 rounded-md shadow-sm">
+            <div class="text-center">
+              <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
                 Post New Product
               </h1>
             </div>

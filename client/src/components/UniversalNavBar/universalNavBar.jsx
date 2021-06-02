@@ -4,6 +4,7 @@ import { Link, useLocation, useHistory, Route, Switch } from "react-router-dom";
 import "./universalNavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import home from '../../assets/home.png'
+import logoTransparent from "../../assets/logo_transparent.png"
 import swal from 'sweetalert';
 import carroHome from '../../assets/carroHome.png'
 import { searchProducts } from '../../redux/actions/products_actions'
@@ -23,7 +24,7 @@ export default function UniversalNavBar(props) {
   const [input, setInput] = useState({
     name: "",
   });
-  const [selectedProduct,setSelectedProduct] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(false);
 
   useEffect(() => {
     const token = user?.token;
@@ -98,10 +99,12 @@ export default function UniversalNavBar(props) {
 
   return (
     <div className="">
-      <header className="header text-center">
-        <Link to="/" className="logo">
+
+      <header class="header tracking-wide font-bold text-center">
+        <Link to="/" class="logo">
           {" "}
-          <img alt="logo" src={home}></img>{" "}
+          <img alt="logo" src={logoTransparent} style={{position:"absolute",top:"-12px",left:"15px",width:"200px"}}></img>{" "}
+
         </Link>
 
         <input className="menu-btn" type="checkbox" id="menu-btn" />
@@ -127,12 +130,43 @@ export default function UniversalNavBar(props) {
         <label className="menu-icon" for="menu-btn">
           <span className="navicon"></span>
         </label>
-        <ul className="menu">
-          <li className="-py-2">
-            <Link to="/">Home</Link>
-          </li>
+        {window.location.pathname === "/Shop" && (
+          <div id="responsiveSearch" className=" flex flex-col  lg:ml-96 ml-20   absolute">
+            <input
+              onKeyPress={handleKeyPress}
+              class="mt-3 mb-3 w-44 lg:w-80 md:w-60 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
+              type="search"
+              name="search"
+              placeholder="Search"
+              autoComplete="off"
+              value={input.name}
+              onChange={(e) => handleChange(e)}
+            />
+            <div className="-mt-2 ml-2">
+              {productsArray &&
+                productsArray.length > 0 && !selectedProduct &&
+                input.name !== "" &&
+                productsArray.map((prop, key) => {
+                  return (
+                    <div className="flex justify-center " key={key}>
+                      <p
+                        onClick={(e) => completeInput(prop.name)}
+                        className="cursor-pointer bg-white w-40 mr-80 hover:bg-gray-200"
+                      >
+                        {prop.name}
+                      </p>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        )}
+        <ul class="menu">
           <li className="-py-2">
             <Link to="/Shop">Shop</Link>
+          </li>
+          <li className="-py-2">
+            <Link to="/design">Create T-Shirt</Link>
           </li>
           {user?.result?.username ? (
             <li className="-py-2">
@@ -171,40 +205,8 @@ export default function UniversalNavBar(props) {
           )}
         </ul>
         <br />
+
       </header>
-      {/* <div clasName = " bg-black"> */}
-      {window.location.pathname === "/Shop" && (
-        <div id="responsiveSearch" className="ml-20 mt-2 absolute">
-          <input
-            onKeyPress={handleKeyPress}
-            className="mt-3 mb-3 w-48 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
-            type="search"
-            name="search"
-            placeholder="Search"
-            autoComplete="off"
-            value={input.name}
-            onChange={(e) => handleChange(e)}
-          />
-          <div className="-mt-2 ml-2">
-            {productsArray &&
-              productsArray.length > 0 && !selectedProduct && 
-              input.name !== "" &&
-              productsArray.map((prop, key) => {
-                return (
-                  <div className="flex justify-center" key={key}>
-                    <p
-                      onClick={(e) => completeInput(prop.name)}
-                      className="cursor-pointer bg-white w-40 mr-80 hover:bg-gray-200"
-                    >
-                      {prop.name}
-                    </p>
-                  </div>
-                );
-              })}
-          </div>
-        </div>
-      )}
-      {/* </div> */}
     </div>
   );
 }

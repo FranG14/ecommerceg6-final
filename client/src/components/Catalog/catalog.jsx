@@ -30,13 +30,14 @@ function Catalogo() {
       dangerMode: true,
     })
   }
+  console.log(productsArray)
   return (
-    <div className=" mt-20 ">
+    <div className=" mt-20 tracking-wide font-bold ">
       <div className="flex justify-center bg-transparent">
         <FilterBar />
 
       </div>
-      <div className="flex bg-gray-200">
+      <div className="flex bg-gray-00">
         <div className="flex-initial">
           <div className="mt-32">
             {/*   <CategoryBar /> */}
@@ -44,44 +45,46 @@ function Catalogo() {
           </div>
         </div>
         <div className="flex-auto">
-          <div className="grid sm:grid-cols-3  sm:grid-rows-5  grid-cols-1 justify-center justify-items-center content-center items-center">
+          <div className="grid sm:grid-cols-3  sm:grid-rows-5 px-4 py-3 grid-cols-1 justify-center justify-items-center content-center items-center">
+
             {productsArray?.products ? (
               productsArray.products.map((producto, key) => {
-                return (
-                  <Link key={key}
-                    style={{ textDecoration: "none", outline: "none" }}
-                    to={`/product/${producto._id}`}
-                  >
-                    <div key={key} className="card bg-white mb-5">
-                      {/* {producto.img.length > 0 && */}
-                      {/* {/* src para localhost  {`http://localhost:3001/products/image/${producto.img}`} */}
-                      <img
-                        src={`http://localhost:3001/products/image/${producto.img}`}
-                        alt="https://i.stack.imgur.com/y9DpT.jpg"
-                        style={{ height: "400px", width: "420px" }}
-                      />
-                      {/* } */}
-                      <div
-                        className="bg-gray-200"
-                        style={{ height: "1px" }}
-                      ></div>
-                      <div className="p-4">
-                        <p className="text-black">{producto.name}</p>
-                        {producto.stock === 0 && <h4 className="text-red-500">No Stock</h4>}
-                        <p className="text-blue-300">${producto.price}</p>
-                        <p className="text-blue-300">{producto.brand}</p>
-                        <p className="text-blue-300">{producto.description}</p>
+                if (!producto.custom) {
+                  return (
+                    <Link key={key}
+                      style={{ textDecoration: "none", outline: "none" }}
+                      to={`/product/${producto._id}`}
+                    >
+                      <div key={key} className="card bg-white mb-5 px-4 py-4">
+                        <img
+                          src={`http://localhost:3001/products/image/${producto.img}`}
+                          alt="https://i.stack.imgur.com/y9DpT.jpg"
+                          style={{ height: "400px", width: "420px" }}
+                        />
+
+                        <div
+                          className="bg-gray-200"
+                          style={{ height: "1px" }}
+                        ></div>
+                        <div className="p-4">
+                          <p className="text-black text-xl">{producto.name}</p>
+                          {producto.stock === 0 && <h4 className="text-red-500">No Stock</h4>}
+                          <p className="text-blue-300 text-l">${producto.price}</p>
+                          <p className="text-blue-300 text-l">{producto.brand}</p>
+
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                );
+                    </Link>
+                  );
+                }
               })
+
             ) : (
               <div>No products</div>
             )}
           </div>
           <div>
-            <div className="flex justify-center">
+            <div className="flex justify-center pb-10">
               <button
                 onClick={prev}
                 disabled={page === 1}
@@ -138,7 +141,7 @@ function Catalogo() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

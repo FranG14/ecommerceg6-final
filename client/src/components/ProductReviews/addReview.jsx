@@ -72,7 +72,7 @@ const AddReview = () => {
         console.log(reviewSend)
     };
     return (
-        <div className="  bg-gray-200">
+        <div class=" tracking-wide font-bold bg-gray-200">
             <UniversalNavBar />
             <form onSubmit={handleSubmit}>
                 <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">

@@ -13,10 +13,11 @@ import {
 //=============================================//
 export const getCartNotLogged = () => {
     const getCart = JSON.parse(localStorage.getItem('cart'))
+    console.log("BBBBB",getCart)
     if (!getCart){
         const newCart = {
             userId: null,
-            items:[],
+            items:[], 
             state: 'active',
             totalAmount: 0
         }
@@ -28,14 +29,16 @@ export const getCartNotLogged = () => {
 //=============================================//
 export const addItemNotLogged = (productBody) => {
     let cart = getCartNotLogged();
-    
+    console.log("CCCCC",cart)
+    console.log("ADDITEMNOTLOGGED",productBody)
     let price = productBody.price;
     let quantity = productBody.quantity;
     let productId = productBody.productId;
     // let colorName = productBody.colorName
     // let sizeName = productBody.sizeName
 
-    let productIndex = cart.items.findIndex((i) => i.productId === productId);
+    // console.log("Product Body -------- ", productBody)
+    let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === productBody.colorName && i.sizeName === productBody.sizeName);
     if(productIndex === -1){
         cart.items.push(productBody);
         cart.totalAmount += price*quantity;
@@ -60,7 +63,7 @@ export const deleteItemNotLogged = (productId) => {
     } 
 }
 //=============================================//
-export const incrementProductUnitNotLogged = (productId) => {
+export const incrementProductUnitNotLogged = (productId,color,size) => {
     let cart = getCartNotLogged();
     let productIndex = cart.items.findIndex((i) => i.productId === productId);
     if( productIndex > -1){
@@ -90,6 +93,7 @@ export const getCartFromUser = (userId) => async(dispatch) => {
     });
     return await api.getActiveCartFromUser(userId)
     .then((active)=>{
+        console.log("ACTIVE",active.data)
         dispatch({
             type: GET_ACTIVE_CART_FROM_USER_SUCCESS,
             payload: active?.data
@@ -106,6 +110,7 @@ export const getCartFromUser = (userId) => async(dispatch) => {
 
 //=============================================//
 export const addItem = (productBody, userId) => async (dispatch) => {
+    console.log("DENTRO DEL ACTION",productBody,userId)
     if(!userId){
         addItemNotLogged(productBody)
     } else {
@@ -209,11 +214,11 @@ export const incrementProductUnit = (product, userId,colorName,colorSize) => asy
 }
 
 //=============================================//
-export const getAllCarts = () => async(dispatch) => {
+export const getAllCarts = (state,page) => async(dispatch) => {
     dispatch({
         type: GET_ALL_CARTS
     });
-    return await api.getAllCarts()
+    return await api.getAllCarts(state,page)
     .then((active)=>{
         dispatch({
             type: GET_ALL_CARTS_SUCCESS,

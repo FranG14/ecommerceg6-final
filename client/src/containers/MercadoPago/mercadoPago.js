@@ -58,7 +58,7 @@ function MercadoPago(props){
     },[])
 
     return(
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar/>
             <div className="flex justify-center h-full">
                 <div className="flex flex-col w-1/2 py-36">

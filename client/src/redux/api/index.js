@@ -1,8 +1,7 @@
 import axios from 'axios';
-
 //const { REACT_APP_API } = 'https://e-commerce-g6-back.herokuapp.com/'; // En local comentar esta linea
 const { REACT_APP_API } = process.env; // En deploy comentar esta linea
-
+const { GOOGLEID } = process.env;
 const API = axios.create( { baseURL: REACT_APP_API} ) 
 
 API.interceptors.request.use((req)=> {
@@ -12,6 +11,8 @@ API.interceptors.request.use((req)=> {
 
     return req;
 })
+
+export const googleId = GOOGLEID;
 //AUTHENTICATION
 //export const getUserById = (_id) => API.get(`/users/:${_id}`);
 export const login = (formData) => API.post('/users/login', formData);
@@ -21,7 +22,7 @@ export const changePassword = (passwords, _id) => API.put(`/users/password/${_id
 export const updateUser = (userBody, _id) => API.put(`users/${_id}`);
 
 export const addAddress = (_id, addressBody) => API.post(`/users/address/${_id}`, addressBody);
-export const removeAddress = (_id, addressId ) => API.put(`/users/address/${_id}?addressId=${addressId}`)
+export const removeAddress = (_id, addressId ) => API.put(`/users/address/remove/${_id}`,addressId);
 
 
 
@@ -29,7 +30,7 @@ export const removeAddress = (_id, addressId ) => API.put(`/users/address/${_id}
 //Trae el cart activo de un usuario particular
 export const getActiveCartFromUser = (userId) => API.get(`/carts/active/${userId}`);
 //Trae todos los carts de todos los usuarios (Con paginado por query)
-export const getAllCarts = () => API.get('/carts/');
+export const getAllCarts = (state,page) => API.get(`/carts/?state=${state}&page=${page}`);
 //Trae todo el historial de carts de un usuario (Con paginado por query)
 export const getCartsByUser = () => API.get('/carts/userId');
 //Agrega un item al cart activo de un usuario. Ejemplo de body: 
@@ -60,6 +61,8 @@ export const detailProduct = (id) => API.get(`/products/detail/${id}`);
 export const addProducts = (body) => API.post('/products', body);
 export const deleteProduct = (payload) => API.delete(`/products/${payload}`)
 export const editProduct = (payload) => API.put(`/products/${payload.id}`, payload.data)
+export const editStock = (payload,stock) => API.put(`/products/stock/${payload}`, stock)
+export const deleteStock = (payload) => API.delete(`/products/delete/stock/${payload}`)
 
 //USER
 export const getUsers = (page) => API.get(`/users?page=${page}`);
@@ -71,8 +74,8 @@ export const toggleAdmin = (payload) => API.put(`/users/toggle/${payload}`)
 export const editPassword = (id, payload) => API.put(`/users/password/${id}`, payload);
 
 //FILTERS
-export const filterByName = (filterName, filter) => API.get(`/products/${filterName}?${filterName}=${filter}`) //return await axios.get(`${REACT_APP_API}products/${filterName}?${filterName}=${filter}`)
-export const filterByBrand = (filter) => API.get(`/products/brand?=${filter.brand}&size=${filter.size}&genre=${filter.genre}&price=${filter.price}&category=${filter.category}`)
+export const filterByName = (filterName, filter) => API.get(`/products/aaaa/${filterName}?${filterName}=${filter}`) //return await axios.get(`${REACT_APP_API}products/${filterName}?${filterName}=${filter}`)
+export const filterByBrand = (filter) => API.get(`/products/filters/?brand=${filter.brand}&size=${filter.size}&genre=${filter.genre}&price=${filter.price}&category=${filter.category}`)
 export const filterByCategory = (name) => API.get(`/products/category/${name}`);
 
 //REVIEWS
@@ -87,3 +90,5 @@ export const getCategoryById = (payload) => API.get(`/categories/productCategory
 export const addCategory = (payload) => API.post(`/categories`, payload);
 export const editCategory = (payload) => API.put(`/categories/${payload.id}`,payload)
 export const deleteCategory = (payload) => API.delete(`/categories/${payload}`)
+
+

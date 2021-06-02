@@ -7,7 +7,7 @@ import NavBarAdmin from '../../components/NavBarAdmin/NavBarAdmin'
 
 const CompleteCatalog = () => {
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <NavBarAdmin />
             <Catalogo />
             <Footer />

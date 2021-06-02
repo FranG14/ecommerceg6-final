@@ -5,7 +5,7 @@ import Footer from '../Footer/footer'
 
 const AllCategory = () => {
     return (
-        <div>
+        <div className="tracking-wide font-bold">
             <UniversalNavBar />
             <CategoryTable />
             <Footer />
