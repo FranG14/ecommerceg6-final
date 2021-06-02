@@ -15,7 +15,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
   const page = req.query.page || 1;
   const custom = req.query.custom;
   let keyword;
-
+console.log("AAA",custom,keyword)
   if(custom && keyword){ 
     keyword = {
       name: {
@@ -38,8 +38,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
       }
     }
   }
-  if(!custom && !keyword){
-    console.log("entra aca")
+  else{
     keyword = {}
   }
 
