@@ -46,14 +46,13 @@ const addProductToWhishlist = async(req, res) => {
         let newProduct = await Product.findOne({ _id: productId })
         if(!newProduct) return res.status(404).json({message:'Product does not exist'});
 
-        const name = newProduct.name;
-        const price = newProduct.price;
-        console.log("DATA", price, name)
         whishlist.products.push({
             productId,
-            name,
-            price,
+            name:newProduct.name,
+            price: newProduct.price
         })
+        whishlist.save();
+        console.log(whishlist.products)
         return res.status(202).json(whishlist);
     
     } catch (error) {
@@ -106,6 +105,7 @@ const toggleProductFromWhishlist = async(req, res) => {
                 userId,
                 products
             })
+            newWhishlist.save()
             return res.status(201).json({ newWhishlist })
         }
         
@@ -134,8 +134,7 @@ const isProductInWhishlist = async(req, res) => {
     try{
         let newProduct = await Product.findOne({ _id: productId })
         if(!newProduct) return res.status(404).json({message:'Product does not exist'});
-        
-       
+
         let user = await User.findById(userId);
         if(!user) return res.status(404).json(false);
 
@@ -144,7 +143,7 @@ const isProductInWhishlist = async(req, res) => {
 
         let productIndex = whishlist.products.findIndex((i) => i.productId.equals(productId))
 
-        if(productIndex===-1) return res.status(200).json(false);
+        if(productIndex === -1) return res.status(200).json(false);
 
         return res.status(200).json(true)
 
@@ -153,6 +152,10 @@ const isProductInWhishlist = async(req, res) => {
         return res.status(500).json({message:'There was an Error'})
     }
 }
+//==========================================================================//
+
+
+
 //==========================================================================//
 module.exports = {
     getOrCreateWhishlistFromUser,

@@ -49,7 +49,7 @@ export const addProductToWhishlist = (userId, productId) => async(dispatch) => {
     })
 }
 //=============================================//
-export const removeProductFromWhishlist = (userId, productId) => async(dispatch) => {
+export const removeProductFromWhishlist = (userId, productId, swal, history) => async(dispatch) => {
     dispatch({
         type: REMOVE_PRODUCT_FROM_WHISHLIST    
     })
@@ -61,6 +61,14 @@ export const removeProductFromWhishlist = (userId, productId) => async(dispatch)
         })
         localStorage.setItem('whishlist', JSON.stringify(whishlist.data))
     })
+    .then(async()=> {
+        swal({
+            title: "Done!",
+            text: 'Product removed from your Whishlist',
+            icon: `info`
+        })
+    })
+    .then(() => history.push(`/whishlist/${userId}`))
     .catch((error) => {
         dispatch({
             type: REMOVE_PRODUCT_FROM_WHISHLIST_ERROR,

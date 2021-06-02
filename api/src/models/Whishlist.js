@@ -9,12 +9,9 @@ const whishlistSchema = new Schema({
         ref: 'User'
     },
     products: [{
-        productId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Product',
+        productId: {type: Schema.Types.ObjectId, ref: 'Product'},
             name: {type: String},
             price: {type: Float},
-        }
     }]
 })
 

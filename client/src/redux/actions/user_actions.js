@@ -193,7 +193,7 @@ export const addAddress = (id, payload, history, swal) => async(dispatch) => {
 }
 
 export const removeAddress = (id, addressId, history, swal) => async(dispatch) => {
-	console.log("ACTION REMOVE ADDRESS")
+
     return await api.removeAddress(id, addressId)
     .then((edit) => {
         dispatch({

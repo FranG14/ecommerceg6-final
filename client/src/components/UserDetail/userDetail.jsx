@@ -38,7 +38,6 @@ export default function UserDetail() {
 
     const handleRemoveAddress = (userId, addressId) => {
         const objAddress = { addressId: addressId }
-        console.log("REMOVE", objAddress)
         dispatch(removeAddress(userId, objAddress, history, swal))
     }
 
@@ -105,9 +104,17 @@ export default function UserDetail() {
                                     <Link to={"/MyProfile/addAddress/" + user.result._id}>
                                         <button className="mr-5  bg-green-700 flex justify-center hover:bg-green-900 text-white font-bold py-2 px-6  mt-4 rounded-full">
                                             Add an Address 🖍
-				                </button>
+				                        </button>
 
                                     </Link>
+
+                                    <Link to={`/whishlist/${user.result._id}`}>
+                                        <button className="mr-5  bg-pink-700 flex justify-center hover:bg-pink-900 text-white font-bold py-2 px-6  mt-4 rounded-full">
+                                            Whishlist
+				                        </button>
+                                    </Link>
+
+
                                     {
                                         user.result?.isAdmin &&
                                         <Link to="/Admin/Actions" >
@@ -130,7 +137,7 @@ export default function UserDetail() {
                                         <Link to={"/carts/" + user.result._id}  >
                                             <button className="mr-5  bg-blue-500 hover:bg-blue-700 flex justify-center text-white font-bold py-2 px-4 mt-4 rounded-full">
                                                 Historial de Compras
-				                </button>
+				                            </button>
                                         </Link>
                                     }
 

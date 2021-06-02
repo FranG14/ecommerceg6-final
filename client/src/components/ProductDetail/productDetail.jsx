@@ -3,27 +3,38 @@ import { detailProduct } from "../../redux/actions/products_actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { addItem, addToCart, getCartFromUser } from "../../redux/actions/cart_actions";
-import {addProductToWhishlist} from '../../redux/actions/whishlist_action';
+import {toggleProductFromWhishlist, isProductInWhishlist} from '../../redux/actions/whishlist_action';
 import UniversalNavBar from "../UniversalNavBar/universalNavBar";
 import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
-const { REACT_APP_API } = process.env;
-
 
 function DetailProduct() {
   var { id } = useParams();
-  const dispatch = useDispatch();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [whishlistBool, setWhishlistBool] = useState(undefined);
 
+  const whishlistData = useSelector(
+    (state) => state.whishlistReducer
+  );
+
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(detailProduct(id));
-  }, []);
+    if(user.result?._id){ 
+      dispatch(isProductInWhishlist(user.result?._id, id))
+      
+      
+    }
+    console.log("STATE",whishlistData)
+  }, [id]);
+
 
   const productsArray = useSelector(
     (state) => state.productsReducer.allProducts
   );
-
+  
   const reviewsRating = useSelector(
     (state) => state.productsReducer.allProducts.productReview
   );
@@ -79,7 +90,6 @@ function DetailProduct() {
     }
   }
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   const [imagePos, setImagePos] = useState(0);
   const [average, setAverage] = useState(0);

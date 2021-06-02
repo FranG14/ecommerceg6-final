@@ -18,6 +18,7 @@ import UserEdit from "./components/UserEdit/userEdit";
 import UsersTable from "./components/UsersTable/usersTable";
 import AdminAction from "./components/AdminAction/adminAction";
 import UserPassword from "./components/UserEdit/userPassword";
+import Whishlist from './components/Whishlist/whishlist';
 import Reviews from "./components/ProductReviews/reviews";
 import AddReview from "./components/ProductReviews/addReview";
 import MercadoPago from "./containers/MercadoPago/mercadoPago";
@@ -50,6 +51,9 @@ export default function Routes() {
       </Route>
       <Route exact path="/myProfile">
         <UserDetail />
+      </Route>
+      <Route exact path ='/whishlist/:id'>
+        <Whishlist/>
       </Route>
       <Route exact path="/about">
         <About />
