@@ -1,6 +1,7 @@
 var nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
+    
     host: "smtp.gmail.com",
     port: 465,
     secure: true, // true for 465, false for other ports
@@ -11,7 +12,12 @@ let transporter = nodemailer.createTransport({
     debug:false,
     tls: {
         rejectUnauthorized: false
-    }
+    } /*
+    service: "hotmail",
+        auth: {
+            user: "adaclothes@hotmail.com",
+            pass: "Lovelace123"
+        }*/
 });
 
 // let foo = await transporter.sendMail({
