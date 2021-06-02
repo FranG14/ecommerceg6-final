@@ -39,7 +39,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
     }
   }
   if(!custom && !keyword){
-    
+    console.log("entra aca")
     keyword = {}
   }
 
@@ -55,6 +55,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
     res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: true });
   }
   else {
+    // console.log("ASDSAD",products)
     res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: false });
   }
 });
@@ -96,7 +97,7 @@ const getProductsFilter = (req, res, next) => {
     }
   } else {
     keyword = {}
-  } console.log("c", keyword)
+  } 
   Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
     .populate("stock")
@@ -158,7 +159,7 @@ const addProducts = async (req, res) => {
     let sizeArray = size.split(",");
     let stockArray = stock.split(",");
     let stockId = []
-    if(custom === "false"){
+    if(!custom || custom === "false"){
     if (colorArray && colorArray.length > 0) {
       colorArray.map((c, i) => {
         const newStock = Stock({
