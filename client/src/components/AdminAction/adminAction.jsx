@@ -21,7 +21,7 @@ export default function AdminAction() {
                             <tr class="hover:bg-grey-lighter">
                                 <td class="py-4 px-6 w-96 border-b border-gray-light  focus:outline-none hover:bg-gray-100 rounded ">Post New Product</td>
                                 <td class="py-4 px-6 border-b border-grey-light ">
-                                    <Link to="/Admin">
+                                    <Link to="/post">
                                          <button type="submit" title="Post Product" className="tw-shadow:10px  flex text-white bg-green-700 border-0  mt-4 py-2 px-6 w-20 h-10 focus:outline-none hover:bg-green-800 rounded" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/></svg></button>
                                         {/* <button className="flex-no-shrink p-2 ml-4 mr-2  rounded hover:text-black  text-green font-semibold  hover:bg-yellow-300">➡</button> */}
                                     </Link>
