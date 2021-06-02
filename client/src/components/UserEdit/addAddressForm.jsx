@@ -19,23 +19,19 @@ export default function AddAddressForm() {
     const [zipcodeInput, setZipcodeInput] = useState('');
 
     const history = useHistory();
+    const dispatch = useDispatch()
 
     const addressState = useSelector(
         (state) => (state.addressReducer) && state.addressReducer 
     );
     
-    const dispatch = useDispatch()
-
     useEffect(() => {
         dispatch(getUserById(id))
         dispatch(getProvincias())
 
         if(provinceInput!=="-" && cityInput.length > 3){ 
              dispatch(getMunicipios(provinceInput, cityInput))
-            
         }
-
-
     }, [id, dispatch, cityInput, provinceInput])
 
 //====================================== HANDLERS ============================================//
@@ -69,9 +65,9 @@ export default function AddAddressForm() {
             text:e.target.value,
             selected:false,
         })
-        if(streetInput.text.length > 1){
-            dispatch(getCalles(provinceInput, cityInput.text, streetInput.text))
-        }
+        dispatch(getCalles(provinceInput, cityInput.text, streetInput.text))
+        
+        setNumberIndications('')
     }
     
     const completeStreetInput = (streetName) => {
@@ -81,7 +77,9 @@ export default function AddAddressForm() {
             min: streetName.inicioAltura,
             max: streetName.finalAltura
         })
-        setNumberIndications(`Enter a number between ${streetName.inicioAltura} and ${streetName.finalAltura}`)
+        if(streetName.finalAltura && streetName.finalAltura > 0){
+            setNumberIndications(`Enter a number between ${streetName.inicioAltura} and ${streetName.finalAltura}`)
+        }
     }
 
     const handleStreetNumberInputChange = (e) => {
@@ -202,12 +200,11 @@ export default function AddAddressForm() {
                             value={streetNumberInput}
                             id="streetNumber"
                             onChange={handleStreetNumberInputChange}
-                            disabled={addressState.calles.filter((s) => s.nombre === streetInput.text).length === 0}
                             type="number"
                             name="streetNumber"
                             placeholder="Street Number"
-                            min={streetInput.inicioAltura}
-                            max={streetInput.finalAltura}
+                            min={streetInput.inicioAltura ? streetInput.inicioAltura : 0 }
+                            max={(streetInput.finalAltura && streetInput.finalAltura > 0) ? streetInput.finalAltura : 1000000}
                             className="block w-full py-3 px-1 mt-2 mb-4 text-gray-800 appearance-none border-b-2 border-gray-100 focus:text-gray-500 focus:outline-none focus:border-gray-200"
                             required
                         />
