@@ -41,8 +41,6 @@ const addItem = async (req, res) => {
     );
     newItem.stock = stockSelected;
 
-    // console.log("dentro del stock elegido",newItem)
-
     if (!newItem) return res.status(404).json({ message: "Product not found" });
 
     const price = newItem.price;
@@ -50,7 +48,7 @@ const addItem = async (req, res) => {
 
     if (cart) {
       let itemIndex = -1;
-      //let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId));
+ 
 
       for (let i = 0; i < cart.items.length; i++) {
         if (cart.items[i].productId.equals(productId)) {
@@ -209,7 +207,6 @@ const stateChange = async (req, res) => {
   const { cartId } = req.params;
   const { state } = req.query;
 
-  console.log("El user id es: " + cartId + " y el state es: " + state);
   const statesArray = [
     "Active",
     "Cancelled",
@@ -305,7 +302,7 @@ const getAllCarts = async (req, res) => {
   const page = req.query.page || 1;
   const state = req.query.state;
   let stateOrder;
-  console.log("ASD",state,page)
+ 
 
   if(state === "undefined"){
     stateOrder = {}

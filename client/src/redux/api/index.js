@@ -78,11 +78,12 @@ export const filterByName = (filterName, filter) => API.get(`/products/aaaa/${fi
 export const filterByBrand = (filter) => API.get(`/products/filters/?brand=${filter.brand}&size=${filter.size}&genre=${filter.genre}&price=${filter.price}&category=${filter.category}`)
 export const filterByCategory = (name) => API.get(`/products/category/${name}`);
 
+
 //REVIEWS
 export const getAllReviews = (page) => API.get(`/reviews?page=${page}`);
 export const getReviewsById = (id,page) => API.get(`/reviews/${id}?page=${page}`);
 export const addReviews = (body) => API.post(`/reviews`, body);
-
+export const filterReviewsById = (id) => API.get(`/reviews/${id}`)
 //CATEGORIES
 export const getCategories = (page) => API.get(`/categories?pageNumber=${page}`)
 export const searchCategory = (name) => API.get(`/categories?keyword=${name}`);

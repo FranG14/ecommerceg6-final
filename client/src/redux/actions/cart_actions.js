@@ -34,10 +34,7 @@ export const addItemNotLogged = (productBody) => {
     let price = productBody.price;
     let quantity = productBody.quantity;
     let productId = productBody.productId;
-    // let colorName = productBody.colorName
-    // let sizeName = productBody.sizeName
 
-    // console.log("Product Body -------- ", productBody)
     let productIndex = cart.items.findIndex((i) => i.productId === productId && i.colorName === productBody.colorName && i.sizeName === productBody.sizeName);
     if(productIndex === -1){
         cart.items.push(productBody);

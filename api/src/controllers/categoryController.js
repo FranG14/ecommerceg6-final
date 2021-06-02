@@ -13,7 +13,7 @@ const addCategories = (req, res) => {
     name: req.body.name,
     description: req.body.description,
   });
-  console.log(category)
+
 
   category
     .save()
@@ -71,7 +71,6 @@ const getCategoryById = (req, res) => {
 // @access  Private/Admin
 const updateCategory = asyncHandler(async (req, res) => {
   const { name, description } = req.body;
-  console.log(req.body)
 
   const category = await Category.findById(req.params.id);
 

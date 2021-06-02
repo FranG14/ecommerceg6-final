@@ -6,7 +6,7 @@ const secret = 'test';
 
 //==========================================================================//
 const login = async (req, res) => {
-    console.log(req.body);
+    
     const { email, password } = req.body;
 
     try {
@@ -38,7 +38,7 @@ const register = async (req, res) => {
         province,
         zipcode
     } = req.body;
-    console.log("LOS DATOS DE LA DIRECCION", street, city, province, zipcode)
+    
     if (!req.body) return res.status(403).end()
 
     const addresses = []
@@ -269,7 +269,7 @@ const addAddress = async (req, res) => {
 const removeAddress = async (req, res) => {
     const { _id } = req.params;
     const { addressId } = req.body;
-    console.log(addressId)
+   
 
     const userFound = await User.findOne({ _id }, async (error, userUpdated) => {
         if (error) {
@@ -293,7 +293,7 @@ const removeAddress = async (req, res) => {
 
 const addUser = async (req, res) => {
     const { _id, userId } = req.params;
-    console.log(_id, userId);
+   
     try {
         const userFound = await User.findOne({ _id }, async (error, user) => {
             if (!user) {
