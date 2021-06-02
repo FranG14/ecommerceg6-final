@@ -3,13 +3,16 @@ import {
     GET_WHISHLIST_SUCCESS,
     GET_WHISHLIST_ERROR,
     ADD_PRODUCT_TO_WHISHLIST, ADD_PRODUCT_TO_WHISHLIST_SUCCESS, ADD_PRODUCT_TO_WHISHLIST_ERROR,
-    REMOVE_PRODUCT_FROM_WHISHLIST, REMOVE_PRODUCT_FROM_WHISHLIST_SUCCESS, REMOVE_PRODUCT_FROM_WHISHLIST_ERROR
+    REMOVE_PRODUCT_FROM_WHISHLIST, REMOVE_PRODUCT_FROM_WHISHLIST_SUCCESS, REMOVE_PRODUCT_FROM_WHISHLIST_ERROR,
+    TOGGLE_PRODUCT_IN_WHISHLIST, TOGGLE_PRODUCT_IN_WHISHLIST_SUCCESS, TOGGLE_PRODUCT_IN_WHISHLIST_ERROR,
+    IS_PRODUCT_IN_WHISHLIST
 } from '../constants';
 
 const initialState = {
     whishlist : {},
     isLoading: false,
-    error: null
+    error: null,
+    includes: false,
 }
 
 const whishlistReducer = (state = initialState, action) => {
@@ -32,6 +35,14 @@ const whishlistReducer = (state = initialState, action) => {
             return {...state, whishlist:action.payload, isLoading:false, error:null}
         case REMOVE_PRODUCT_FROM_WHISHLIST_ERROR:
             return {...state, whishlist:{}, isLoading:false, error:action.payload}
+        case IS_PRODUCT_IN_WHISHLIST:
+            return {...state, includes:action.payload}
+        case TOGGLE_PRODUCT_IN_WHISHLIST:
+            return {...state, isLoading: true, error: null}
+        case TOGGLE_PRODUCT_IN_WHISHLIST_SUCCESS:
+            return {...state, whishlist: action.payload, isLoading: false, error:null}
+        case TOGGLE_PRODUCT_IN_WHISHLIST_ERROR:
+            return {...state, isLoading:false, error:action.payload}
         default:
             return state
     }

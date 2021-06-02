@@ -7,7 +7,7 @@ const User = require('./../models/User');
 const getOrCreateWhishlistFromUser = async (req, res) => {
     const {userId} = req.params;
     try {
-        let user = await User.findById({userId});
+        let user = await User.findById(userId);
         if(!user) return res.status(404).json({message:'User Not Found'});
     
         let whishlist = await Whishlist.findOne({userId})
@@ -46,13 +46,13 @@ const addProductToWhishlist = async(req, res) => {
         let newProduct = await Product.findOne({ _id: productId })
         if(!newProduct) return res.status(404).json({message:'Product does not exist'});
 
-        const price = newProduct.price;
         const name = newProduct.name;
-
+        const price = newProduct.price;
+        console.log("DATA", price, name)
         whishlist.products.push({
             productId,
+            name,
             price,
-            name
         })
         return res.status(202).json(whishlist);
     
@@ -94,7 +94,7 @@ const toggleProductFromWhishlist = async(req, res) => {
         const price = newProduct.price;
         const name = newProduct.name;
         
-        let user = await User.findById({userId});
+        let user = await User.findById(userId);
         if(!user) return res.status(404).json({message:'User Not Found'});
 
         let whishlist;
@@ -136,7 +136,7 @@ const isProductInWhishlist = async(req, res) => {
         if(!newProduct) return res.status(404).json({message:'Product does not exist'});
         
        
-        let user = await User.findById({userId});
+        let user = await User.findById(userId);
         if(!user) return res.status(404).json(false);
 
         whishlist = await Whishlist.findOne({userId});

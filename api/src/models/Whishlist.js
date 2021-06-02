@@ -13,7 +13,7 @@ const whishlistSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Product',
             name: {type: String},
-            price: Float,
+            price: {type: Float},
         }
     }]
 })

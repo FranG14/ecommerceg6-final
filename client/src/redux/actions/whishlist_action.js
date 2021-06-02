@@ -4,7 +4,9 @@ import {
     GET_WHISHLIST_SUCCESS,
     GET_WHISHLIST_ERROR,
     ADD_PRODUCT_TO_WHISHLIST, ADD_PRODUCT_TO_WHISHLIST_SUCCESS, ADD_PRODUCT_TO_WHISHLIST_ERROR,
-    REMOVE_PRODUCT_FROM_WHISHLIST, REMOVE_PRODUCT_FROM_WHISHLIST_SUCCESS, REMOVE_PRODUCT_FROM_WHISHLIST_ERROR
+    REMOVE_PRODUCT_FROM_WHISHLIST, REMOVE_PRODUCT_FROM_WHISHLIST_SUCCESS, REMOVE_PRODUCT_FROM_WHISHLIST_ERROR,
+    TOGGLE_PRODUCT_IN_WHISHLIST, TOGGLE_PRODUCT_IN_WHISHLIST_SUCCESS, TOGGLE_PRODUCT_IN_WHISHLIST_ERROR,
+    IS_PRODUCT_IN_WHISHLIST
 } from '../constants';
 //=============================================//
 export const getOrCreateWhishlistFromUser = (userId) => async(dispatch) => {
@@ -66,3 +68,35 @@ export const removeProductFromWhishlist = (userId, productId) => async(dispatch)
         })
     })
 }
+//=============================================//
+export const toggleProductFromWhishlist = (userId, productId) => async(dispatch) => {
+    dispatch({
+        type: TOGGLE_PRODUCT_IN_WHISHLIST
+    })
+    return await api.toggleProductFromWhishlist(userId,productId)
+    .then((result) => {
+        dispatch({
+            type: TOGGLE_PRODUCT_IN_WHISHLIST_SUCCESS,
+            payload: result.data
+        })
+        localStorage.setItem('whishlist', JSON.stringify(result.data))
+    })
+    .catch((error) => {
+        console.log(error)
+        dispatch({
+            type: TOGGLE_PRODUCT_IN_WHISHLIST_ERROR,
+            payload: error.response?.data
+        })
+    })
+}
+//=============================================//
+export const isProductInWhishlist = (userId, productId) => async(dispatch) => {
+    return await api.isProductInWhishlist(userId, productId)
+    .then((result)=> {
+        dispatch({
+            type: IS_PRODUCT_IN_WHISHLIST,
+            payload: result.data
+        })
+    })
+}
+//=============================================//
