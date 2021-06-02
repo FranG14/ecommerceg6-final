@@ -54,7 +54,7 @@ export const getCartsById = (cartId) => API.get(`/carts/id/${cartId}`);
 
 
 //PRODUCT
-export const getAllProducts = (page) => API.get(`/products?page=${page}`);
+export const getAllProducts = (page,custom) => API.get(`/products?page=${page}&custom=${custom}`);
 export const searchProducts = (name) => API.get(`/products?keyword=${name}`);
 export const detailProduct = (id) => API.get(`/products/detail/${id}`);
 export const addProducts = (body) => API.post('/products', body);

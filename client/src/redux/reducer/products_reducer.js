@@ -41,6 +41,7 @@ const productsReducer = (state = initialState, action) => {
       return { ...state, addProduct: null, isLoading: true, error: null };
       
     case ADD_PRODUCT_SUCCESS:
+      console.log("ENTRA AL REduceR", action.payload)
       return { ...state, addProduct: action.payload, isLoading: false, error: false };
       
     case ADD_PRODUCT_ERROR:

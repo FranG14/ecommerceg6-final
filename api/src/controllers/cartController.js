@@ -32,7 +32,8 @@ const getActiveCartFromUser = async (req, res) => {
 //==========================================================================//
 const addItem = async (req, res) => {
   const { userId } = req.params;
-  const { productId, quantity, colorName, sizeName, stock } = req.body;
+  const { productId, quantity, colorName, sizeName, stock,custom } = req.body;
+  console.log("ASDASDASD",sizeName)
   try {
     let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
 
@@ -130,7 +131,7 @@ const incrementProductUnit = async (req, res) => {
 
     const price = itemFound.price;
     const stock = itemFound.stock;
-    console.log("ITEMFOUND", itemFound);
+
     let itemIndex = cart.items.findIndex(
       (i) =>
         i.productId.equals(productId) &&
@@ -143,7 +144,7 @@ const incrementProductUnit = async (req, res) => {
     }
     //========================================//
     let productItem = cart.items[itemIndex];
-
+    if(!itemFound.custom){
     let totalQuantity = 0;
     if (productItem.stock >= productItem.quantity) {
       productItem.quantity += 1;
@@ -154,9 +155,17 @@ const incrementProductUnit = async (req, res) => {
       cart.totalAmount += price;
       cart.totalQuantity = totalQuantity;
     }
-
+  
     cart = await cart.save();
     return res.status(201).json({ cart, totalQuantity: totalQuantity });
+  }
+  else{
+    cart.items[itemIndex].quantity++;
+    cart.totalAmount += price;
+    cart = await cart.save();
+    return res.status(201).json({ cart, totalQuantity: cart.items[itemIndex].quantity });
+  }
+  
     //========================================//
 
     // if(itemIndex.quantity < stock) {
@@ -204,6 +213,7 @@ const decrementProductUnit = async (req, res) => {
     if (itemIndex === -1)
       return res.status(400).json({ message: "Item not found" });
     //========================================//
+    if(!itemFound.custom){
     let productItem = cart.items[itemIndex];
     productItem.quantity -= 1;
 
@@ -217,6 +227,13 @@ const decrementProductUnit = async (req, res) => {
 
     cart = await cart.save();
     return res.status(201).json({ cart, totalQuantity: totalQuantity });
+  }
+  else{
+    cart.items[itemIndex].quantity--;
+    cart.totalAmount -= price;
+    cart = await cart.save();
+    return res.status(201).json({ cart, totalQuantity: cart.items[itemIndex].quantity });
+  }
     //========================================//
 
     if (itemIndex.quantity > 0) {
@@ -349,7 +366,7 @@ const getAllCarts = async (req, res) => {
   let stateOrder;
   console.log("ASD",state,page)
 
-  if(state === "undefined"){
+  if(state === "undefined" || !state){
     stateOrder = {}
 }else{
   stateOrder = {

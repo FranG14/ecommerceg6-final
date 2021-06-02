@@ -17,11 +17,12 @@ import {
 //const { REACT_APP_API } = 'https://e-commerce-g6-back.herokuapp.com/'; // En local comentar esta linea
 const { REACT_APP_API } = process.env; // En deploy comentar esta linea
 
-export const getAllProducts = (page) => async (dispatch) => {
+export const getAllProducts = (page,custom) => async (dispatch) => {
   dispatch({
     type: GET_ALL_PRODUCTS,
   });
-  return await api.getAllProducts(page)
+  console.log("AWDASDSDA",custom)
+  return await api.getAllProducts(page,custom)
     .then((res) => {
       // console.log("PRODUCT ACTION",res.data)
       dispatch({
@@ -67,6 +68,7 @@ export const addProducts = (body) => async (dispatch) => {
   });
   return await api.addProducts(body)
     .then((p) => {
+      console.log("ENTRA AL ACTIOn ",p.data)
       dispatch({
         type: ADD_PRODUCT_SUCCESS,
         payload: p.data,
