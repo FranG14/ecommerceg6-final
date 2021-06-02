@@ -4,6 +4,7 @@ import { Link, useLocation, useHistory, Route, Switch } from "react-router-dom";
 import "./universalNavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import home from '../../assets/home.png'
+import logoTransparent from "../../assets/logo_transparent.png"
 import swal from 'sweetalert';
 import carroHome from '../../assets/carroHome.png'
 import { searchProducts } from '../../redux/actions/products_actions'
@@ -98,10 +99,12 @@ export default function UniversalNavBar(props) {
 
   return (
     <div className="">
+
       <header class="header tracking-wide font-bold text-center">
         <Link to="/" class="logo">
           {" "}
-          <img alt="logo" src={home}></img>{" "}
+          <img alt="logo" src={logoTransparent} style={{position:"absolute",top:"-12px",left:"15px",width:"200px"}}></img>{" "}
+
         </Link>
 
         <input class="menu-btn" type="checkbox" id="menu-btn" />

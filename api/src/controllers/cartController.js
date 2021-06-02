@@ -2,6 +2,8 @@ const { ObjectId } = require("bson");
 const Cart = require("./../models/Cart");
 const Product = require("./../models/Product");
 const { transporter } = require("../mailer");
+var EmailTemplate = require('email-templates-v2').EmailTemplate;
+path = require('path');
 //==========================================================================//
 
 const getActiveCartFromUser = async (req, res) => {
@@ -267,13 +269,41 @@ const stateChange = async (req, res) => {
       cart.fechaCierre = new Date();
       cart = await cart.save();
       if (cart.state === "Paid") {
+        let arrProducts = []
+
+        for(let i=0;i<cart.items.length;i++){
+          arrProducts.push({nameProducto:cart.items[i].name,cantidad:cart.items[i].quantity,precioUnitario:cart.items[i].price})
+        }
+
+        let users = [
+          {
+              name: cart.userId.firstname,
+              email: cart.userId.email,
+              orden: cart._id,
+              productos: arrProducts,
+              total:cart.totalAmount
+          }
+        ];
+
+        await loadTemplate('paid', users).then((results) => {
+          return Promise.all(results.map((result) => {
+              sendEmail({
+                  to: result.context.email,
+                  from: "ecommerceg6ft11@gmail.com",
+                  subject: "Compra realizada!",
+                  html: result.email.html,
+                  text: result.email.text,
+              });
+          }));
+        })
+        /*
         let foo = await transporter.sendMail({
           from: '"Ecommerce" <ecommerceg6ft11@gmail.com>', // sender address
           to: cart.userId.email, // list of receivers
           subject: "Compra realizada", // Subject line
           text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
           html: "<b>Hello world?</b>", // html body
-        });
+        });*/
       }
       if (cart.state === "On it's Way") {
         let foo = await transporter.sendMail({
@@ -404,6 +434,24 @@ const getCartsById = async (req, res) => {
   return res.json({ carts, current: page, pages: Math.ceil(count / pageSize) });
 };
 
+//==========================================================================//
+function sendEmail (obj) {
+  return transporter.sendMail(obj);
+}
+function loadTemplate (templateName, contexts) {
+let template = new EmailTemplate(path.join(__dirname, 'templates', templateName));
+return Promise.all(contexts.map((context) => {
+    return new Promise((resolve, reject) => {
+        template.render(context, (err, result) => {
+            if (err) reject(err);
+            else resolve({
+                email: result,
+                context,
+            });
+        });
+    });
+}));
+}
 //==========================================================================//
 
 module.exports = {
