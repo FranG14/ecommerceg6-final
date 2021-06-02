@@ -23,7 +23,6 @@ export const getAllProducts = (page) => async (dispatch) => {
   });
   return await api.getAllProducts(page)
     .then((res) => {
-      // console.log("PRODUCT ACTION",res.data)
       dispatch({
         type: GET_PRODUCTS_SUCCESS,
         payload: res.data,
@@ -58,7 +57,6 @@ export const detailProduct = (id) => async(dispatch)=> {
           payload: error.payload
       })
   });
-  
 }
 
 export const addProducts = (body) => async (dispatch) => {

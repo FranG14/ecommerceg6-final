@@ -107,7 +107,7 @@ export default function UniversalNavBar(props) {
 
         </Link>
 
-        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <input className="menu-btn" type="checkbox" id="menu-btn" />
         {/* <Route
           path="/shop"
           render={({ match }) => {
@@ -115,7 +115,7 @@ export default function UniversalNavBar(props) {
             return (
               <input
                 onKeyPress={handleKeyPress}
-                class="mt-3 mb-3 w-48 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
+                className="mt-3 mb-3 w-48 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
                 type="search"
                 name="search"
                 autoComplete="true"
@@ -127,8 +127,8 @@ export default function UniversalNavBar(props) {
           }}
         /> */}
 
-        <label class="menu-icon" for="menu-btn">
-          <span class="navicon"></span>
+        <label className="menu-icon" for="menu-btn">
+          <span className="navicon"></span>
         </label>
         {window.location.pathname === "/Shop" && (
           <div id="responsiveSearch" className=" flex flex-col  lg:ml-96 ml-20   absolute">
@@ -182,7 +182,7 @@ export default function UniversalNavBar(props) {
             <li>
               <Link to={"/cart/" + user.result._id}>
                 <img
-                  class="mx-auto"
+                  className="mx-auto"
                   width="24px"
                   height="24px"
                   src={carroHome}
@@ -194,7 +194,7 @@ export default function UniversalNavBar(props) {
             <li>
               <Link to={"/cart/"}>
                 <img
-                  class="mx-auto"
+                  className="mx-auto"
                   width="24px"
                   height="24px"
                   src={carroHome}

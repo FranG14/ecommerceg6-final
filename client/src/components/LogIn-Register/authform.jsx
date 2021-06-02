@@ -283,7 +283,7 @@ const AuthForm = () => {
                         <br />
 
                         <div >
-                            <label class="block text-xs font-semibold text-gray-600 uppercase">
+                            <label className="block text-xs font-semibold text-gray-600 uppercase">
                                 Password
                             </label>
                             <br />
@@ -317,7 +317,7 @@ const AuthForm = () => {
                         {isSignup && 
                         <div>
                             <br />
-                            <h1 class="text-xl font-semibold">
+                            <h1 className="text-xl font-semibold">
                                 Address Information
                             </h1>
                             <br />

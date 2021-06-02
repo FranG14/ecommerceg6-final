@@ -220,12 +220,12 @@ const ProductPostForm = () => {
               </h1>
             </div>
             {/* COLOR */}
-            <div class="m-7">
+            <div className="m-7">
               <form onSubmit={handleSubmit}>
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     for="name"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     Product
                   </label>
@@ -237,13 +237,13 @@ const ProductPostForm = () => {
                     onChange={handleInputChange}
                     placeholder="Product"
                     required
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   />
                 </div>
-                <div class="mb-6 w-full">
+                <div className="mb-6 w-full">
                   <label
                     for="color"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     Color
                   </label>
@@ -254,7 +254,7 @@ const ProductPostForm = () => {
                     placeholder="Color"
                     // value={product.color}
                     required
-                    class="w-28 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                    className="w-28 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   />
                   <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                   <input id="stock" placeholder="Stock" type="number" className="w-24 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
@@ -265,10 +265,10 @@ const ProductPostForm = () => {
                       return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color} {product.size[i]} {product.stock[i]}</p>
                     })}
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   {/* <label
                     for="size"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     Size
                   </label> */}
@@ -279,7 +279,7 @@ const ProductPostForm = () => {
                     // value={product.size}
                     // onChange={handleInputChange}
                     placeholder="Size"
-                    class="w-32 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                    className="w-32 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                     focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                  dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                  dark:focus:ring-gray-900 dark:focus:border-gray-500"
@@ -291,10 +291,10 @@ const ProductPostForm = () => {
                       return <p onClick={deleteSize} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{size}</p>
                     })} */}
                 </div>
-                <div class="mb-6 mt-4">
+                <div className="mb-6 mt-4">
                   {/* <label
                     for="stock"
-                    class="text-sm text-gray-600 dark:text-gray-400"
+                    className="text-sm text-gray-600 dark:text-gray-400"
                   >
                     Stock
                   </label>
@@ -306,33 +306,33 @@ const ProductPostForm = () => {
                     onChange={handleInputChange}
                     placeholder="Stock"
                     required
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   /> */}
                 </div>
 
                 {/* genre */}
                 <div>
-                  <div class="mb-1"><label for="genres" class="text-sm text-gray-600 dark:text-gray-400">Genres</label></div>
-                  <label class="inline-flex items-center mt-3">
-                    <input type="checkbox" name="genre" value="men" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">Men</span>
+                  <div className="mb-1"><label for="genres" className="text-sm text-gray-600 dark:text-gray-400">Genres</label></div>
+                  <label className="inline-flex items-center mt-3">
+                    <input type="checkbox" name="genre" value="men" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">Men</span>
                   </label>
-                  <label class="inline-flex items-center mt-3">
-                    <input type="checkbox" name="genre" value="woman" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">Woman</span>
+                  <label className="inline-flex items-center mt-3">
+                    <input type="checkbox" name="genre" value="woman" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">Woman</span>
                   </label>
-                  <label class="inline-flex items-center mt-3">
-                    <input type="checkbox" name="genre" value="unisex" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">Unisex</span>
+                  <label className="inline-flex items-center mt-3">
+                    <input type="checkbox" name="genre" value="unisex" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">Unisex</span>
                   </label>
-                  <label class="inline-flex items-center mt-3">
-                    <input type="checkbox" name="genre" value="boys" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700 mr-2">boys</span>
-                  </label><label class="inline-flex items-center mt-3">
-                    <input type="checkbox" name="genre" value="girls" onChange={handleInputChange} class="form-checkbox h-4 w-4 text-purple-600" /><span class="ml-2 text-gray-700">girls</span>
+                  <label className="inline-flex items-center mt-3">
+                    <input type="checkbox" name="genre" value="boys" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700 mr-2">boys</span>
+                  </label><label className="inline-flex items-center mt-3">
+                    <input type="checkbox" name="genre" value="girls" onChange={handleInputChange} className="form-checkbox h-4 w-4 text-purple-600" /><span className="ml-2 text-gray-700">girls</span>
                   </label>
                 </div>
                 {/* fin genre */}
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     for="price"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     Price
                   </label>
@@ -344,16 +344,16 @@ const ProductPostForm = () => {
                     value={product.price}
                     onChange={handleInputChange}
                     required
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   />
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     for="brand"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     Brand
                   </label>
@@ -364,17 +364,17 @@ const ProductPostForm = () => {
                     value={product.brand}
                     onChange={handleInputChange}
                     placeholder="Brand"
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                     focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                  dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                  dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     required
                   />
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     for="description"
-                    class="block mb-2 text-sm text-gray-600 dark:text-gray-400"
+                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                   >
                     Description
                   </label>
@@ -385,7 +385,7 @@ const ProductPostForm = () => {
                     value={product.description}
                     onChange={handleInputChange}
                     placeholder="Product Description"
-                    class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
+                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none 
                                 focus:ring focus:ring-indigo-100 
                                 focus:border-indigo-300 dark:bg-gray-700 
                                 dark:text-white dark:placeholder-gray-500 
@@ -394,10 +394,10 @@ const ProductPostForm = () => {
                     required
                   />
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     for="category"
-                    class="block text-xs font-semibold text-gray-600 mt-2 uppercase"
+                    className="block text-xs font-semibold text-gray-600 mt-2 uppercase"
                   >
                     Category
                   </label>
@@ -423,10 +423,10 @@ const ProductPostForm = () => {
                     <p className="text-sm mt-2 -mb-2">Can't find your Category? <Link to='/postCategory' className="underline text-sm text-blue-800">Add New One</Link></p>
                   </label>
                 </div>
-                <div class="mb-6">
+                <div className="mb-6">
                   <label
                     for="img"
-                    class="block text-xs font-semibold text-gray-600 mt-2 uppercase"
+                    className="block text-xs font-semibold text-gray-600 mt-2 uppercase"
                   >
                     Images
                   </label>
@@ -435,26 +435,26 @@ const ProductPostForm = () => {
                   </label>
                 </div>
 
-                <div class="mb-6">
+                <div className="mb-6">
                   <button
                     type="submit"
                     onClick={handleSubmit}
-                    class="w-full px-3 py-4 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none"
+                    className="w-full px-3 py-4 text-white bg-green-500 rounded-md hover:bg-green-600 focus:outline-none"
                   >
                     Post New Product
                   </button>
                 </div>
-                <p class="text-base text-center text-gray-400" id="result"></p>
+                <p className="text-base text-center text-gray-400" id="result"></p>
               </form>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
-          <div class="container mx-auto">
-            <div class="max-w-md px-22 mx-8 my-10 bg-white p-5 rounded-md shadow-</div>sm">
-              <div class=" justify-center justify-items-center content-center items-center">
+        <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
+          <div className="container mx-auto">
+            <div className="max-w-md px-22 mx-8 my-10 bg-white p-5 rounded-md shadow-</div>sm">
+              <div className=" justify-center justify-items-center content-center items-center">
                 <div className="card">
                   <div className="flex justify-center">
                     <img

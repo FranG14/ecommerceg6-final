@@ -151,13 +151,13 @@ function DetailProduct() {
   return (
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
-      <section class="text-gray-700 body-font overflow-hidden mt-10 bg-gray-200">
-        <div class="container px-5  py-28 mx-auto">
-          <div class="lg:w-4/5 mx-auto flex flex-wrap bg-gray-100 pr-5 rounded sm:w-auto">
+      <section className="text-gray-700 body-font overflow-hidden mt-10 bg-gray-200">
+        <div className="container px-5  py-28 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap bg-gray-100 pr-5 rounded sm:w-auto">
             {productsArray.img && productsArray.img.length > 0 && (
               <img
                 alt="ecommerce"
-                class="lg:w-1/2 w-full object-cover object-center pl-5 py-5 rounded border "
+                className="lg:w-1/2 w-full object-cover object-center pl-5 py-5 rounded border "
                 onClick={changeImage}
                 src={`http://localhost:3001/products/image/${productsArray.img[imagePos]}`}
               />
@@ -197,13 +197,13 @@ function DetailProduct() {
                     ""
                   ) : (
                     <Link to={"/reviews/" + productsArray._id}>
-                      <span class="text-gray-600 ml-3 text-lg">Reviews</span>
+                      <span className="text-gray-600 ml-3 text-lg">Reviews</span>
                     </Link>
                   )}
                 </span>
-                <span class="flex ml-3 pl-3 -mr-3 py-2 border-l-2 border-gray-200"></span>
+                <span className="flex ml-3 pl-3 -mr-3 py-2 border-l-2 border-gray-200"></span>
                 <Link to={"/reviews/add/" + productsArray._id}>
-                  <span class="text-gray-600 ml-3 text-lg">Add Review</span>
+                  <span className="text-gray-600 ml-3 text-lg">Add Review</span>
                 </Link>
               </div>
               <p class="leading-relaxed pl-3">{productsArray.description}</p>
@@ -238,14 +238,14 @@ function DetailProduct() {
                         })
                         : ""}
                     </select>
-                    <span class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                    <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                       <svg
                         fill="none"
                         stroke="currentColor"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        class="w-4 h-4"
+                        className="w-4 h-4"
                         viewBox="0 0 24 24"
                       >
                         <path d="M6 9l6 6 6-6"></path>
@@ -261,7 +261,7 @@ function DetailProduct() {
                 {productStock && productStock.stock >= 1 ? (
                   // <a to={`/cart/${id}`}>
                   <button
-                    class="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded"
+                    className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded"
                     onClick={addProductToCart}
                   >
                     Add to Cart
@@ -272,7 +272,7 @@ function DetailProduct() {
                 )}
                 {productStock && productStock.stock >= 1 ? (
                   <Link to="/payment">
-                    <button class="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
+                    <button className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
                       Buy
                     </button>
                   </Link>

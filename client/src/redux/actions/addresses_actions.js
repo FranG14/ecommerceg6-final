@@ -1,7 +1,6 @@
 import axios from 'axios'
 const api = 'http://apis.datos.gob.ar/georef/api'
 
-//apis.datos.gob.ar/georef/api/calles?nombre=eva&provincia=$Buenos Aires&departamento=$Berazategui&orden=nombre
 //======================================================================//
 export const getProvincias = () => async(dispatch) => {
     return await axios.get(`${api}/provincias`)

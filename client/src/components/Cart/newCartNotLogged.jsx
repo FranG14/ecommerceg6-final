@@ -70,7 +70,7 @@ const NewCartNotLogged = () => {
                                 <div class="flex justify-between px-4 items-center">
                                     <div class="text-lg font-semibold">
                                         <p>{cart.productName} {cart.colorName} {cart.sizeName}</p>
-                                        <p class="text-gray-400 text-base">${cart.price}</p>
+                                        <p className="text-gray-400 text-base">${cart.price}</p>
                                     </div>
                                     <div class="text-lg font-semibold transform rotate-45 ">
                                         <button onClick={() => deleteC(cart.productId)} class="focus:outline-none  bg-pink-700 hover:bg-pink-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center ">
@@ -86,13 +86,13 @@ const NewCartNotLogged = () => {
                     }
                 </div>
 
-                <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-4 xxl:col-span-4">
-                    <div class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
+                <div className="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-4 xxl:col-span-4">
+                    <div className="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
                         {/* <!-- classic add --> */}
                         {userCart && userCart?.items?.length > 0 && userCart.items.map(cart => {
                             return (
-                                <div class="flex justify-between border-b-2 mb-2">
-                                    <div class="text-lg py-2">
+                                <div className="flex justify-between border-b-2 mb-2">
+                                    <div className="text-lg py-2">
                                         <p>{cart.productName} {cart.colorName} {cart.sizeName}</p>
                                     </div>
                                     <div class="text-lg py-2">
@@ -126,10 +126,10 @@ const NewCartNotLogged = () => {
                         {/* <!-- End Total Item --> */}
 
                     </div>
-                    <div class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
+                    <div className="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
                         {/* <!-- Total Price --> */}
-                        <div class="flex justify-center items-center text-center">
-                            <div class="text-xl font-semibold">
+                        <div className="flex justify-center items-center text-center">
+                            <div className="text-xl font-semibold">
                                 <p>Total Price</p>
                                 <p class="text-5xl">${userCart ? userCart.totalAmount : ""}</p>
                             </div>

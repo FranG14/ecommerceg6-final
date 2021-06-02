@@ -15,8 +15,6 @@ const userReducer = (state = initialState, action) => {
 
 	switch (action.type) {
 		case GET_USER_ID:
-			
-			console.log(action);
 			return {
 				...state,
 				user: {
@@ -43,20 +41,6 @@ const userReducer = (state = initialState, action) => {
 					
 				}
 			}
-		
-	/* 	case EDIT_USER:
-			return {
-				...state,
-				user: {
-					...state.user,
-					list: state.user.list.map(el => {
-						if (el.id === action.payload.id) {
-							return action.payload;
-						}
-						return el;
-					})
-				}
-			} */
 		case DELETE_USER:
 			return {
 				...state,
@@ -74,14 +58,12 @@ const userReducer = (state = initialState, action) => {
 				}
 			}
 		case ADMIN_USER:
-			console.log(action.payload)	
 			return {
 				...state,
 				user: {
 					...state.user,
 					list: (state.user.list.id === action.payload.id)? action.payload
 						:" "
-					
 				}
 			}
 		case EDIT_PASSWORD:
@@ -92,7 +74,6 @@ const userReducer = (state = initialState, action) => {
 					...state.user,
 					list: (state.user.list.userFound._id === action.payload._id)? action.payload
 						:" "
-					
 				}
 			}
 		case ADD_ADDRESS:

@@ -8,7 +8,6 @@ path = require('path');
 
 const getActiveCartFromUser = async (req, res) => {
   const { userId } = req.params;
-  // console.log("entra al",userId)
   let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
 
   if (!cart) {
@@ -42,8 +41,6 @@ const addItem = async (req, res) => {
     );
     newItem.stock = stockSelected;
 
-    // console.log("dentro del stock elegido",newItem)
-
     if (!newItem) return res.status(404).json({ message: "Product not found" });
 
     const price = newItem.price;
@@ -51,7 +48,7 @@ const addItem = async (req, res) => {
 
     if (cart) {
       let itemIndex = -1;
-      //let itemIndex = cart.items.findIndex((i) => i.productId.equals(productId));
+ 
 
       for (let i = 0; i < cart.items.length; i++) {
         if (cart.items[i].productId.equals(productId)) {
@@ -65,13 +62,11 @@ const addItem = async (req, res) => {
         }
       }
 
-      // console.log("ITEMINDEX",cart.items[itemIndex].productId)
       if (itemIndex > -1) {
         let productItem = cart.items[itemIndex];
         productItem.quantity += quantity;
         cart.items[itemIndex] = productItem;
       } else {
-        console.log("Not found");
         cart.items.push({
           productId: newItem,
           name,
@@ -115,7 +110,6 @@ const addItem = async (req, res) => {
 const incrementProductUnit = async (req, res) => {
   const { userId } = req.params;
   const { productId, colorName, sizeName } = req.query;
-  // console.log(req.body)
 
   try {
     let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
@@ -130,7 +124,6 @@ const incrementProductUnit = async (req, res) => {
 
     const price = itemFound.price;
     const stock = itemFound.stock;
-    console.log("ITEMFOUND", itemFound);
     let itemIndex = cart.items.findIndex(
       (i) =>
         i.productId.equals(productId) &&
@@ -157,21 +150,6 @@ const incrementProductUnit = async (req, res) => {
 
     cart = await cart.save();
     return res.status(201).json({ cart, totalQuantity: totalQuantity });
-    //========================================//
-
-    // if(itemIndex.quantity < stock) {
-    //     let productItem = cart.items[itemIndex]
-    //     productItem.quantity += 1;
-    //     cart.items[itemIndex] = productItem
-    //     cart.totalAmount += price;
-
-    //     cart = await cart.save();
-    //     return res.status(201).json({cart})
-
-    // } else {
-    //     console.log("ERROR")
-    //     return res.status(400).json({message:'Cannot add more than the stock available'})
-    // }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "There was an error" });
@@ -201,8 +179,7 @@ const decrementProductUnit = async (req, res) => {
         i.sizeName === sizeName
     );
 
-    if (itemIndex === -1)
-      return res.status(400).json({ message: "Item not found" });
+    if (itemIndex === -1) return res.status(400).json({ message: "Item not found" });
     //========================================//
     let productItem = cart.items[itemIndex];
     productItem.quantity -= 1;
@@ -219,19 +196,6 @@ const decrementProductUnit = async (req, res) => {
     return res.status(201).json({ cart, totalQuantity: totalQuantity });
     //========================================//
 
-    if (itemIndex.quantity > 0) {
-      let productItem = cart.items[itemIndex];
-      productItem.quantity -= 1;
-      cart.items[itemIndex] = productItem;
-      cart.totalAmount -= price;
-
-      cart = await cart.save();
-      return res.status(201).json({ cart });
-    } else {
-      return res
-        .status(400)
-        .json({ message: "Cannot decrement into negative numbers" });
-    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "There was an error" });
@@ -243,13 +207,6 @@ const stateChange = async (req, res) => {
   const { cartId } = req.params;
   const { state } = req.query;
 
-  console.log("El user id es: " + cartId + " y el state es: " + state);
-  //return res.json({user:userId,state})
-  //return res.json({stado:req.query.state})
-  //if(!req.query?.state) {
-  //    return res.status(400).json({message: 'New State not found'});
-  //}
-  //res.json({state:req.query.state})
   const statesArray = [
     "Active",
     "Cancelled",
@@ -261,10 +218,8 @@ const stateChange = async (req, res) => {
     return res.status(400).json({ message: "State not valid" });
 
   try {
-    //let cart = await Cart.findOne({userId});
-    let cart = await Cart.findOne({ _id: cartId }).populate("userId"); //Antes se buscaba el cart activo de un usuario con {$and:[{userId}, {state:'Active'}]}
+    let cart = await Cart.findOne({ _id: cartId }).populate("userId"); 
     if (cart) {
-      //res.status(200).json({message:'entre aqui'})
       cart.state = req.query.state;
       cart.fechaCierre = new Date();
       cart = await cart.save();
@@ -347,7 +302,7 @@ const getAllCarts = async (req, res) => {
   const page = req.query.page || 1;
   const state = req.query.state;
   let stateOrder;
-  console.log("ASD",state,page)
+ 
 
   if(state === "undefined"){
     stateOrder = {}
@@ -387,7 +342,6 @@ const getCartsByUser = async (req, res) => {
 const removeProductFromCart = async (req, res) => {
   const { userId } = req.params;
   const { productId, colorName, sizeName } = req.query;
-  console.log("ENTRA", userId, productId, colorName, sizeName);
   let cartFiltered = [];
   try {
     let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
@@ -415,7 +369,6 @@ const removeProductFromCart = async (req, res) => {
     const updateCart = await cart.save();
     res.status(200).json({ cart: updateCart, totalQuantity: totalQuantity });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "There was an error" });
   }
 };

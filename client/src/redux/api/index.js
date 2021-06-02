@@ -19,7 +19,7 @@ export const login = (formData) => API.post('/users/login', formData);
 export const register = (formData) => API.post('/users/register', formData);
 export const googleLogIn = (formData) => API.post('users/google',formData);
 export const changePassword = (passwords, _id) => API.put(`/users/password/${_id}`, passwords);
-export const updateUser = (userBody, _id) => API.put(`users/${_id}`);
+export const updateUser = (userBody, _id) => API.put(`users/${_id}`, userBody);
 
 export const addAddress = (_id, addressBody) => API.post(`/users/address/${_id}`, addressBody);
 export const removeAddress = (_id, addressId ) => API.put(`/users/address/remove/${_id}`,addressId);
@@ -32,7 +32,7 @@ export const getActiveCartFromUser = (userId) => API.get(`/carts/active/${userId
 //Trae todos los carts de todos los usuarios (Con paginado por query)
 export const getAllCarts = (state,page) => API.get(`/carts/?state=${state}&page=${page}`);
 //Trae todo el historial de carts de un usuario (Con paginado por query)
-export const getCartsByUser = () => API.get('/carts/userId');
+export const getCartsByUser = (userId) => API.get(`/carts/${userId}`);
 //Agrega un item al cart activo de un usuario. Ejemplo de body: 
 //{"productId":"60a0896ee2e38c2fa0b2fe74","quantity": "5"}
 //En caso de ingresarse un productId que ya esté en el cart, se reemplaza la cantidad vieja por la nueva 
@@ -82,6 +82,7 @@ export const filterByCategory = (name) => API.get(`/products/category/${name}`);
 export const getAllReviews = (page) => API.get(`/reviews?page=${page}`);
 export const getReviewsById = (id,page) => API.get(`/reviews/${id}?page=${page}`);
 export const addReviews = (body) => API.post(`/reviews`, body);
+export const filterReviewsById = (id) => API.get(`/reviews/${id}`)
 
 //CATEGORIES
 export const getCategories = (page) => API.get(`/categories?pageNumber=${page}`)
