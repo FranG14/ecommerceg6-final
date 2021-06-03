@@ -12,7 +12,7 @@ const initialState = {
     whishlist : {},
     isLoading: false,
     error: null,
-    includes: undefined,
+    includes: null,
 }
 
 const whishlistReducer = (state = initialState, action) => {
