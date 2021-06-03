@@ -42,9 +42,9 @@ export default function About() {
                         </div>
                     </div>
                     <div className="flex justify-center mx-20 my-10">
-                        <img className="w-32 h-32 rounded-full border-green-500 border-4" src="https://cdn-pro.elsalvador.com/wp-content/uploads/2019/12/Memes-de-Gatos-015-300x231.jpg" />
+                        <img className="w-32 h-32 rounded-full border-green-500 border-4" src="https://avatars.githubusercontent.com/u/56849875?v=4" />
                         <div className="flex flex-col justify-center items-center">
-                            <p className="mx-10">German: te hago una app con los ojos cerrados y una mano, mientras te compongo una obra con la otra</p>
+                            <p className="mx-10">German Chrystan: Soy desarrollador web y músico, terminando la carrera de Composición en la Universidad Nacional de las Artes. He trabajado mayormente como docente de música, compositor para obras de teatro, productor musical y gestionando la agenda cultural del Multiespacio María Fux. Empecé a estudiar programación con el fin de relacionarlo con el sonido y la composición. Con la llegada de la nueva normalidad, este interés se transformó en una profesión que me apasiona y me motiva continuamente.</p>
 
                             <button className="my-5 text-lg font-bold pl-2 pr-16 py-2 bg-transparent rounded-lg w-16 text-green-500 border-green-500 border-2" onClick={e => redirigir("https://github.com/Germanchrystan")}>Github</button>
 
