@@ -9,49 +9,49 @@ function Chatbot(props) {
       };
   const steps = [
    {
-     id: "Greet",
+     id: "0",
      message: "Hello, Welcome to our shop",
-     trigger: "Ask Name"
+     trigger: "1"
    },
    {
-     id: "Ask Name",
+     id: "1",
      message: "Please type your name?",
-     trigger: "Waiting user input for name"
+     trigger: "2"
    },
    {
-     id: "Waiting user input for name",
+     id: "2",
      user: true,
-     trigger: "Asking options to eat",
+     trigger: "3",
    },
    {
-     id: "Asking options to eat",
+     id: "3",
      message: "Hi {previousValue}, Glad to know you !!",
-     trigger: "Waiting user for help",
+     trigger: "4",
    },
    {
-       id: "Waiting user for help",
-       user: true,
-       trigger: "I need help",
-   },
-   {
-       id: "I need help",
-       message: "In what can I help you?",
-       trigger: "Write your issue",
-   },
-   {
-     id: "Write your issue",
+     id: "4",
      user: true,
-     trigger: "See custome t-shirt",
+     trigger: "5",
    },
    {
-    id: "See custome t-shirt",
-    message: "Help",
-    trigger: "Thank you",
+     id: "5",
+     message: "In what can I help you?",
+     trigger: "6",
    },
    {
-       id: "Thank you",
-       user: true,
-       trigger: "Done"
+     id: "6",
+     user: true,
+     trigger: "7",
+   },
+   {
+     id: "7",
+     message: "Help",
+     trigger: "8",
+   },
+   {
+     id: "8",
+     user: true,
+     trigger: "Done"
    },
    {
      id: "Done",
@@ -59,8 +59,7 @@ function Chatbot(props) {
      end: true
    }
 ];
-
-    return <ChatBot steps={steps} {...config} />;
+  return <ChatBot steps={steps} {...config} />;
 
 }
 export default Chatbot;
