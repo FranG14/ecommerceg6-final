@@ -430,13 +430,13 @@ const AuthForm = () => {
                 </div>
                 }
                 <GoogleLogin
-                clientId={googleId}
+                clientId= "990763304984-umq5mpevotk3odllue9hhm1mvct032ft.apps.googleusercontent.com"
                 render={(renderProps) => (
                 <button
                 className="w-full bg-red-700 py-3 px-4 mt-5 rounded-sm justify-center hover:bg-red-600 hover:shadow-none text-white font-bold focus:outline-none focus:shadow-outline inline-flex items-center"
                 onClick={renderProps.onClick}
                 disabled={renderProps.disabled}> 
-                    <Icon /><div>  </div><div>{isSignup ? 'Register' : 'Log' }In with Google</div></button>
+                    <Icon /><div>  </div><div>{isSignup ? 'Register' : 'Login' } with Google</div></button>
                 )}
                 onSuccess={googleSuccess}
                 onFailure={googleFailure}
