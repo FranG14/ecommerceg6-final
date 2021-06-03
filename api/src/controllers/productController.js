@@ -13,15 +13,34 @@ const { where } = require("../models/Order");
 const getProducts = asyncHandler(async (req, res, next) => {
   const pageSize = req.query.pageSize || 12;
   const page = req.query.page || 1;
-
-  const keyword = req.query.keyword
-    ? {
+  const custom = req.query.custom;
+  let keyword;
+console.log("AAA",custom,keyword)
+  if(custom && keyword){ 
+    keyword = {
       name: {
         $regex: req.query.keyword,
         $options: "i",
       },
+      custom: custom === "true" ? true : false
     }
-    : {};
+  }
+  if(!keyword && custom){
+    keyword = {
+      custom: custom === "true" ? true : false
+    }
+  }
+  if(!custom && keyword){
+    keyword = {
+      name: {
+        $regex: req.query.keyword,
+        $options: "i",
+      }
+    }
+  }
+  else{
+    keyword = {}
+  }
 
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
@@ -35,6 +54,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
     res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: true });
   }
   else {
+    // console.log("ASDSAD",products)
     res.json({ products, current: page, pages: Math.ceil(count / pageSize), keyword: false });
   }
 });
@@ -76,7 +96,7 @@ const getProductsFilter = (req, res, next) => {
     }
   } else {
     keyword = {}
-  } console.log("c", keyword)
+  } 
   Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
     .populate("stock")
@@ -91,7 +111,7 @@ const getProductsFilter = (req, res, next) => {
                   productsCategoriesAndSizes.push(answer[i]);
                 }
               }
-              else{
+              else {
                 productsCategoriesAndSizes.push(answer[i]);
               }
             }
@@ -100,17 +120,17 @@ const getProductsFilter = (req, res, next) => {
         }
       }
       else {
-        if(req.query.size && !req.query.category && answer.length > 0){
+        if (req.query.size && !req.query.category && answer.length > 0) {
           let sizeArray = []
           for (let i = 0; i < answer.length; i++) {
             if (answer[i].stock.find(prop => prop.sizeName.toLowerCase() === req.query.size.toLowerCase())) {
               sizeArray.push(answer[i]);
             }
           }
-          return res.status(200).json({products:sizeArray});
+          return res.status(200).json({ products: sizeArray });
         }
       }
-     return res.status(200).json({ products: answer });
+      return res.status(200).json({ products: answer });
     })
     .catch(err => {
       res.status(404).json({ messege: "Product doesn't exist", err: err });
@@ -124,7 +144,7 @@ const getProductsFilter = (req, res, next) => {
 const addProducts = async (req, res) => {
   console.log(req.body)
   try {
-    const { name, custom, price, brand, description, stock, size, color, categories, genre, productReview } =
+    const {userId, name, custom, price, brand, description, stock, size, color, categories, genre, productReview } =
       req.body;
     let images = [];
     const categoriesArray = categories.split(",")
@@ -138,20 +158,21 @@ const addProducts = async (req, res) => {
     let sizeArray = size.split(",");
     let stockArray = stock.split(",");
     let stockId = []
-
+    if(!custom || custom === "false"){
     if (colorArray && colorArray.length > 0) {
       colorArray.map((c, i) => {
         const newStock = Stock({
           _id: new mongoose.Types.ObjectId(),
           colorName: c,
           sizeName: sizeArray[i],
+          userId: userId,
           stock: stockArray[i]
         })
         newStock.save();
         stockId.push(newStock._id);
       })
     }
-
+  }
     const product = Product({
       _id: new mongoose.Types.ObjectId(),
       name: name,
@@ -160,17 +181,17 @@ const addProducts = async (req, res) => {
       description: description,
       stock: stockId,
       genre: genre,
-      // size: size,
-      // color: colorId,
       categories: categoriesArray,
       img: images,
+      customSize: custom === "true" && size?size : null,
       productReview: Product._id,
-      custom: custom === "true" ? true : false
+      custom: custom === "true" ? true : false,
+      userId: custom === "true" && userId ? userId : "store"
     });
 
     const productStored = await product.save();
 
-    res.status(201).send({ product });
+    return res.status(201).send({ product });
   } catch (e) {
     res.status(500).send({ message: e.errors });
   }
@@ -289,6 +310,13 @@ const removeProductStock = asyncHandler(async (req, res) => {
 const deleteProducts = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
+    if (product.stock.length > 0) {
+      product.stock.map(id => {
+        Stock.findById(id).then(res => {
+          res.remove();
+        });
+      })
+    }
     await product.remove();
     res.json({ messege: "Product removed successfully" });
   } else {

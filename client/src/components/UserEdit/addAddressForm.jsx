@@ -105,14 +105,14 @@ export default function AddAddressForm() {
     return (
         <div className="tracking-wide font-bold">
             <UniversalBar />
-            <div class="grid min-h-screen place-items-center mt-20">
-                <div class="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
+            <div className="grid min-h-screen place-items-center mt-20">
+                <div className="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
             px-6 py-10 sm:px-10 sm:py-6 mt-4
             bg-white rounded-lg shadow-md lg:shadow-lg">
 
-                    <h1 class="text-xl font-semibold">Add An Address</h1>
-                    <form class="mt-6" onSubmit={handleSubmit}>
-                        <h1 class="text-xl font-semibold mt-2">Address</h1>
+                    <h1 className="text-xl font-semibold">Add An Address</h1>
+                    <form className="mt-6" onSubmit={handleSubmit}>
+                        <h1 className="text-xl font-semibold mt-2">Address</h1>
 
                         <select 
                         name ="state" 
@@ -170,7 +170,7 @@ export default function AddAddressForm() {
                             name="street"
                             placeholder="Street Name"
                             autocomplete="current-password"
-                            class="block w-full py-3 px-1 mt-2 mb-4
+                            className="block w-full py-3 px-1 mt-2 mb-4
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100
                     focus:text-gray-500 focus:outline-none focus:border-gray-200"

@@ -30,7 +30,7 @@ function SearchBar() {
         }
     }
     return (
-        <div class="relative text-lg bg-transparent tracking-wide font-bold text-gray-800">
+        <div className="relative text-lg bg-transparent tracking-wide font-bold text-gray-800">
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
                     <input className="bg-white border-none rounded-full h-8 mr-3 px-2 leading-tight focus:outline-none" value={input.name} onChange={(e) => handleChange(e)} type="text" placeholder="Search" />

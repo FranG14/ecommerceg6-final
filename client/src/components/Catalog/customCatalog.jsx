@@ -10,11 +10,13 @@ import Footer from "../../containers/Footer/footer";
 
 function CustomCatalog() {
     let productsArray = useSelector((state) => state.productsReducer.allProducts);
+    let productStock = useSelector((state) => state.productsReducer.allProducts?.products);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
     const dispatch = useDispatch();
     const [page, setPage] = useState(1);
-
+    const custom = "true";
     useEffect(() => {
-        dispatch(getAllProducts(page));
+        dispatch(getAllProducts(page, custom));
     }, [page, dispatch]);
 
     const next = () => {
@@ -51,10 +53,9 @@ function CustomCatalog() {
                     </div>
                     <div className="flex-auto">
                         <div className="grid sm:grid-cols-3  sm:grid-rows-5 px-4 py-3 grid-cols-1 justify-center justify-items-center content-center items-center">
-
                             {productsArray?.products ? (
                                 productsArray.products.map((producto, key) => {
-                                    if (producto.custom) {
+                                    if (producto.custom && producto.userId === user.result._id) {
                                         return (
                                             <Link key={key}
                                                 style={{ textDecoration: "none", outline: "none" }}
@@ -112,8 +113,8 @@ function CustomCatalog() {
                                             d="M438,372H36.355l72.822-72.822c9.763-9.763,9.763-25.592,0-35.355c-9.763-9.764-25.593-9.762-35.355,0 l-115.5,115.5C-46.366,384.01-49,390.369-49,397s2.634,12.989,7.322,17.678l115.5,115.5c9.763,9.762,25.593,9.763,35.355,0 c9.763-9.763,9.763-25.592,0-35.355L36.355,422H438c13.808,0,25-11.193,25-25S451.808,372,438,372z"
                                         ></path>
                                     </svg>
-              Previous page
-            </button>
+                                    Previous page
+                                </button>
                                 <button
                                     onClick={next}
                                     disabled={
@@ -122,7 +123,7 @@ function CustomCatalog() {
                                     className="border border-teal-500 bg-teal-500 text-black block rounded-sm font-bold py-4 px-6 ml-2 flex items-center"
                                 >
                                     Next page
-              <svg
+                                    <svg
                                         className="h-5 w-5 ml-2 fill-current"
                                         clasversion="1.1"
                                         id="Layer_1"

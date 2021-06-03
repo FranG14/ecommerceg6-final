@@ -100,8 +100,8 @@ export default function UniversalNavBar(props) {
   return (
     <div className="">
 
-      <header class="header tracking-wide font-bold text-center">
-        <Link to="/" class="logo">
+      <header className="header tracking-wide font-bold text-center">
+        <Link to="/" className="logo">
           {" "}
           <img alt="logo" src={logoTransparent} style={{position:"absolute",top:"-12px",left:"15px",width:"200px"}}></img>{" "}
 
@@ -134,7 +134,7 @@ export default function UniversalNavBar(props) {
           <div id="responsiveSearch" className=" flex flex-col  lg:ml-96 ml-20   absolute">
             <input
               onKeyPress={handleKeyPress}
-              class="mt-3 mb-3 w-44 lg:w-80 md:w-60 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
+              className="mt-3 mb-3 w-44 lg:w-80 md:w-60 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "
               type="search"
               name="search"
               placeholder="Search"
@@ -161,7 +161,7 @@ export default function UniversalNavBar(props) {
             </div>
           </div>
         )}
-        <ul class="menu">
+        <ul className="menu">
           <li className="-py-2">
             <Link to="/Shop">Shop</Link>
           </li>

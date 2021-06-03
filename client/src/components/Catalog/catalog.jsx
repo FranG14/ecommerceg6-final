@@ -10,9 +10,9 @@ function Catalogo() {
   let productsArray = useSelector((state) => state.productsReducer.allProducts);
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-
+  const custom = "false";
   useEffect(() => {
-    dispatch(getAllProducts(page));
+    dispatch(getAllProducts(page,custom));
   }, [page, dispatch]);
 
   const next = () => {

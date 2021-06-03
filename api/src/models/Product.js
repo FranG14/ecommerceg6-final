@@ -45,12 +45,19 @@ const productSchema = new Schema(
       type: Boolean,
       default: false
     },
+    userId:{
+      type: String,
+      default: "store"
+    },
     productReview: [
       {
         type: Schema.Types.ObjectId,
         ref: "Review",
       }
     ],
+    customSize:{
+      type:String
+    },
     stock: [
       {
         type: Schema.Types.ObjectId,

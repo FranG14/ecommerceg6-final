@@ -62,14 +62,16 @@ function DetailProduct() {
     productName: "",
     price: "",
   });
-
+  const [changeOption,setChangeOption] = useState("select");
   const [productStock, setProductStock] = useState(" ");
-  const hasStock = () => {
+  const hasStock = (e) => {
+    setChangeOption(e.target.value);
     let selectColor = document.getElementById("colorSelect");
     let selectSize = document.getElementById("sizeSelect");
 
     let selectColorValue = selectColor.options[selectColor.selectedIndex].innerText;
     let selectSizeValue = selectSize.options[selectSize.selectedIndex].innerText;
+    if(!productsArray.custom){
     let inStock = productsArray.stock.find(prop => prop.colorName === selectColorValue && prop.sizeName === selectSizeValue)
     console.log(productsArray)
     setProductStock(inStock)
@@ -83,6 +85,16 @@ function DetailProduct() {
         stock: inStock.stock
       });
     }
+  }
+  else{
+    setAddCart({
+      ...addCart,
+        colorName: "Custom",
+        sizeName: productsArray.customSize,
+        productName: productsArray.name,
+        price: productsArray.price,
+    })
+  }
   }
 
 
@@ -138,7 +150,7 @@ function DetailProduct() {
   useEffect(() => {
     averageRating();
   });
-
+console.log("VVVVVVV",changeOption)
   return (
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
@@ -153,16 +165,16 @@ function DetailProduct() {
                 src={`http://localhost:3001/products/image/${productsArray.img[imagePos]}`}
               />
             )}
-            <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 class="text-2xl pl-3 title-font tracking-wide font-bold text-gray-500 tracking-widest">
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-2xl pl-3 title-font tracking-wide font-bold text-gray-500 tracking-widest">
                 {productsArray.brand}
               </h2>
-              <h1 class="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
+              <h1 className="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
                 {productsArray.name}
               </h1>
                 <div style={{cursor:"pointer"}} onClick={()=>addProductToWhishlist}><i class="far fa-heart"></i></div>
               <h2 class="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
-                {!productStock ? (
+                {!productStock && !productsArray?.custom ? (
                   <h2 className="text-red-500">No Stock</h2>
                 ) : productStock && productStock.stock < 10 ? (
                   <h2>There is only {productStock.stock} left</h2>
@@ -170,8 +182,8 @@ function DetailProduct() {
                   <h2>In Stock.</h2>
                 )}
               </h2>
-              <div class="flex mb-4 pl-3">
-                <span class="flex tracking-wide font-bold items-center">
+              <div className="flex mb-4 pl-3">
+                <span className="flex tracking-wide font-bold items-center">
                   {productsArray.productReview &&
                     productsArray.productReview.length === 0 ? (
                     <h2>No reviews</h2>
@@ -203,8 +215,9 @@ function DetailProduct() {
                 <div class="flex items-center">
                   <span class="-ml-1 mr-3">Color</span>
                   <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                    <option>Select</option>
-                    {stockArray && stockArray.colors.length > 0
+                    {productsArray.custom?<option>Custom</option>:<option>Select</option>}
+                    {console.log("AAAAA",productsArray)}
+                    {stockArray && stockArray.colors.length > 0 && !productsArray.custom
                       ? stockArray.colors.map((c, id) => {
                         return (
                           <option key={id} value={c}>
@@ -212,15 +225,16 @@ function DetailProduct() {
                           </option>
                         );
                       })
-                      : ""}
+                      :""}
                   </select>
                 </div>
                 <div class="flex ml-6 items-center">
                   <span class="mr-1 -ml-4">Size</span>
                   <div class="relative">
                     <select onChange={hasStock} id="sizeSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                      <option>Select</option>
-                      {stockArray && stockArray.colors.length > 0
+                    <option>select</option>
+                    {productsArray.custom && <option>{productsArray.customSize}</option>}
+                      {stockArray && stockArray.colors.length > 0 && !productsArray.custom
                         ? stockArray.sizes.map((c, id) => {
                           return (
                             <option key={id} value={c}>
@@ -246,11 +260,11 @@ function DetailProduct() {
                   </div>
                 </div>
               </div>
-              <div class="flex mb-4 pl-3">
-                <span class="title-font font-medium text-2xl mt-1 text-gray-900">
+              <div className="flex mb-4 pl-3">
+                <span className="title-font font-medium text-2xl mt-1 text-gray-900">
                   ${productsArray.price}
                 </span>
-                {productStock && productStock.stock >= 1 ? (
+                {changeOption !== "select" && productStock && productStock.stock >= 1 || (productsArray.custom && changeOption !== "select") ? (
                   // <a to={`/cart/${id}`}>
                   <button
                     className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded"
@@ -262,7 +276,7 @@ function DetailProduct() {
                 ) : (
                   ""
                 )}
-                {productStock && productStock.stock >= 1 ? (
+                {changeOption !== "select" && productStock && productStock.stock >= 1 || (productsArray.custom && changeOption !== "select") ? (
                   <Link to="/payment">
                     <button className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
                       Buy

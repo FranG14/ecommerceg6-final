@@ -191,12 +191,12 @@ const EditProduct = () => {
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
 
-      <div class="grid grid-cols-2 gap-2 bg-gray-200 mt-20">
-        <div class="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
-          <div class="container mx-auto">
-            <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
-              <div class="text-center">
-                <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
+      <div className="grid grid-cols-2 gap-2 bg-gray-200 mt-20">
+        <div className="flex items-center min-h-screen bg-gray-200 dark:bg-gray-900">
+          <div className="container mx-auto">
+            <div className="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+              <div className="text-center">
+                <h1 className="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">
                   Edit Product
                 </h1>
               </div>
@@ -216,10 +216,10 @@ const EditProduct = () => {
                       value={product.name}
                       onChange={handleInputChange}
                       placeholder="Product"
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
                     <select id="selectColorName" onChange={(e) => handleStock(e)} className="mr-4">
                       <option>Select</option>
                       {
@@ -265,7 +265,7 @@ const EditProduct = () => {
                         placeholder="Color"
                         // value={product.color}
                         // required
-                        class="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                        className="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                       />
                       <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                       <input id="stock" placeholder="Quantity" type="number" className="w-28 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
@@ -295,7 +295,7 @@ const EditProduct = () => {
                     </label>
                   </div>
                   {/* genre end */}
-                  <div class="mb-6">
+                  <div className="mb-6">
                   </div>
                   <div className="mb-6">
                     <label
@@ -312,13 +312,13 @@ const EditProduct = () => {
                       value={product.price}
                       onChange={handleInputChange}
                       // required
-                      class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
+                      className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
                                   focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
                                   dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
                                   dark:focus:ring-gray-900 dark:focus:border-gray-500"
                     />
                   </div>
-                  <div class="mb-6">
+                  <div className="mb-6">
 
                   </div>
                   <div className="mb-6">

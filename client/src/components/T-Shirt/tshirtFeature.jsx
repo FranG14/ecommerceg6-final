@@ -7,14 +7,20 @@ import { SwatchesPicker } from 'react-color';
 import UniversalNavBar from '../UniversalNavBar/universalNavBar';
 import Footer from '../../containers/Footer/footer';
 import domtoimage from 'dom-to-image';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProducts } from '../../redux/actions/products_actions';
+import { addItem, addToCart } from '../../redux/actions/cart_actions';
 
 
 const TshirtFeature = () => {
     const [canvas, setCanvas] = useState('');
     const [imgURL, setImgURL] = useState('')
     const dispatch = useDispatch()
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+    const productsArray = useSelector(
+        (state) => state.productsReducer.addProduct?.product
+      );
+      const [post,setPost] = useState(false);
 
     const initCanvas = () => (
         new fabric.Canvas('canvas', {
@@ -30,7 +36,7 @@ const TshirtFeature = () => {
     const addImg = (e, url, canvi) => {
         e.preventDefault();
         new fabric.Image.fromURL(url, img => {
-            console.log("AAAAA", img)
+            // console.log("AAAAA", img)
             img.scale(0.75);
             canvi.add(img);
             canvi.renderAll();
@@ -67,7 +73,7 @@ const TshirtFeature = () => {
 
         domtoimage.toPng(node).then(function (dataUrl) {
             // Print the data URL of the picture in the Console
-            console.log(dataUrl);
+            // console.log(dataUrl);
             // You can for example to test, add the image at the end of the document
             var img = new Image();
             img.crossOrigin = 'anonymous';
@@ -81,6 +87,7 @@ const TshirtFeature = () => {
             //link.click()
             var blob = b64toBlob(dataUrl)
             setProduct({ ...product, image: blob })
+            setPost(true);
         }).catch(function (error) {
             console.error('oops, something went wrong!', error);
         });
@@ -123,7 +130,6 @@ const TshirtFeature = () => {
         // Actualiza el color de la camiseta según el color seleccionado por el usuario
 
         document.getElementById("tshirt-div").style.backgroundColor = e;
-        setProduct({ ...product, color: product.color.concat(e) })
 
         // // 2. Cuando el usuario elige un diseño:
         // // Actualiza la imagen de fondo de la camiseta según la imagen seleccionada por el usuario
@@ -140,39 +146,59 @@ const TshirtFeature = () => {
     }
 
     const [product, setProduct] = useState({
-        name: "",
-        size: [],
-        stock: [],
-        color: [],
+        productName: "",
+        sizeName: "XS",
+        quantity: [],
+        colorName: "custom",
         image: "",
         price: 1000,
         categories: ["60b6c6bce1db94362c42bbaf"],
         brand: "Custom",
-        custom: "true"
+        custom: "true",
+        productId:""
     })
-    console.log("productooooooo", product)
     const postTshirt = () => {
+        if(user){
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         };
-        let extension = product.name.split(".");
+        // let extension = product.name.split(".");
         const newProduct = new FormData()
-        newProduct.append("name", product.name)
-        newProduct.append("color", product.color)
-        newProduct.append("stock", product.stock)
-        newProduct.append("size", product.size)
+        newProduct.append("name", product.productName)
+        newProduct.append("color", product.colorName)
+        newProduct.append("stock", product.quantity)
+        newProduct.append("size", [product.sizeName])
         newProduct.append("price", product.price)
         newProduct.append("brand", product.brand)
         newProduct.append("img", product.image)
         newProduct.append("categories", product.categories)
         newProduct.append("custom", product.custom)
+        newProduct.append("userId",user.result._id)
         dispatch(addProducts(newProduct, config))
+
     }
+    else{
+        alert("log in")
+        window.location.replace("/auth")
+    }
+    }
+    // const postDownload = () =>{
+    //     download()
+    // }
+    const [addCart,setAddCart] = useState(false)
+    useEffect(() => {
+        postTshirt();
+        if(addCart){
+            dispatch(addItem(product,user.result._id))
+        }
+    },[post,addCart])
 
-
-
+    const addToCart = () => {
+        setProduct({...product, productId:productsArray._id})
+        setAddCart(true);
+    }
     return (
         <div className="tracking-wide font-bold">
             <UniversalNavBar />
@@ -194,7 +220,7 @@ const TshirtFeature = () => {
                         <div id="gridTshirt" class="grid lg:grid-cols-2 grid-cols-1 gap-32 lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-16 lg:mt-0">
                             <div>
                                 <label className="text-xl title-font text-gray-500 tracking-widest" for="name">T-Shirt Name</label>
-                                <input id="name" onChange={(e) => setProduct({ ...product, name: e.target.value })} className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
+                                <input id="name" onChange={(e) => setProduct({ ...product, productName: e.target.value })} className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
                                 {/* <h2 class="text-lg title-font text-gray-500 tracking-widest">Design Your Own T-Shirt</h2> */}
                                 <h1 class="text-gray-500 text-2xl title-font font-bold mb-1">Choose Shirt Color:</h1>
                                 <div id="tshirt-color" class="flex mb-4" className="colors">
@@ -207,7 +233,7 @@ const TshirtFeature = () => {
                                 </div>
                                 <label className="text-xl title-font text-gray-500 tracking-widest" for="name">T-Shirt Size:</label>
 
-                                <select onChange={(e) => setProduct({ ...product, size: product.size.concat(e.target.value) })} className="flex border-2 py-1 px-2 rounded mb-2 border-blue-600">
+                                <select onChange={(e) => setProduct({ ...product, sizeName: e.target.value })} className="flex border-2 py-1 px-2 rounded mb-2 border-blue-600">
                                     <option>XS</option>
                                     <option>S</option>
                                     <option>M</option>
@@ -218,7 +244,7 @@ const TshirtFeature = () => {
                             </div>
                             <div>
                                 <label className="text-xl title-font text-gray-500 tracking-widest" for="name">Quantity:</label>
-                                <input onChange={(e) => setProduct({ ...product, stock: e.target.value })} id="name" type="number" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
+                                <input onChange={(e) => setProduct({ ...product, quantity: e.target.value })} id="name" type="number" className=" flex items-center text-lg title-font text-gray-500 tracking-widest border-2 mb-2 rounded border-blue-600" />
                                 <div class="flex mt-2 items-center pb-5 border-b-2 border-gray-200 mb-5">
 
                                     <div class="flex ml-6 items-center">
@@ -239,9 +265,9 @@ const TshirtFeature = () => {
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6v18h18v-18h-18zm5 14c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm5 0c0 .552-.448 1-1 1s-1-.448-1-1v-10c0-.552.448-1 1-1s1 .448 1 1v10zm4-18v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.315c0 .901.73 2 1.631 2h5.712z" /></svg>
                                                 </button>
                                             </div>
-                                            <button type="button" onClick={() => download()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>
-
-                                            <button type="button" onClick={() => postTshirt(product)} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>
+                                            <button type="button" onClick={() => download()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Save T-shirt</button>
+                                            {post && 
+                                            <button type="button" onClick={() => addToCart()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>}
                                         </div>
                                     </form>
 
