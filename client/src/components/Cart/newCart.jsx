@@ -6,7 +6,7 @@ import { deleteItem, getActiveCartFromUser, getCartFromUser, getCartsByUser, inc
 import { useParams } from 'react-router';
 import swal from 'sweetalert';
 import { Link } from "react-router-dom";
-const { REACT_APP_API } = process.env;
+
 
 const NewCart = () => {
     var { id } = useParams()

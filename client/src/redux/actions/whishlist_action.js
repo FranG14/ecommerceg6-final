@@ -6,7 +6,7 @@ import {
     ADD_PRODUCT_TO_WHISHLIST, ADD_PRODUCT_TO_WHISHLIST_SUCCESS, ADD_PRODUCT_TO_WHISHLIST_ERROR,
     REMOVE_PRODUCT_FROM_WHISHLIST, REMOVE_PRODUCT_FROM_WHISHLIST_SUCCESS, REMOVE_PRODUCT_FROM_WHISHLIST_ERROR,
     TOGGLE_PRODUCT_IN_WHISHLIST, TOGGLE_PRODUCT_IN_WHISHLIST_SUCCESS, TOGGLE_PRODUCT_IN_WHISHLIST_ERROR,
-    IS_PRODUCT_IN_WHISHLIST
+    IS_PRODUCT_IN_WHISHLIST, IS_PRODUCT_IN_WHISHLIST_SUCCESS, IS_PRODUCT_IN_WHISHLIST_ERROR
 } from '../constants';
 //=============================================//
 export const getOrCreateWhishlistFromUser = (userId) => async(dispatch) => {
@@ -100,11 +100,19 @@ export const toggleProductFromWhishlist = (userId, productId, history) => async(
 }
 //=============================================//
 export const isProductInWhishlist = (userId, productId) => async(dispatch) => {
+    dispatch({
+        type: IS_PRODUCT_IN_WHISHLIST
+    })
     return await api.isProductInWhishlist(userId, productId)
     .then((result)=> {
         dispatch({
-            type: IS_PRODUCT_IN_WHISHLIST,
+            type: IS_PRODUCT_IN_WHISHLIST_SUCCESS,
             payload: result.data
+        })
+    }).catch((error)=> {
+        dispatch({
+            type: IS_PRODUCT_IN_WHISHLIST_ERROR,
+            payload: error.response?.data
         })
     })
 }

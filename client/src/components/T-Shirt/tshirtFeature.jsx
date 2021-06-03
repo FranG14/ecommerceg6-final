@@ -196,7 +196,7 @@ const TshirtFeature = () => {
     },[post,addCart])
 
     const addToCart = () => {
-        setProduct({...product, productId:productsArray._id})
+        setProduct({...product, productId:productsArray?._id})
         setAddCart(true);
     }
     return (
