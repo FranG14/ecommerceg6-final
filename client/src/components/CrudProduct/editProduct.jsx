@@ -83,16 +83,25 @@ const EditProduct = () => {
     }
   }
 
+  const handleSelectSizes = (e) => {
+    let size = e.target.value;
+    if(size !== "Size" && size !== ""){
+      setProduct({
+        ...product,size:product.size.concat(size)
+      })
+    }
+  }
+
   const handleMultipleInput = (e) => {
     let color = document.getElementById("color").value;
     let stock = document.getElementById("stock").value;
     let size = document.getElementById("size").value;
     // console.log("FUNCTION", color, stock, size)
-    if (color !== "" && stock !== "" && size !== "") {
+    if (color !== "" && stock !== "" && size !== "Size" && size !== "") {
       setProduct({
         ...product,
         color: product.color.concat(color),
-        size: product.size.concat(size),
+        // size: product.size.concat(size),
         stock: product.stock.concat(stock)
       })
     }
@@ -118,7 +127,7 @@ const EditProduct = () => {
     let filterColor = [];
     let filterSize = [];
     let filterStock = [];
-    let targetColor = e.target.innerText.split(" ")[0];
+    let targetColor = e.target.innerText.split("-")[0];
 
     product.color.map((color, i) => {
       if (color !== targetColor) {
@@ -257,7 +266,7 @@ const EditProduct = () => {
                       className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
                     >
                       Stock
-                  </label>
+                    </label>
                       <input
                         id="color"
                         type="text"
@@ -267,13 +276,22 @@ const EditProduct = () => {
                         // required
                         className="w-24 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                       />
-                      <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                      <select className="ml-4" id="size" onChange={handleSelectSizes}>
+                        <option>Size</option>
+                        <option>XS</option>
+                        <option>S</option>
+                        <option>M</option>
+                        <option>L</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                      </select>
+                      {/* <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" /> */}
                       <input id="stock" placeholder="Quantity" type="number" className="w-28 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
 
                       <button type="button" onClick={handleMultipleInput} className="ml-4">+</button></div>}<br />
                     {product.color && product.color.length > 0 &&
                       product.color.map((color, i) => {
-                        return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color} {product.size[i]} {product.stock[i]}</p>
+                        return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color}-{product.size[i]}-{product.stock[i]}</p>
                       })}
                   </div>
                   {/* genre */}

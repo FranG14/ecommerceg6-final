@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import UniversalNavBar from '../UniversalNavBar/universalNavBar'
 import Footer from '../../containers/Footer/footer'
 import { changeCartState, getCartFromUser, getCartsById } from '../../redux/actions/cart_actions'
+import { getUserById } from '../../redux/actions/user_actions'
 
 export default function UserDetail() {
     const { id } = useParams()
@@ -15,6 +16,9 @@ export default function UserDetail() {
     const location = useLocation();
     const history = useHistory();
 
+    const userData = useSelector(
+        (state) => state.userReducer?.user?.list?.userFound
+    );
 
     const orderData = useSelector(
         (state) => (state.cartReducer.cart && state.cartReducer.cart && state.cartReducer.cart.carts) ? state.cartReducer.cart.carts : state.cartReducer
@@ -32,6 +36,7 @@ export default function UserDetail() {
     useEffect(() => {
         //Por ahora traigo el user guardado en el localStorage.
         //Después traigo un Usuario por params
+        dispatch(getUserById(user?.result?._id))
         dispatch(getCartsById(id))
     }, [dispatch])
 
@@ -61,7 +66,7 @@ export default function UserDetail() {
                                 <div className="mx-auto lg:mx-0 w-5/5 pt-3 border-b-2 border-green-500 opacity-25"></div>
                                 <p className=" text-base font-bold  lg:justify-start"><svg className="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>👤 Buyer: {cart?.userId?.firstname} {cart?.userId?.lastname}</p>
                                 <p className=" text-base font-bold  lg:justify-start"><svg className="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📧 E-Mail: {cart?.userId?.email}</p>
-                                <p className=" text-base font-bold  lg:justify-start"><svg className="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📌 Address: {cart?.userId?.street} {cart?.userId?.streetNumber}, {cart?.userId?.state}, {cart?.userId?.country} ({cart?.userId?.zipcode})</p>
+                                <p className=" text-base font-bold  lg:justify-start"><svg className="h-4 fill-current text-green-700 pr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"></svg>📌 Address: {userData?.addresses[0]?.address}</p>
 
 
                                 <div className="mx-auto lg:mx-0 w-5/5 pt-3 border-b-2 border-green-500 opacity-25"></div>

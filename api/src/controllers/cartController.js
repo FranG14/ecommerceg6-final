@@ -2,6 +2,7 @@ const { ObjectId } = require("bson");
 const Cart = require("./../models/Cart");
 const Product = require("./../models/Product");
 const { transporter } = require("../mailer");
+const asyncHandler = require("express-async-handler");
 var EmailTemplate = require('email-templates-v2').EmailTemplate;
 path = require('path');
 //==========================================================================//
@@ -329,12 +330,11 @@ const stateChange = async (req, res) => {
   }
 };
 //==========================================================================//
-const getAllCarts = async (req, res) => {
+const getAllCarts = asyncHandler(async (req, res) => {
   const pageSize = req.query.pageSize || 15;
   const page = req.query.page || 1;
   const state = req.query.state;
   let stateOrder;
- 
 
   if(state === "undefined" || !state){
     stateOrder = {}
@@ -346,7 +346,7 @@ const getAllCarts = async (req, res) => {
     }
 }
 }
- 
+  let quantityArray = [];
   const count = await Cart.countDocuments({ ...stateOrder });
   const carts = await Cart.find({ ...stateOrder })
     .populate("userId")
@@ -354,8 +354,19 @@ const getAllCarts = async (req, res) => {
     .populate("productId.stock")
     .limit(pageSize)
     .skip(pageSize * (page - 1));
-  return res.json({ carts, current: page, pages: Math.ceil(count / pageSize) });
-};
+    if(carts && carts.length > 0){
+      carts.map(prop => {
+        let totalQuantity = 0;
+        if(prop.items && prop.items.length > 0){
+          prop.items.map(p => {
+            totalQuantity += p.quantity;
+          })
+        }
+        quantityArray.push(totalQuantity);
+      })
+    }
+  return res.json({ carts,totalQuantity:quantityArray ,current: page, pages: Math.ceil(count / pageSize) });
+});
 
 //==========================================================================//
 const getCartsByUser = async (req, res) => {

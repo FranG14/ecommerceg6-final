@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import UserDetail from "./components/UserDetail/userDetail";
 import AdminPost from "./containers/Admin/adminPost";
@@ -35,6 +35,7 @@ import CustomCatalog from "./components/Catalog/customCatalog";
 
 
 export default function Routes() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   return (
     <Switch>
       {/*>>>>>>>>>>>>>>> USER ROUTES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
@@ -65,29 +66,45 @@ export default function Routes() {
       </Route>
       <Route exact path="/payment/:id" component={MercadoPago} />
       <Route exact path="/home/:userId" component={HomePagoAcreditado} />
-      <Route exact path="/carts/:userId" component={HistorialCompras}/>
-      <Route exact path="/detalle/:idCarro/usuario/:userId" component={CarroDetallado}/>
+      <Route exact path="/carts/:userId" component={HistorialCompras} />
+      <Route exact path="/detalle/:idCarro/usuario/:userId" component={CarroDetallado} />
       <Route exact path="/design">
         <TshirtFeature />
       </Route>
       <Route exact path="/custom">
         <CustomCatalog />
       </Route>
+      <Route exact path="/MyProfile/addAddress/:id">
+        <AddAddressForm />
+      </Route>
+      <Route exact path="/cart">
+        <NewCartNotLogged />
+      </Route>
+      <Route exact path="/auth">
+        <AuthForm />
+      </Route>
+      <Route exact path="/myProfile/Edit/:id">
+        <UserEdit />
+      </Route>
+      <Route
+        exact
+        path="/cart/:id"
+        render={({ match }) => <NewCart id={match.params.id} />}
+      />
+      <Route exact path="/users/password/:id">
+        <UserPassword />
+      </Route>
       {/*>>>>>>>>>>>>>>> ADMIN ROUTES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/}
+      {user?.result?.isAdmin && 
+      <div>
       <Route exact path="/admin">
         <AdminCatalog />
       </Route>
       <Route exact path="/editProduct/:id">
         <AdminEdit />
       </Route>
-      <Route exact path="/MyProfile/addAddress/:id">
-        <AddAddressForm />
-      </Route>
       <Route exact path="/post">
         <AdminPost />
-      </Route>
-      <Route exact path="/auth">
-        <AuthForm />
       </Route>
       <Route exact path="/categories">
         <AddCategory />
@@ -98,25 +115,8 @@ export default function Routes() {
       <Route exact path="/editCategory/:id">
         <CategoryEdit />
       </Route>
-      <Route exact path="/myProfile/Edit/:id">
-        <UserEdit />
-      </Route>
-      <Route exact path="/myProfile/Edit/:id">
-        <UserEdit />
-      </Route>
       <Route exact path="/Admin/Actions">
         <AdminAction />
-      </Route>
-      {/* <Route exact path="/cart/:id">
-        <NewCart />
-      </Route> */}
-      <Route
-        exact
-        path="/cart/:id"
-        render={({ match }) => <NewCart id={match.params.id} />}
-      />
-      <Route exact path="/cart">
-        <NewCartNotLogged />
       </Route>
       <Route exact path="/users/">
         <UsersTable />
@@ -124,18 +124,13 @@ export default function Routes() {
       <Route exact path="/users/edit/:id">
         <UserTableEdit />
       </Route>
-      <Route exact path="/users/password/:id">
-        <UserPassword />
-      </Route>
       <Route exact path="/orders">
-        <OrdersTable/>
+        <OrdersTable />
       </Route>
       <Route exact path="/orders/state/:id">
         <OrderState />
       </Route>
-      {/* <Route exact path="/hola">
-        <NewUserForm />
-      </Route> */}
+      </div>}
     </Switch>
   );
 }

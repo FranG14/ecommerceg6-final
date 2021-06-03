@@ -59,24 +59,25 @@ const ProductPostForm = () => {
 
   const handleSelectSizes = (e) => {
     let size = e.target.value;
-    if(size){
+    
+    if(size !== "Size" && size !== ""){
       setProduct({
         ...product,size:product.size.concat(size)
       })
     }
   }
-console.log(product)
+  
+// console.log(product)
   const handleMultipleInput = (e) => {
     let color = document.getElementById("color").value;
     let stock = document.getElementById("stock").value;
     let size = document.getElementById("size").value;
-    // let size = e.target.value;
-    console.log("ADASD",size)
-    if (color !== "" && stock !== "") {
+
+    if (color !== "" && stock !== "" && size !== "Size" && size !== "") {
       setProduct({
         ...product,
         color: product.color.concat(color),
-        // size: product.size.concat(size),
+        size: product.size.concat(size),
         stock: product.stock.concat(stock)
       })
     }
@@ -86,7 +87,7 @@ console.log(product)
     let filterColor = [];
     let filterSize = [];
     let filterStock = [];
-    let targetColor = e.target.innerText.split(" ")[0];
+    let targetColor =  e.target.innerText.split("-")[0];
 
     product.color.map((color, i) => {
       if (color !== targetColor) {
@@ -98,7 +99,6 @@ console.log(product)
     // console.log("entra", product)
     setProduct({ ...product, color: filterColor, size: filterSize, stock: filterStock });
   }
-
   const deleteSize = (e) => {
     let filterSize = [];
     // product.size.map(size => {
@@ -281,52 +281,14 @@ console.log(product)
                   <button type="button" onClick={handleMultipleInput} className="ml-4">+</button><br />
                   {product.color && product.color.length > 0 &&
                     product.color.map((color, i) => {
-                      return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color} {product.size[i]} {product.stock[i]}</p>
+                      return <p onClick={deleteColor} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{color}-{product.size[i]}-{product.stock[i]}</p>
                     })}
                 </div>
                 <div className="mb-6">
-                  {/* <label
-                    for="size"
-                    className="block mb-2 text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Size
-                  </label> */}
-                  {/* <input
-                    id="size"
-                    type="text"
-                    name="size"
-                    // value={product.size}
-                    // onChange={handleInputChange}
-                    placeholder="Size"
-                    className="w-32 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md 
-                                    focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 
-                                 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 
-                                 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                    required
-                  /> */}
-                  {/* <button type="button" onClick={handleMultipleInput} className="ml-4">+</button><br /> */}
-                  {/* {product.size && product.size.length > 0 &&
-                    product.size.map((size, i) => {
-                      return <p onClick={deleteSize} className="inline-block mr-2 mt-4 cursor-pointer rounded round bg-gray-200 mb-2 w-20 text-center" key={i}>{size}</p>
-                    })} */}
+
                 </div>
                 <div className="mb-6 mt-4">
-                  {/* <label
-                    for="stock"
-                    className="text-sm text-gray-600 dark:text-gray-400"
-                  >
-                    Stock
-                  </label>
-                  <input
-                    id="stock"
-                    type="number"
-                    name="stock"
-                    value={product.stock}
-                    onChange={handleInputChange}
-                    placeholder="Stock"
-                    required
-                    className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
-                  /> */}
+
                 </div>
 
                 {/* genre */}
