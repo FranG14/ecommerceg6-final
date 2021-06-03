@@ -12,6 +12,7 @@ import image1 from '../../assets/image1.jpg'
 import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import image4 from '../../assets/image4.jpg'
+
 export default function Home() {
 
   return (
@@ -43,11 +44,11 @@ export default function Home() {
           <div className="pt-6 md:pt-0 w-full md:flex-1 md:order-last">
             <img src={nike2} className="w-full h-64 md:h-full object-cover" />
           </div>
-          <div className="w-full p-6 pb-12 md:p-12 md:w-5/12 flex justify-center items-center relative">
-            <div className="w-full relative text-center py-12 px-12 md:p-0 md:text-right">
-              <h1 className="text-5xl mb-4">Ecommerce Clothes</h1>
-              {/* <h2 className="text-2xl mb-4">Ut vel nunc a est auctor lacinia.</h2> */}
-              <p className="leading-loose tracking-wide text-gray-700">Sport keeps us fit. It keeps you attentive. It unites us. Through sport we can change lives. Whether it's through inspiring athlete stories. Encouraging you to get going.</p>
+          <div class="w-full p-6 pb-12 md:p-12 md:w-5/12 flex justify-center items-center relative">
+            <div class="w-full relative text-center py-12 px-12 md:p-0 md:text-right">
+              <h1 class="text-5xl mb-4">AdaLov Clothes</h1>
+              {/* <h2 class="text-2xl mb-4">Ut vel nunc a est auctor lacinia.</h2> */}
+              <p class="leading-loose tracking-wide text-gray-700">Sport keeps us fit. It keeps you attentive. It unites us. Through sport we can change lives. Whether it's through inspiring athlete stories. Encouraging you to get going.</p>
               <br />
               <Link to="/Shop">
                 <a className="justify-center inline-block bg-black text-white px-6 py-3 text-sm hover:bg-gray-800 ">Shop!</a>
@@ -126,7 +127,7 @@ export default function Home() {
         </div>
 
         {/* <div className="bg-black text-white text-center text-sm py-12">
-          <p>Copyright © 2019 Henry</p>
+          <p>Copyright Â© 2019 Henry</p>
         </div> */}
 
 

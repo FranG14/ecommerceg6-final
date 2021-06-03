@@ -57,16 +57,26 @@ const ProductPostForm = () => {
     }
   };
 
+  const handleSelectSizes = (e) => {
+    let size = e.target.value;
+    if(size){
+      setProduct({
+        ...product,size:product.size.concat(size)
+      })
+    }
+  }
+console.log(product)
   const handleMultipleInput = (e) => {
     let color = document.getElementById("color").value;
     let stock = document.getElementById("stock").value;
     let size = document.getElementById("size").value;
-
-    if (color !== "" && stock !== "" && size !== "") {
+    // let size = e.target.value;
+    console.log("ADASD",size)
+    if (color !== "" && stock !== "") {
       setProduct({
         ...product,
         color: product.color.concat(color),
-        size: product.size.concat(size),
+        // size: product.size.concat(size),
         stock: product.stock.concat(stock)
       })
     }
@@ -256,7 +266,16 @@ const ProductPostForm = () => {
                     required
                     className="w-28 px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
                   />
-                  <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                  <select className ="ml-4" id ="size" onChange = {handleSelectSizes}>
+                    <option>Size</option>
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                  </select>
+                  {/* <input id="size" placeholder="Size" className="w-20 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" /> */}
                   <input id="stock" placeholder="Stock" type="number" className="w-24 px-3 py-2 ml-4 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
 
                   <button type="button" onClick={handleMultipleInput} className="ml-4">+</button><br />

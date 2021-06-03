@@ -3,7 +3,8 @@ import decode from 'jwt-decode'
 import SearchBar from '../../components/SearchBar/searchBar'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import './navBar.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+
 
 export default function NavBar(props) {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));

@@ -125,6 +125,21 @@ const TshirtFeature = () => {
 
     };
 
+    const addImgUpload = (e, url, canvi) => {
+        e.preventDefault();
+        //var fileType = e.target.files[0].type;
+        var url = URL.createObjectURL(e.target.files[0]);
+        new fabric.Image.fromURL(url, img => {
+            console.log("AAAAA", url)
+            img.scale(0.75);
+            canvi.add(img);
+            canvi.renderAll();
+            setImgURL('');
+        }, {
+            crossOrigin: "Annoymous"
+        });;
+    }
+
     const color = (e) => {
         // 1. Cuando cambia el color de la camiseta:
         // Actualiza el color de la camiseta según el color seleccionado por el usuario
@@ -189,14 +204,17 @@ const TshirtFeature = () => {
     // }
     const [addCart,setAddCart] = useState(false)
     useEffect(() => {
-        postTshirt();
+        if(post){
+            postTshirt();
+        }
         if(addCart){
             dispatch(addItem(product,user.result._id))
         }
     },[post,addCart])
 
     const addToCart = () => {
-        setProduct({...product, productId:productsArray?._id})
+        setProduct({...product, productId:productsArray._id})
+        setPost(false)
         setAddCart(true);
     }
     return (
@@ -250,10 +268,17 @@ const TshirtFeature = () => {
                                     <div class="flex ml-6 items-center">
                                     </div>
                                 </div>
+                                {/*  */}
+                                <div>
+                                    <h2 class="text-xl title-font text-gray-500 text-bold tracking-widest">Upload Image from PC:</h2>
+                                    <input type="file" onChange={(e, url) => addImgUpload(e, url, canvas)}></input>
+                                </div>
+                                <h2 class="text-xl title-font pl-20 my-4  text-gray-500 text-bold tracking-widest">OR</h2>
+                                {/*  */}
                                 <div class="flex">
                                     <form onSubmit={e => addImg(e, imgURL, canvas)}>
                                         <div className="">
-                                            <h2 class="text-xl title-font text-gray-500 text-bold tracking-widest">Image URL:</h2>
+                                            <h2 class="text-xl title-font text-gray-500 text-bold tracking-widest">Upload Image from URL:</h2>
                                             <input className="border-2 rounded border-blue-600 w-full"
                                                 type="text"
                                                 value={imgURL}

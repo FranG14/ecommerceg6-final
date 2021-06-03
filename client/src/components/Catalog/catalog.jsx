@@ -56,12 +56,13 @@ function Catalogo() {
                       to={`/product/${producto._id}`}
                     >
                       <div key={key} className="card bg-white mb-5 px-4 py-4">
+                        <div>
                         <img
                           src={`http://localhost:3001/products/image/${producto.img}`}
                           alt="https://i.stack.imgur.com/y9DpT.jpg"
                           style={{ height: "400px", width: "420px" }}
                         />
-
+                        </div>
                         <div
                           className="bg-gray-200"
                           style={{ height: "1px" }}

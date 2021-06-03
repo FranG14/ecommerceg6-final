@@ -6,8 +6,9 @@ import { deleteItem, getActiveCartFromUser, getCartFromUser, getCartsByUser, inc
 import { useParams } from 'react-router';
 import swal from 'sweetalert';
 import { Link } from "react-router-dom";
+import {getUserById } from './../../redux/actions/user_actions'
 
-
+ 
 const NewCart = () => {
     var { id } = useParams()
     const [payment, setPayment] = useState(0)
@@ -19,6 +20,7 @@ const NewCart = () => {
     useEffect(() => {
         dispatch(getCartFromUser(user?.result?._id))
         totalItems()
+        dispatch(getUserById(user?.result?._id))
     }, [id])
 
     const userData = useSelector(
@@ -118,7 +120,8 @@ const NewCart = () => {
     }
 
 
-    console.log("CONSOLE DE USERcART", userCart)
+    // console.log("CONSOLE DE USERcART", userData.addresses)
+
     return (
         <div className="bg-gray-200 h-full md:h-screen tracking-wide font-bold">
             <UniversalNavBar />
@@ -213,7 +216,8 @@ const NewCart = () => {
                         {/* <!-- End Total PRice --> */}
                     </div>
                     <div className="flex justify-center mb-2">
-                        <button id="ch" className="bg-green-500 text-white rounded-md px-6 py-2" onClick={enviarDatos}>Checkout</button>
+                        { userData?.addresses?.length > 0 && 
+                        <button id="ch" className="bg-green-500 text-white rounded-md px-6 py-2" onClick={enviarDatos}>Checkout</button>}
                     </div>
                 </div>
             </div>

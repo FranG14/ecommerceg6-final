@@ -9,27 +9,35 @@ import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
 import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
+import { filterById } from "../../redux/actions/reviews_actions";
+import { getCartsByUser } from "../../redux/api";
 
 function DetailProduct() {
   
   var { id } = useParams();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [whishlistBool, setWhishlistBool] = useState();
-  const [whishlistList, setWhishlistList] = useState([]);
+  
   const history = useHistory();
   const whishlistData = useSelector(
     (state) => state.whishlistReducer?.includes
   );
   const dispatch = useDispatch();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [userCart, setUserCart] = useState([]);
   
   useEffect(() => {
     dispatch(detailProduct(id));
+    dispatch(filterById(id));
+    getCartsByUser(user?.result?._id)
+      .then(result => result.data)
+      .then(res => setUserCart(res))
     
-    const checkWhishlist = async()=>{
-      if(user.result?._id){
+      const checkWhishlist = async()=>{
+        if(user.result?._id){
         dispatch(getOrCreateWhishlistFromUser(user.result?._id))
         await dispatch(isProductInWhishlist(user.result?._id, id))
-        
+          
         setWhishlistBool(whishlistData)
       }else {
         setWhishlistBool(undefined)
@@ -37,6 +45,12 @@ function DetailProduct() {
     }
     checkWhishlist();
   }, [id,dispatch]);
+
+  const [reviewCreated, setReviewCreated] = useState(false);
+ 
+  const reviewId = useSelector(
+    (state) => state.reviewReducer.allReviews?.reviews
+  )
 
   const productsArray = useSelector(
     (state) => state.productsReducer.allProducts
@@ -74,7 +88,7 @@ function DetailProduct() {
     productName: "",
     price: "",
   });
-  const [changeOption,setChangeOption] = useState("select");
+  const [changeOption, setChangeOption] = useState("select");
   const [productStock, setProductStock] = useState(" ");
   const hasStock = (e) => {
     setChangeOption(e.target.value);
@@ -83,24 +97,24 @@ function DetailProduct() {
 
     let selectColorValue = selectColor.options[selectColor.selectedIndex].innerText;
     let selectSizeValue = selectSize.options[selectSize.selectedIndex].innerText;
-    if(!productsArray.custom){
-    let inStock = productsArray.stock.find(prop => prop.colorName === selectColorValue && prop.sizeName === selectSizeValue)
-    console.log(productsArray)
-    setProductStock(inStock)
-    if (inStock) {
+    if (!productsArray.custom) {
+      let inStock = productsArray.stock.find(prop => prop.colorName === selectColorValue && prop.sizeName === selectSizeValue)
+      // console.log(productsArray)
+      setProductStock(inStock)
+      if (inStock) {
+        setAddCart({
+          ...addCart,
+          colorName: inStock.colorName,
+          sizeName: inStock.sizeName,
+          productName: productsArray.name,
+          price: productsArray.price,
+          stock: inStock.stock
+        });
+      }
+    }
+    else {
       setAddCart({
         ...addCart,
-        colorName: inStock.colorName,
-        sizeName: inStock.sizeName,
-        productName: productsArray.name,
-        price: productsArray.price,
-        stock: inStock.stock
-      });
-    }
-  }
-  else{
-    setAddCart({
-      ...addCart,
         colorName: "Custom",
         sizeName: productsArray.customSize,
         productName: productsArray.name,
@@ -108,7 +122,6 @@ function DetailProduct() {
       })
     }
   }
-
 
   const [imagePos, setImagePos] = useState(0);
   const [average, setAverage] = useState(0);
@@ -157,7 +170,7 @@ function DetailProduct() {
   useEffect(() => {
     averageRating();
   });
-
+   
   return (
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
@@ -218,17 +231,33 @@ function DetailProduct() {
                   )}
                 </span>
                 <span className="flex ml-3 pl-3 -mr-3 py-2 border-l-2 border-gray-200"></span>
-                <Link to={"/reviews/add/" + productsArray._id}>
-                  <span className="text-gray-600 ml-3 text-lg">Add Review</span>
-                </Link>
+
+                {(!reviewCreated &&reviewId && reviewId.length > 0) && reviewId.map(prop => {
+                  if (prop.username[0]._id === user?.result?._id) {
+                    return setReviewCreated(true)
+                  }
+                })
+                }
+
+                {reviewCreated === false && userCart && userCart?.carts?.length > 0 && userCart?.carts?.map(prop => {
+                  if (prop.state === "Delivered") {
+                    if(prop.items.find(p => p.productId === id)){
+                      return (
+                        <Link to={"/reviews/add/" + productsArray._id}>
+                          <span className="text-gray-600 ml-3 text-lg">Add Review</span>
+                        </Link>
+                      )
+                    }
+                  }
+                })
+                }
               </div>
               <p class="leading-relaxed pl-3">{productsArray.description}</p>
               <div class="flex mt-6 pl-4 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 <div class="flex items-center">
                   <span class="-ml-1 mr-3">Color</span>
                   <select onChange={hasStock} onClick={filterColorAndSize} id="colorSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                    {productsArray.custom?<option>Custom</option>:<option>Select</option>}
-                    {console.log("AAAAA",productsArray)}
+                    {productsArray.custom ? <option>Custom</option> : <option>Select</option>}
                     {stockArray && stockArray.colors.length > 0 && !productsArray.custom
                       ? stockArray.colors.map((c, id) => {
                         return (
@@ -237,15 +266,15 @@ function DetailProduct() {
                           </option>
                         );
                       })
-                      :""}
+                      : ""}
                   </select>
                 </div>
                 <div class="flex ml-6 items-center">
                   <span class="mr-1 -ml-4">Size</span>
                   <div class="relative">
                     <select onChange={hasStock} id="sizeSelect" class="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10">
-                    <option>select</option>
-                    {productsArray.custom && <option>{productsArray.customSize}</option>}
+                      <option>select</option>
+                      {productsArray.custom && <option>{productsArray.customSize}</option>}
                       {stockArray && stockArray.colors.length > 0 && !productsArray.custom
                         ? stockArray.sizes.map((c, id) => {
                           return (
