@@ -228,19 +228,10 @@ console.log(reviewCreated, "XXXXXXXXXXXXXXXXX")
                 {(!reviewCreated &&reviewId && reviewId.length > 0) && reviewId.map(prop => {
                   if (prop.username[0]._id === user?.result?._id) {
                     return setReviewCreated(true)
-                    // return (
-                    //   <Link to={"/reviews/add/" + productsArray._id}>
-                    //     <span className="text-gray-600 ml-3 text-lg">Add Review</span>
-                    //   </Link>)
                   }
                 })
                 }
-                {/* {
-                  !reviewId || reviewId.length === 0 && (
-                    <Link to={"/reviews/add/" + productsArray._id}>
-                      <span className="text-gray-600 ml-3 text-lg">Add Review</span>
-                    </Link>)
-                } */}
+
                 {reviewCreated === false && userCart && userCart?.carts?.length > 0 && userCart?.carts?.map(prop => {
                   if (prop.state === "Delivered") {
                     if(prop.items.find(p => p.productId === id)){

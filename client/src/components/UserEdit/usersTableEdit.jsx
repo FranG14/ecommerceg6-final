@@ -17,7 +17,7 @@ export default function UserTableEdit() {
         firstname: "",
         lastname: "",
         email: "",
-
+        repeatPassword:"",
         street: "",
         streetNumber: "",
         state: "",
@@ -49,13 +49,12 @@ export default function UserTableEdit() {
 
         e.preventDefault();
         let userSend;
-        if (user.password == "") {
+        if (user.password == "" && user.repeatPassword == "") {
             userSend = {
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
-
                 street: user.street,
                 streetNumber: user.streetNumber,
                 state: user.state,
@@ -63,13 +62,23 @@ export default function UserTableEdit() {
                 zipcode: user.zipcode,
 
             };
+            dispatch(editUserAdmin(userSend, JSON.parse(localStorage.getItem('profile'))));
+            swal({
+                title: "User Edited",
+                icon: "success",
+                button: true,
+            }).then(function () {
+                window.location.href = "http://localhost:3000/users"
+            });
         } else {
+            if(user.password === user.repeatPassword){
+
+            
             userSend = {
                 id: user.id,
                 firstname: user.firstname,
                 lastname: user.lastname,
                 email: user.email,
-
                 street: user.street,
                 streetNumber: user.streetNumber,
                 state: user.state,
@@ -77,26 +86,35 @@ export default function UserTableEdit() {
                 zipcode: user.zipcode,
                 password: user.password
             };
-        }
-        //alert(JSON.stringify(localStorage.getItem('profile')))
-        dispatch(editUserAdmin(userSend, localStorage.getItem('profile')));
-        setUser(newUser)
-        swal({
+            dispatch(editUserAdmin(userSend, JSON.parse(localStorage.getItem('profile'))));
+                swal({
             title: "User Edited",
             icon: "success",
             button: true,
         }).then(function () {
             window.location.href = "http://localhost:3000/users"
         });
+        }
+        else{
+            swal({
+                title: 'Password dont match',
+                text: 'Try Again!',
+                icon: "warning"
+            })
+        }
+        }
+        //alert(JSON.stringify(localStorage.getItem('profile')))
+        setUser(newUser)
+
     };
 
     return (
-        <div className="tracking-wide font-bold">
+        <div className="tracking-wide pt-20 font-bold">
 
 
             <UniversalBar />
 
-            <div className="grid min-h-screen place-items-center">
+            <div className="grid mt-14  mb-14 min-h-screen place-items-center">
                 <div className="w-11/12 p-12 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 
             px-6 py-10 sm:px-10 sm:py-6 mt-4
             bg-white rounded-lg shadow-md lg:shadow-lg">
@@ -198,12 +216,24 @@ export default function UserTableEdit() {
                             required
                         />
                         <input
-                            value={user.contrasenia}
+                            value={user.password}
                             onChange={handleInputChange}
                             id="password"
-                            type="text"
+                            type="password"
                             name="password"
                             placeholder="password"
+                            className="block w-full py-3 px-1 mt-2 mb-4
+                    text-gray-800 appearance-none 
+                    border-b-2 border-gray-100
+                    focus:text-gray-500 focus:outline-none focus:border-gray-200"
+                        />
+                         <input
+                            value={user.repeatPassword}
+                            onChange={handleInputChange}
+                            id="RepeatPassword"
+                            type="password"
+                            name="repeatPassword"
+                            placeholder="Repeat Password"
                             className="block w-full py-3 px-1 mt-2 mb-4
                     text-gray-800 appearance-none 
                     border-b-2 border-gray-100

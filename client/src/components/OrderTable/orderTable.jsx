@@ -19,7 +19,7 @@ const OrdersTable = () => {
     );
 
     const [filter, setFilter] = useState("Paid")
-
+    const [totalQuantity,setTotalQuantity] = useState(0);
     const next = () => {
         setPage(page + 1)
 
