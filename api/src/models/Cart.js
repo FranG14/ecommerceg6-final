@@ -14,7 +14,7 @@ const cartSchema = new Schema({
     price: Float
   }],
   state:{ type: String, default: 'Active' },
-  totalAmount:{ type: Float },     
+  totalAmount:{ type: Float },
   fechaCierre:{type:Schema.Types.Date}     
 })
 

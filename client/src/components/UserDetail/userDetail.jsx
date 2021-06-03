@@ -55,7 +55,7 @@ export default function UserDetail() {
                 <UniversalNavBar />
             </div>
             {user?.result && userData &&
-                <div className="bg-gray-200 pt-20 pb-10">
+                <div className="bg-gray-200 mr-10 pt-20 pb-10">
                     <div className="max-w-4xl flex items-center mt-4 mb-4 bg-gray-200 flex-wrap mx-auto lg:my-0">
 
                         {/* <!--Main Col--> */}
@@ -129,7 +129,7 @@ export default function UserDetail() {
                                         user.result?.username &&
                                         <Link to={"/carts/" + user.result._id}  >
                                             <button className="mr-5  bg-blue-500 hover:bg-blue-700 flex justify-center text-white font-bold py-2 px-4 mt-4 rounded-full">
-                                                Historial de Compras
+                                                Purchase History 
 				                </button>
                                         </Link>
                                     }

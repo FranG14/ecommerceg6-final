@@ -13,7 +13,7 @@ const NewCartNotLogged = () => {
     const [incrementCart, setIncrementCart] = useState(false);
     const [decrementCart, setDecrementCart] = useState(false);
     const [deleteItem, setDeleteItem] = useState(false)
-
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const totalItems = () => {
         let totalItems = 0
         let totalPrice = 0
@@ -55,6 +55,9 @@ const NewCartNotLogged = () => {
     }
 
     useEffect(() => {
+        if(user?.result?._id){
+            window.location.replace("/cart/" + user?.result?._id)
+        }
         userCart = getCartNotLogged()
     }, [incrementCart, decrementCart, deleteItem])
 

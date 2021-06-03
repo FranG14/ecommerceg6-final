@@ -18,6 +18,10 @@ const OrdersTable = () => {
         (state) => state.cartReducer.cart.carts
     );
 
+    const quantityArray = useSelector(
+        (state) => state.cartReducer.cart.totalQuantity
+    );
+
     const [filter, setFilter] = useState("Paid")
     const [totalQuantity,setTotalQuantity] = useState(0);
     const next = () => {
@@ -102,9 +106,9 @@ const OrdersTable = () => {
                                 {c.userId && c.userId.username ? c.userId.username : "User Not Logged"}
                             </td>
                             <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                                {c.items && c.items.length > 0 ? c.items.map((a, id) => {
-                                    return <h1> {a.quantity}</h1>
-                                }) : <h1>No Products</h1>}
+                                {quantityArray && quantityArray.length >0 && quantityArray[id] > 0?
+                                <h1>{quantityArray[id]}</h1>
+                                : <h1>No Products</h1>}
                             </td>
 
                             <td className="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">

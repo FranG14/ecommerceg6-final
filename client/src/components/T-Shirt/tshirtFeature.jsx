@@ -10,6 +10,7 @@ import domtoimage from 'dom-to-image';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProducts } from '../../redux/actions/products_actions';
 import { addItem, addToCart } from '../../redux/actions/cart_actions';
+import swal from 'sweetalert';
 
 
 const TshirtFeature = () => {
@@ -19,8 +20,8 @@ const TshirtFeature = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
     const productsArray = useSelector(
         (state) => state.productsReducer.addProduct?.product
-      );
-      const [post,setPost] = useState(false);
+    );
+    const [post, setPost] = useState(false);
 
     const initCanvas = () => (
         new fabric.Canvas('canvas', {
@@ -170,50 +171,60 @@ const TshirtFeature = () => {
         categories: ["60b6c6bce1db94362c42bbaf"],
         brand: "Custom",
         custom: "true",
-        productId:""
+        productId: ""
     })
     const postTshirt = () => {
-        if(user){
-        const config = {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        };
-        // let extension = product.name.split(".");
-        const newProduct = new FormData()
-        newProduct.append("name", product.productName)
-        newProduct.append("color", product.colorName)
-        newProduct.append("stock", product.quantity)
-        newProduct.append("size", [product.sizeName])
-        newProduct.append("price", product.price)
-        newProduct.append("brand", product.brand)
-        newProduct.append("img", product.image)
-        newProduct.append("categories", product.categories)
-        newProduct.append("custom", product.custom)
-        newProduct.append("userId",user.result._id)
-        dispatch(addProducts(newProduct, config))
+        if (user) {
+            const config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
+            // let extension = product.name.split(".");
+            const newProduct = new FormData()
+            newProduct.append("name", product.productName)
+            newProduct.append("color", product.colorName)
+            newProduct.append("stock", product.quantity)
+            newProduct.append("size", [product.sizeName])
+            newProduct.append("price", product.price)
+            newProduct.append("brand", product.brand)
+            newProduct.append("img", product.image)
+            newProduct.append("categories", product.categories)
+            newProduct.append("custom", product.custom)
+            newProduct.append("userId", user?.result?._id)
+            dispatch(addProducts(newProduct, config))
 
-    }
-    else{
-        alert("log in")
-        window.location.replace("/auth")
-    }
+        }
+        else {
+            alert("log in")
+            window.location.replace("/auth")
+        }
     }
     // const postDownload = () =>{
     //     download()
     // }
-    const [addCart,setAddCart] = useState(false)
+    const [addCart, setAddCart] = useState(false)
     useEffect(() => {
-        if(post){
+        if (post) {
             postTshirt();
+            swal({
+                title: "Successfully Added to your Catalog ",
+                text: 'Nice T-Shirt!',
+                icon: "success"
+            })
         }
-        if(addCart){
-            dispatch(addItem(product,user.result._id))
+        if (addCart) {
+            dispatch(addItem(product, user?.result?._id))
+            swal({
+                title: "Custom T-Shirt Added to the Cart",
+                text: 'Well done!',
+                icon: "success"
+            })
         }
-    },[post,addCart])
+    }, [post, addCart])
 
     const addToCart = () => {
-        setProduct({...product, productId:productsArray._id})
+        setProduct({ ...product, productId: productsArray._id })
         setPost(false)
         setAddCart(true);
     }
@@ -291,8 +302,8 @@ const TshirtFeature = () => {
                                                 </button>
                                             </div>
                                             <button type="button" onClick={() => download()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Save T-shirt</button>
-                                            {post && 
-                                            <button type="button" onClick={() => addToCart()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>}
+                                            {post &&
+                                                <button type="button" onClick={() => addToCart()} class="grid grid-cols-1 text-white bg-green-500 border-0 w-full mt-4 py-2 px-6 focus:outline-none hover:bg-red-600 rounded" type="submit">Add To Cart</button>}
                                         </div>
                                     </form>
 
