@@ -11,7 +11,7 @@ API.interceptors.request.use((req)=> {
     return req;
 })
 
-export const googleId = GOOGLEID;
+export const googleId = `${GOOGLEID}`;
 //AUTHENTICATION
 //export const getUserById = (_id) => API.get(`/users/:${_id}`);
 export const login = (formData) => API.post('/users/login', formData);

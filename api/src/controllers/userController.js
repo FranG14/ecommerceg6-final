@@ -236,6 +236,7 @@ const changePassword = async (req, res) => {
 }
 //==========================================================================//
 const addAddress = async (req, res) => {
+    console.log(req.cookies)
     const { _id } = req.params;
     const {
         streetNumber,

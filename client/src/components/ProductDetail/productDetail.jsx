@@ -11,25 +11,20 @@ import carro from "../../assets/carro.png";
 import StarRatingComponent from "react-star-rating-component";
 
 function DetailProduct() {
+  
   var { id } = useParams();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const [whishlistBool, setWhishlistBool] = useState(undefined);
+  const [whishlistBool, setWhishlistBool] = useState();
 
   const whishlistData = useSelector(
     (state) => state.whishlistReducer
-  );
-
+  )
   const dispatch = useDispatch();
+  
   useEffect(() => {
-    dispatch(detailProduct(id));
-    if(user.result?._id){ 
-      dispatch(isProductInWhishlist(user.result?._id, id))
-      
-      
-    }
-    console.log("STATE",whishlistData)
+        dispatch(detailProduct(id));
+        console.log(whishlistData)
   }, [id]);
-
 
   const productsArray = useSelector(
     (state) => state.productsReducer.allProducts
@@ -119,33 +114,6 @@ function DetailProduct() {
 
   function addProductToCart() {
     console.log("anda el carrito sin loguear", user)
-    /*
-        fetch(
-          `${REACT_APP_API}carts/active/${JSON.parse(localStorage.getItem("profile")).result._id
-          }`
-        );
-          alert("El user id es:"+user?.result._id)
-          alert("El id producto es: "+addCart.productId)
-        dispatch(getCartFromUser(user?.result._id ||undefined))
-    
-        swal({
-          title: "Your Product Was Added to Cart!",
-          icon: carro,
-          button: true,
-          dangerMode: true,
-        });
-        //dispatch(addItem(addCart, user?.result._id));
-    
-        fetch(`${REACT_APP_API}carts/${user.result._id}`,{
-          body:JSON.stringify({productId:addCart.productId,quantity:1}),
-          method:"POST"
-        })*/
-
-    // if (user) {
-    //Este dispatch reemplaza al fetch que estaba antes
-
-    // dispatch(getCartFromUser(user?.result._id || undefined))
-
     swal({
       title: "Your Product Was Added to Cart!",
       icon: carro,

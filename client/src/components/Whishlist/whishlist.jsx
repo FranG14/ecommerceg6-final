@@ -77,7 +77,7 @@ const Whishlist = () => {
                     </Link>
                 ))
                 ) : (
-                <p>{/*<br/><br/><br/><br/><br/>*/}There are no products in your whishlist</p>
+                <p><br/><br/><br/><br/><br/>There are no products in your whishlist</p>
                 )}
             </div>
             <div className="pt-10 bg-gray-200">

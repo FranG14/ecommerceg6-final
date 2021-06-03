@@ -26,6 +26,8 @@ export const login = (formData, history, swalert) => async (dispatch) => {
             type: LOGIN_SUCCESS,
             payload: u.data
         })
+        document.cookie=`isAdmin=${u.data?.result?.isAdmin}`
+        document.cookie=`_id=${u.data?.result?._id}` 
     })
     .then(() => history.push('/'))
     .then(async()=> {
@@ -66,6 +68,8 @@ export const register = (formData, history, swalert) => async (dispatch) => {
             type: REGISTER_SUCCESS,
             payload: u.data
         })
+        document.cookie=`isAdmin=${u.data?.result?.isAdmin}`
+        document.cookie=`_id=${u.data?.result?._id}` 
     })
     .then(async()=> {
         const message =  await JSON.parse(localStorage.getItem('profile'))
@@ -120,6 +124,8 @@ export const googleLogIn = (formData, history) => async(dispatch) => {
             type: GOOGLE_LOGIN_SUCCESS,
             payload: u.data
         })
+        document.cookie=`isAdmin=${u.data?.result?.isAdmin}`
+        document.cookie=`_id=${u.data?.result?._id}` 
     })
     .then(() => history.push('/'))
     .catch((error)=>{
