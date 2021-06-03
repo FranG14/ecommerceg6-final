@@ -176,12 +176,15 @@ function DetailProduct() {
               <h2 className="text-2xl pl-3 title-font tracking-wide font-bold text-gray-500 tracking-widest">
                 {productsArray.brand}
               </h2>
-              <h1 className="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
-                {productsArray.name}
-              </h1>
-               {(whishlistBool!==undefined) && 
+              <div className='flex justify-left'>
+                <h1 className="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
+                  {productsArray.name}
+                </h1>
+                {(whishlistBool!==undefined) && 
 
-                <div style={{cursor:"pointer"}} onClick={toggleWhishlist}>{(whishlistBool===true) ? <i class="far fa-heart"></i> : <i class="fas fa-heart"></i> }</div>}
+                <div className="pl-5 "style={{cursor:"pointer"}} onClick={toggleWhishlist}>{(whishlistBool===true) ? <i class="far fa-heart"></i> : <i class="fas fa-heart"></i> }</div>}
+                
+              </div>
               <h2 class="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
                 {!productStock && !productsArray?.custom ? (
                   <h2 className="text-red-500">No Stock</h2>
