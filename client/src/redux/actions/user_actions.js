@@ -89,6 +89,7 @@ export const editUser = (payload) => async(dispatch) => {
 }
 
 export const editUserAdmin = (payload,admin) => async(dispatch) => {
+	console.log("·$AWEDASDSAd",payload,admin)
 	return await api.editUser(payload)
 	.then((userEdit) => {
 		if(userEdit.data._id==admin.result._id){

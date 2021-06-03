@@ -108,7 +108,7 @@ a {
 }
 
 .header .menu-btn:checked ~ .menu {
-  max-height: 240px;
+  max-height: 80vh;
 }
 
 .header .menu-btn:checked ~ .menu-icon .navicon {
@@ -150,6 +150,6 @@ a {
 
 @media (max-width: 1200px) {
   #responsiveSearch {
-    margin-left: 80px;
+    margin-left: 90px;
   }
 }

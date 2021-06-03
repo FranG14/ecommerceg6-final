@@ -33,7 +33,7 @@ const reviewsReducer = (state = initialState, action) => {
     case ADD_REVIEW_ERROR:
       return { ...state, addReview: null, isLoading: false, error: true };
     case FILTER_BY_ID:
-      return { ...state, allReviews: [], isLoading: true, error: null };
+      return { ...state, allReviews: action.payload, isLoading: true, error: null };
     default:
       return state;
   }

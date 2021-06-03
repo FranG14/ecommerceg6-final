@@ -283,7 +283,7 @@ const updateProducts = asyncHandler(async (req, res) => {
 
 const updateStock = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { quantity } = req.body;
+  const { quantity,paid } = req.body;
 
   const stock = await Stock.findById(id);
   if (stock) {
