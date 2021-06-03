@@ -8,7 +8,7 @@ import logoTransparent from "../../assets/logo_transparent.png"
 import swal from 'sweetalert';
 import carroHome from '../../assets/carroHome.png'
 import { searchProducts } from '../../redux/actions/products_actions'
-
+import corona from "../../assets/corona.jpg";
 
 export default function UniversalNavBar(props) {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -102,8 +102,18 @@ export default function UniversalNavBar(props) {
 
       <header className="header tracking-wide font-bold text-center">
         <Link to="/" className="logo">
-          {" "}
-          <img alt="logo" src={logoTransparent} style={{position:"absolute",top:"-12px",left:"15px",width:"200px"}}></img>{" "}
+        {
+            window.location.pathname === "/" &&
+
+            <img alt="logo" src={logoTransparent} style={{ position: "absolute", top: "-12px", left: "15px", width: "200px" }}></img>
+
+          }
+          {
+            window.location.pathname !== "/" &&
+
+            <img alt="logo" src={corona} style={{ position: "absolute", top: "30px", left: "15px", width: "65px" }}></img>
+
+          }
 
         </Link>
 
@@ -131,7 +141,7 @@ export default function UniversalNavBar(props) {
           <span className="navicon"></span>
         </label>
         {window.location.pathname === "/Shop" && (
-          <div id="responsiveSearch" className=" flex flex-col  lg:ml-96 ml-20   absolute">
+          <div id="responsiveSearch" className=" flex flex-col  lg:ml-96 ml-24   absolute">
             <input
               onKeyPress={handleKeyPress}
               className="mt-3 mb-3 w-44 lg:w-80 md:w-60 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none "

@@ -28,6 +28,7 @@ function HomePagoAcreditado(props) {
       if (orderData._id) {
         dispatch(changeCartState("Paid", orderData._id))
         document.getElementById("red").click()
+        
       }
     }
   }, [props])
