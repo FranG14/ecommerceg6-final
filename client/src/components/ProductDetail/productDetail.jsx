@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { detailProduct } from "../../redux/actions/products_actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { addItem, addToCart, getCartFromUser } from "../../redux/actions/cart_actions";
-import {toggleProductFromWhishlist, isProductInWhishlist} from '../../redux/actions/whishlist_action';
+import {toggleProductFromWhishlist, getOrCreateWhishlistFromUser, isProductInWhishlist} from '../../redux/actions/whishlist_action';
 import UniversalNavBar from "../UniversalNavBar/universalNavBar";
 import Footer from "../../containers/Footer/footer";
 import swal from "sweetalert";
@@ -15,16 +15,28 @@ function DetailProduct() {
   var { id } = useParams();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [whishlistBool, setWhishlistBool] = useState();
-
+  const [whishlistList, setWhishlistList] = useState([]);
+  const history = useHistory();
   const whishlistData = useSelector(
-    (state) => state.whishlistReducer
-  )
+    (state) => state.whishlistReducer?.includes
+  );
   const dispatch = useDispatch();
   
   useEffect(() => {
-        dispatch(detailProduct(id));
-        console.log(whishlistData)
-  }, [id]);
+    dispatch(detailProduct(id));
+    
+    const checkWhishlist = async()=>{
+      if(user.result?._id){
+        dispatch(getOrCreateWhishlistFromUser(user.result?._id))
+        await dispatch(isProductInWhishlist(user.result?._id, id))
+        
+        setWhishlistBool(whishlistData)
+      }else {
+        setWhishlistBool(undefined)
+      }
+    }
+    checkWhishlist();
+  }, [id,dispatch]);
 
   const productsArray = useSelector(
     (state) => state.productsReducer.allProducts
@@ -93,8 +105,8 @@ function DetailProduct() {
         sizeName: productsArray.customSize,
         productName: productsArray.name,
         price: productsArray.price,
-    })
-  }
+      })
+    }
   }
 
 
@@ -112,15 +124,10 @@ function DetailProduct() {
     reviewsFilter = reviewsRating.slice(-15);
   }
 
-  function addProductToWhishlist(){
-    if(user?.result?._id) {
-      dispatch(addProductToWhishlist(user?.result?._id, id))
-    } else {
-      swal({
-        title: "Log In or Register first!",
-        icon: 'warning'
-      });
-    }
+  function toggleWhishlist(){
+    
+    dispatch(toggleProductFromWhishlist(user?.result?._id, id , history))
+    setWhishlistBool((prev) => !prev)
   }
 
 
@@ -150,7 +157,7 @@ function DetailProduct() {
   useEffect(() => {
     averageRating();
   });
-console.log("VVVVVVV",changeOption)
+
   return (
     <div className="tracking-wide font-bold">
       <UniversalNavBar />
@@ -172,7 +179,9 @@ console.log("VVVVVVV",changeOption)
               <h1 className="text-gray-900 pl-3 text-3xl tracking-wide font-bold title-font mb-1">
                 {productsArray.name}
               </h1>
-                <div style={{cursor:"pointer"}} onClick={()=>addProductToWhishlist}><i class="far fa-heart"></i></div>
+               {(whishlistBool!==undefined) && 
+
+                <div style={{cursor:"pointer"}} onClick={toggleWhishlist}>{(whishlistBool===true) ? <i class="far fa-heart"></i> : <i class="fas fa-heart"></i> }</div>}
               <h2 class="text-l title-font pl-3 tracking-wide font-bold text-gray-500 ">
                 {!productStock && !productsArray?.custom ? (
                   <h2 className="text-red-500">No Stock</h2>

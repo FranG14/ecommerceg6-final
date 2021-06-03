@@ -17,7 +17,8 @@ const {
 } = require("../controllers/userController");
 
 const {
-    isSameUser
+    isSameUser,
+    isAdmin
 } = require('../middlewares/customMiddlewares')
 
 //-------------------------Route Users--------------------------//
@@ -27,12 +28,12 @@ server.get('/:_id', getUserById);
 server.post('/login', login);
 server.post('/register', register);
 server.post('/google', googleLogin);
-server.post('/addUser/:_id/:userId',addUser);
+server.post('/addUser/:_id/:userId', isSameUser, addUser);
 
-server.put('/:_id', updateUser);
-server.put('/toggle/:_id', toggleAdmin);
+server.put('/:_id', isSameUser, updateUser);
+server.put('/toggle/:_id', isAdmin, toggleAdmin);
 server.put('/password/:_id', isSameUser, changePassword);
-server.put('/removeUser/:_id/:userId', deleteUserAdded);
+server.put('/removeUser/:_id/:userId', isSameUser, deleteUserAdded);
 
 server.delete('/:_id', deleteUser);
 

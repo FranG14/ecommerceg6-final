@@ -16,14 +16,13 @@ const Whishlist = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const whishlistData = useSelector(
-    (state) => state.whishlistReducer?.whishlist?.whishlist?.products
-  );
-
+  
+    const whishlistData = useSelector(
+        (state) => state.whishlistReducer?.whishlist?.whishlist
+    );
+    
     useEffect(() => {
         dispatch(getOrCreateWhishlistFromUser(id));
-        console.log(whishlistData)
-
     }, [id, dispatch]);
 
 
@@ -37,20 +36,24 @@ const Whishlist = () => {
                     <div className="pb-10 bg-gray-200">
                         <UniversalNavBar />
                     </div>
+                </div>
+                <div>
+                    <h1>Your Whishlist</h1>
+                    <hr/>
                 </div> 
                 <div>
-                {whishlistData?.lenght > 0 ? (
-                whishlistData.map((w, index) => (
-                <Link to={`/product/${w.productId}`}>
+                {whishlistData?.products.length > 0 ? (
+                whishlistData?.products.map((w, index) => (
                     <div
                     key={index}
-                    class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4"
-                    >
+                    class="bg-white py-4 px-4 shadow-xl rounded-lg my-4 mx-4">
                         <div class="flex justify-between px-4 items-center">
-                            <div class="text-lg font-semibold">
-                                <p>{w.name}</p>
-                                <p class="text-gray-400 text-base">${w.price}</p>
-                            </div>
+                            <Link to={`/product/${w.productId}`}>
+                                <div class="text-lg font-semibold">
+                                    <p>{w.name}</p>
+                                    <p class="text-gray-400 text-base">${w.price}</p>
+                                </div>
+                            </Link>
                             <div class="text-lg font-semibold transform rotate-45 ">
                                 <button
                                 onClick={() => handleClose(id, w.productId)}
@@ -74,7 +77,6 @@ const Whishlist = () => {
                             </div>
                         </div>
                     </div>
-                    </Link>
                 ))
                 ) : (
                 <p><br/><br/><br/><br/><br/>There are no products in your whishlist</p>

@@ -77,7 +77,7 @@ export const removeProductFromWhishlist = (userId, productId, swal, history) => 
     })
 }
 //=============================================//
-export const toggleProductFromWhishlist = (userId, productId) => async(dispatch) => {
+export const toggleProductFromWhishlist = (userId, productId, history) => async(dispatch) => {
     dispatch({
         type: TOGGLE_PRODUCT_IN_WHISHLIST
     })
@@ -89,6 +89,7 @@ export const toggleProductFromWhishlist = (userId, productId) => async(dispatch)
         })
         localStorage.setItem('whishlist', JSON.stringify(result.data))
     })
+    .then(()=>history.push(`/product/${productId}`))
     .catch((error) => {
         console.log(error)
         dispatch({
