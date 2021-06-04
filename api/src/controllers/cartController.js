@@ -33,7 +33,7 @@ const getActiveCartFromUser = async (req, res) => {
 const addItem = async (req, res) => {
   const { userId } = req.params;
   const { productId, quantity, colorName, sizeName, stock,custom } = req.body;
-  console.log("ASDASDASD",sizeName)
+  
   try {
     let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
 
@@ -449,6 +449,20 @@ return Promise.all(contexts.map((context) => {
 }));
 }
 //==========================================================================//
+const postCartAddress = async(req,res) => {
+  const {userId} = req.params;
+  const { address } = req.body;
+
+  let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
+
+   if(cart){
+     cart.address = address
+     cart = await cart.save();
+     res.status(200).json({ cart })
+   }
+}
+//==========================================================================//
+
 
 module.exports = {
   addItem,
@@ -460,4 +474,5 @@ module.exports = {
   incrementProductUnit,
   decrementProductUnit,
   getCartsById,
+  postCartAddress
 };

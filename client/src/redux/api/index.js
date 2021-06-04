@@ -50,7 +50,7 @@ export const decrementProductUnit = (product, userId,colorName,sizeName) => API.
 export const incrementProductUnit = (product, userId,colorName,sizeName) => API.put(`/carts/increment/${userId}?productId=${product}&colorName=${colorName}&sizeName=${sizeName}`)
 //Trae carro por id de carro
 export const getCartsById = (cartId) => API.get(`/carts/id/${cartId}`);
-
+export const postCartAddress = (userId, address) => API.post(`/carts/address/${userId}`,address) 
 
 
 

@@ -6,6 +6,7 @@ let obj={bandera:true,productos:[],cantidadProductos:[],total:0}
 
 function MercadoPago(props){
     const [productos,setProductos] = useState({productosO:[],cantidadProductos:[],total:0})
+    const [address, setAddress] = useState(JSON.parse(localStorage.getItem('cartaddress')))
     //const [cantidadProductos,setCantidadProductos]= useState([])    
    //const [total,setTotal] = useState(0)
 
@@ -65,6 +66,7 @@ function MercadoPago(props){
                     <div class="flex justify-center  mb-6">
                         <p className="text-blue-500 text-3xl">Checkout Payment</p>
                     </div>
+                        <p className="text-blue-500 text-l">Sending to: {address}</p>
 
                     <div className="flex flex-col border-t-2 border-blue-500 bg-gray-50 rounded-sm p-2">
                         <div>

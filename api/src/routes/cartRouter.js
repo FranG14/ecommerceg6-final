@@ -11,7 +11,8 @@ const {
     incrementProductUnit,
     decrementProductUnit,
     getCartsById,
-    stateChangePagoAcreditado
+    stateChangePagoAcreditado,
+    postCartAddress
 } = require('../controllers/cartController')
 
 // ------------------------------ ROUTES Cart ---------------------------- //
@@ -51,5 +52,7 @@ server.put('/decrement/:userId', decrementProductUnit)
 server.put('/increment/:userId', incrementProductUnit)
 //==========================================================================//
 server.get('/id/:_id', getCartsById)
+//==========================================================================//
+server.post('/address/:_userId', postCartAddress)
 
 module.exports = server;

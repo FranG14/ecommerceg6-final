@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 import swal from 'sweetalert';
 import { Link } from "react-router-dom";
 import {getUserById } from './../../redux/actions/user_actions'
-
+import * as api from  './../../redux/api/index'
 const { REACT_APP_API } = process.env;
 
 const NewCart = () => {
@@ -16,7 +16,10 @@ const NewCart = () => {
     // const user = useSelector(state =>
     //      state.userReducer)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    console.log("USERRRR", user)
+    const [address, setAddress] =  useState("-")
+
+
+     
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCartFromUser(user?.result?._id))
@@ -93,12 +96,19 @@ const NewCart = () => {
         totalItems()
     }
 
+    const handleAddressChange = (e) => {
+        setAddress(e.target.value)
+         
+        localStorage.setItem('cartaddress', JSON.stringify(e.target.value))
+    }
+
+
     async function enviarDatos() {
         let usuario = JSON.parse(localStorage.getItem('profile'))
         if (usuario == null) {
             return document.getElementById("redirect").click();
         }
-        console.log(usuario)
+        api.postCartAddress(id, {address:address}) 
 
         document.getElementById("ch").setAttribute("disabled", true)
 
@@ -197,8 +207,9 @@ const NewCart = () => {
                         {(userData?.addresses && userData?.addresses.length > 0)
                             ? <div className="flex flex-col justify-center items-center text-center">
                                 <p className="text-xl font-semibold">Delivered To</p>
-                                <select name="addresses"
-                                >
+                                <select name="address" onChange={handleAddressChange}
+                                >   
+                                <option value="-"> Address</option>
                                     {
                                         userData?.addresses.map((a) => <option value={a.address}>{a.address}</option>)
                                     }
