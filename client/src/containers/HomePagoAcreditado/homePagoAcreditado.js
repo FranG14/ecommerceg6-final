@@ -13,6 +13,7 @@ import image2 from '../../assets/image2.jpg'
 import image3 from '../../assets/image3.jpg'
 import image4 from '../../assets/image4.jpg'
 import swal from "sweetalert"
+import { stockUpdated } from "../../redux/actions/products_actions"
 
 
 let objHome = { bandera: true }
@@ -27,8 +28,18 @@ function HomePagoAcreditado(props) {
       objHome.bandera = false
       if (orderData._id) {
         dispatch(changeCartState("Paid", orderData._id))
+        swal({
+          title: "Order Succesfully Placed",
+          text: 'Thanks for buying',
+          icon: "success"
+        })
+          // if(orderData && orderData.length >0){
+          orderData?.items?.map(prop => {
+            dispatch(stockUpdated("undefined",{quantity:prop.quantity,state:"Paid",color:prop.colorName,size:prop.sizeName,productId:prop.productId}))
+          })         
+        // }
         document.getElementById("red").click()
-        
+
       }
     }
   }, [props])
@@ -40,7 +51,7 @@ function HomePagoAcreditado(props) {
     <div className="tracking-wide font-bold">
 
       <body className="bg-white font-serif">
-        <Link to="/" id="red" style={{display:"none"}}></Link>
+        <Link to="/" id="red" style={{ display: "none" }}></Link>
         {/* <header className="flex flex-wrap items-center justify-between px-12 h-32 -mb-32 relative"> */}
         <UniversalNavBar />
         {/* <ul className="order-last md:order-first flex-1 flex justify-center md:justify-start list-reset">

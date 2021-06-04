@@ -15,8 +15,8 @@ const getProducts = asyncHandler(async (req, res, next) => {
   const page = req.query.page || 1;
   const custom = req.query.custom;
   let keyword;
-console.log("AAA",custom,keyword)
-  if(custom && keyword){ 
+  console.log("AAA", custom, keyword)
+  if (custom && keyword) {
     keyword = {
       name: {
         $regex: req.query.keyword,
@@ -25,12 +25,12 @@ console.log("AAA",custom,keyword)
       custom: custom === "true" ? true : false
     }
   }
-  if(!keyword && custom){
+  if (!keyword && custom) {
     keyword = {
       custom: custom === "true" ? true : false
     }
   }
-  if(!custom && keyword){
+  if (!custom && keyword) {
     keyword = {
       name: {
         $regex: req.query.keyword,
@@ -38,7 +38,7 @@ console.log("AAA",custom,keyword)
       }
     }
   }
-  else{
+  else {
     keyword = {}
   }
 
@@ -96,7 +96,7 @@ const getProductsFilter = (req, res, next) => {
     }
   } else {
     keyword = {}
-  } 
+  }
   Product.find({ ...keyword }).sort({ price: req.query.price })
     .populate("categories")
     .populate("stock")
@@ -144,7 +144,7 @@ const getProductsFilter = (req, res, next) => {
 const addProducts = async (req, res) => {
   console.log(req.body)
   try {
-    const {userId, name, custom, price, brand, description, stock, size, color, categories, genre, productReview } =
+    const { userId, name, custom, price, brand, description, stock, size, color, categories, genre, productReview } =
       req.body;
     let images = [];
     const categoriesArray = categories.split(",")
@@ -158,21 +158,21 @@ const addProducts = async (req, res) => {
     let sizeArray = size.split(",");
     let stockArray = stock.split(",");
     let stockId = []
-    if(!custom || custom === "false"){
-    if (colorArray && colorArray.length > 0) {
-      colorArray.map((c, i) => {
-        const newStock = Stock({
-          _id: new mongoose.Types.ObjectId(),
-          colorName: c,
-          sizeName: sizeArray[i],
-          userId: userId,
-          stock: stockArray[i]
+    if (!custom || custom === "false") {
+      if (colorArray && colorArray.length > 0) {
+        colorArray.map((c, i) => {
+          const newStock = Stock({
+            _id: new mongoose.Types.ObjectId(),
+            colorName: c,
+            sizeName: sizeArray[i],
+            userId: userId,
+            stock: stockArray[i]
+          })
+          newStock.save();
+          stockId.push(newStock._id);
         })
-        newStock.save();
-        stockId.push(newStock._id);
-      })
+      }
     }
-  }
     const product = Product({
       _id: new mongoose.Types.ObjectId(),
       name: name,
@@ -183,7 +183,7 @@ const addProducts = async (req, res) => {
       genre: genre,
       categories: categoriesArray,
       img: images,
-      customSize: custom === "true" && size?size : null,
+      customSize: custom === "true" && size ? size : null,
       productReview: Product._id,
       custom: custom === "true" ? true : false,
       userId: custom === "true" && userId ? userId : "store"
@@ -283,14 +283,33 @@ const updateProducts = asyncHandler(async (req, res) => {
 
 const updateStock = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { quantity,paid } = req.body;
+  const { quantity, state, color, size, productId } = req.body;
 
+  if (id === "undefined") {
+    const product = await Product.findById(productId).populate("stock");
+
+    if (product && product.custom === false) {
+      let stockFinded = product?.stock?.find(p => p.colorName === color && p.sizeName === size)
+      
+      if (stockFinded) {
+        const stock = await Stock.findById(stockFinded._id);
+        
+        if (stock && state === "Paid") {
+          stock.stock -= quantity;
+          await stock.save();
+          return res.sendStatus(200);
+        }
+      }
+    }
+  }
+  else{
   const stock = await Stock.findById(id);
-  if (stock) {
+  if (stock && state !== "Paid") {
     stock.stock = quantity;
     await stock.save();
     return res.sendStatus(200);
   }
+}
   res.sendStatus(400);
 })
 

@@ -16,7 +16,7 @@ const NewCart = () => {
     // const user = useSelector(state =>
     //      state.userReducer)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    console.log("USERRRR", user)
+    // console.log("USERRRR", user)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getCartFromUser(user?.result?._id))
@@ -27,7 +27,7 @@ const NewCart = () => {
     const userData = useSelector(
         (state) => state.userReducer?.user?.list?.userFound
     );
-    console.log("USER DATAA", userData?.addresses)
+    // console.log("USER DATAA", userData?.addresses)
 
 
     const userCart = useSelector(
@@ -75,8 +75,9 @@ const NewCart = () => {
     }
 
     const increment = (user, cart) => {
+
         const productBody = { productId: cart?.productId };
-        console.log("asdsd", cart)
+        // console.log("asdsd", cart)
         setitemQuantity(itemQuantity + 1)
         dispatch(incrementProductUnit(productBody.productId, user.result._id, cart.colorName, cart.sizeName)); // {"productId": cart.productId} , user.result._id
         //Actualizar el numerito del medio acá
@@ -123,7 +124,7 @@ const NewCart = () => {
     }
 
 
-    // console.log("CONSOLE DE USERcART", userData.addresses)
+    console.log("CONSOLE DE USERcART", userCart)
 
     return (
         <div className="bg-gray-200 h-full md:h-screen tracking-wide font-bold">
