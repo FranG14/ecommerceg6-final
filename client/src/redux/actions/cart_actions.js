@@ -251,6 +251,16 @@ export const getCartsById = (cartId) => async(dispatch) => {
     })
 }
 //=============================================//
+export const postCartAddress = (userId, address) =>async(dispatch) => {
+    return await api.postCartAddress(userId, address)
+    .then((cart) => {
+        dispatch({
+            type: "POST_CART_ADDRESS",
+            payload: cart.data
+        })
+    }).catch((error)=> console.log(error?.response?.data))
+}
+//=============================================//
     export function addToCart(obj) {
         return {
             type: "ADD_TO_CART",

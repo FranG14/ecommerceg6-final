@@ -47,6 +47,8 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, cart: action.payload }
     case GET_CART_BY_ID_SUCCESS:
       return { ...state, cart: action.payload }
+    case "POST_CART_ADDRESS":
+      return {...state, cart: action.payload }
     //======REDUCER VIEJO (A DEPRECAR)======// 
     case ADD_TO_CART:
       return { cart: [...state.cart, action.payload] };

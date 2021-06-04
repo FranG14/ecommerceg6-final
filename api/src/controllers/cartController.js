@@ -450,16 +450,19 @@ return Promise.all(contexts.map((context) => {
 }
 //==========================================================================//
 const postCartAddress = async(req,res) => {
-  const {userId} = req.params;
+  const { userId } = req.params;
   const { address } = req.body;
-
-  let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
-
-   if(cart){
-     cart.address = address
-     cart = await cart.save();
-     res.status(200).json({ cart })
-   }
+  try{
+    let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
+    if(!cart) return res.status(404).json({message:'Cart not found'})
+    if(cart){
+       cart.address = address
+       cart.save();
+       res.status(200).json({ cart })
+    }
+  } catch(error){
+    return res.status(500).json({ message: "There was an error" });
+  }
 }
 //==========================================================================//
 

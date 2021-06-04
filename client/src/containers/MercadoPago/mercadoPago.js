@@ -29,7 +29,7 @@ function MercadoPago(props){
             createCheckoutButton(props.match.params.id)
             
             obj.bandera=false
-
+            
             setTimeout(function(){
                 fetch(`http://localhost:3001/mercadopago/cargardatos/${props.match.params.id}`)
                 .then(res=>res.json())

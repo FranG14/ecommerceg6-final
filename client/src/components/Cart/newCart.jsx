@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import UniversalNavBar from '../UniversalNavBar/universalNavBar'
 import Footer from '../../containers/Footer/footer'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItem, getActiveCartFromUser, getCartFromUser, getCartsByUser, incrementProductUnit, decrementProductUnit } from '../../redux/actions/cart_actions';
+import { deleteItem, postCartAddress, getActiveCartFromUser, getCartFromUser, getCartsByUser, incrementProductUnit, decrementProductUnit } from '../../redux/actions/cart_actions';
 import { useParams } from 'react-router';
 import swal from 'sweetalert';
 import { Link } from "react-router-dom";
 import {getUserById } from './../../redux/actions/user_actions'
-import * as api from  './../../redux/api/index'
+
 const { REACT_APP_API } = process.env;
 
 const NewCart = () => {
@@ -104,11 +104,17 @@ const NewCart = () => {
 
 
     async function enviarDatos() {
+        if(address === "-"){
+            swal(
+                "error", "You need to pick an address", "error"
+            )
+        } else {
+        
         let usuario = JSON.parse(localStorage.getItem('profile'))
         if (usuario == null) {
             return document.getElementById("redirect").click();
         }
-        api.postCartAddress(id, {address:address}) 
+        //dispatch(postCartAddress(id, {address:address})) 
 
         document.getElementById("ch").setAttribute("disabled", true)
 
@@ -130,6 +136,7 @@ const NewCart = () => {
                 swal("Error", "error", "error")
                 document.getElementById("ch").removeAttribute("disabled")
             })
+        }
     }
 
 
