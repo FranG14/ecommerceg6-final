@@ -10,7 +10,6 @@ path = require('path');
 const getActiveCartFromUser = async (req, res) => {
   const { userId } = req.params;
   let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
-
   if (!cart) {
     const newCart = await Cart.create({
       userId,
@@ -33,11 +32,11 @@ const getActiveCartFromUser = async (req, res) => {
 const addItem = async (req, res) => {
   const { userId } = req.params;
   const { productId, quantity, colorName, sizeName, stock,custom } = req.body;
-  console.log("ASDASDASD",sizeName)
   try {
     let cart = await Cart.findOne({ $and: [{ userId }, { state: "Active" }] });
+    
+    let newItem = await Product.findOne({ _id: productId }).populate("stock");
 
-    let newItem = await Product.findOne({ _id: productId });
     let stockSelected = newItem.stock.find(
       (prop) => prop.colorName === colorName && prop.sizeName === sizeName
     );
@@ -299,7 +298,7 @@ const stateChange = async (req, res) => {
           to: cart.userId.email, // list of receivers
           subject: "Your order is On it's Way", // Subject line
           text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
-          html: "<b>Hello world?</b>", // html body
+          html: "<b>Hello, your order is on it's way. <br/> Your traking code is: 000017560296431 </b>", // html body
         });
       }
       if (cart.state === "Delivered") {
@@ -308,7 +307,7 @@ const stateChange = async (req, res) => {
           to: cart.userId.email, // list of receivers
           subject: "Your order has arrived", // Subject line
           text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
-          html: "<b>Hello world?</b>", // html body
+          html: "<b>Hello, your order has arrived, we waiting for you review</b>", // html body
         });
       }
       if (cart.state === "Cancelled") {
@@ -317,7 +316,7 @@ const stateChange = async (req, res) => {
           to: cart.userId.email, // list of receivers
           subject: "Your order has been Cancelled", // Subject line
           text: "Su compra se ha realizado satisfactoriamente. Muchas gracias!", // plain text body
-          html: "<b>Hello world?</b>", // html body
+          html: "<b>Hello, your order has been successfully cancelled</b>", // html body
         });
       }
       res.status(200).json({ carts: [cart] });

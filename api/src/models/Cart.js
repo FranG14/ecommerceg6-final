@@ -5,7 +5,7 @@ const Float = require("mongoose-float").loadType(mongoose, 2);
 const cartSchema = new Schema({
   userId: {type:Schema.Types.ObjectId, ref: 'User'},
   items: [{ 
-    productId: {type:Schema.Types.ObjectId, ref:'Product'},
+    productId: {type:Schema.Types.ObjectId, ref:'Product'},  
     name:{ type: String },
     quantity: { type:Number, required: true, min:[1], default: 1 },
     colorName:{type: String},

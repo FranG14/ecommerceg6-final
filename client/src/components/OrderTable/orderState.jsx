@@ -89,11 +89,6 @@ export default function UserDetail() {
                                 </p>
 
                                 <div className="grid grid-cols-2 grid-row-2 pt-12 pb-8   text-center content-between">
-                                    <Link to={"/MyProfile/Edit/"}>
-                                        <button className="mr-5  bg-green-700 flex justify-center hover:bg-green-900 text-white font-bold py-2 px-6  mt-4 rounded-full">
-                                            Edit profile 🖍
-				                </button>
-                                    </Link>
                                 </div>
                             </div>
                             )
