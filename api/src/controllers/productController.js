@@ -14,8 +14,8 @@ const getProducts = asyncHandler(async (req, res, next) => {
   const pageSize = req.query.pageSize || 12;
   const page = req.query.page || 1;
   const custom = req.query.custom;
-  let keyword;
-  console.log("AAA", custom, keyword)
+  let keyword = req.query.keyword;
+  // console.log("AAA", custom, keyword)
   if (custom && keyword) {
     keyword = {
       name: {
@@ -31,6 +31,7 @@ const getProducts = asyncHandler(async (req, res, next) => {
     }
   }
   if (!custom && keyword) {
+    console.log("entra")
     keyword = {
       name: {
         $regex: req.query.keyword,

@@ -312,9 +312,9 @@ console.log(reviewCreated, "XXXXXXXXXXXXXXXXX")
                 )}
                 {changeOption !== "select" && productStock && productStock.stock >= 1 || (productsArray.custom && changeOption !== "select") ? (
                   <Link to="/payment">
-                    <button className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
+                    {/* <button className="flex ml-4 text-white bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded">
                       Buy
-                    </button>
+                    </button> */}
                   </Link>
                 ) : (
                   ""
